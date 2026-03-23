@@ -1,97 +1,74 @@
-"use client"
+'use client'
 
-import Link from "next/link"
-import { ArrowRight } from "lucide-react"
+import Link from 'next/link'
+import { ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
-// Chromatic color wheel - solid colors, no gradients
-const colorWheel = [
-  { bg: "bg-[#EEF2FF]", text: "text-[#4338CA]", icon: "bg-[#4338CA]", border: "border-[#C7D2FE]" },
-  { bg: "bg-[#FDF4FF]", text: "text-[#A21CAF]", icon: "bg-[#A21CAF]", border: "border-[#F5D0FE]" },
-  { bg: "bg-[#FFF7ED]", text: "text-[#C2410C]", icon: "bg-[#C2410C]", border: "border-[#FED7AA]" },
-  { bg: "bg-[#FEFCE8]", text: "text-[#A16207]", icon: "bg-[#A16207]", border: "border-[#FEF08A]" },
-  { bg: "bg-[#F0FDF4]", text: "text-[#15803D]", icon: "bg-[#15803D]", border: "border-[#BBF7D0]" },
-  { bg: "bg-[#ECFEFF]", text: "text-[#0E7490]", icon: "bg-[#0E7490]", border: "border-[#A5F3FC]" },
-  { bg: "bg-[#EFF6FF]", text: "text-[#1D4ED8]", icon: "bg-[#1D4ED8]", border: "border-[#BFDBFE]" },
-  { bg: "bg-[#FAF5FF]", text: "text-[#7C3AED]", icon: "bg-[#7C3AED]", border: "border-[#DDD6FE]" },
-  { bg: "bg-[#FFF1F2]", text: "text-[#BE123C]", icon: "bg-[#BE123C]", border: "border-[#FECDD3]" },
-  { bg: "bg-[#F0FDFA]", text: "text-[#0F766E]", icon: "bg-[#0F766E]", border: "border-[#99F6E4]" },
-  { bg: "bg-[#F8FAFC]", text: "text-[#334155]", icon: "bg-[#334155]", border: "border-[#CBD5E1]" },
-  { bg: "bg-[#FFFBEB]", text: "text-[#B45309]", icon: "bg-[#B45309]", border: "border-[#FDE68A]" },
-]
-
-const services = [
-  { title: "WES Evaluation Support", description: "100% to 25% of WES evaluation fees for credential assessment", emoji: "📄", slug: "wes-support", featured: true },
-  { title: "GRE / ETS Fee Support", description: "Full or partial GRE testing fees for graduate school prep", emoji: "🎓", slug: "gre-support" },
-  { title: "Application Fee Support", description: "University application fees across multiple institutions", emoji: "📚", slug: "application-fee-support" },
-  { title: "Initial Deposit Support", description: "First enrollment deposit to secure your admission offer", emoji: "💳", slug: "initial-deposit-support" },
-  { title: "English Test Fee Support", description: "IELTS, TOEFL, and Duolingo English test fees", emoji: "🗣️", slug: "english-test-support" },
-  { title: "SEVIS Fee Support", description: "U.S. SEVIS immigration fee for your student visa", emoji: "🛂", slug: "sevis-fee-support", featured: true },
-  { title: "Visa Application Fee Support", description: "Visa application costs to study in your destination", emoji: "✈️", slug: "visa-fee-support" },
-  { title: "Tuition Fee Support", description: "Partial scholarship assistance to cover tuition costs", emoji: "💰", slug: "tuition-fee-support" },
-  { title: "Transcript Evaluation Support", description: "Transcript verification and evaluation services", emoji: "📋", slug: "transcript-support" },
-  { title: "College Board Fee Support", description: "SAT and related College Board services", emoji: "🏫", slug: "college-board-support" },
-  { title: "Mentorship Program", description: "Personalized guidance from experienced scholars", emoji: "👥", slug: "mentorship-program", featured: true },
-  { title: "Enrollment Deposit Support", description: "Confirming your admission and securing your spot", emoji: "🏛️", slug: "enrollment-deposit-support" },
+const featuredServices = [
+  { title: 'WES Evaluation', desc: 'Credential recognition' },
+  { title: 'GRE Exam Support', desc: 'Test preparation' },
+  { title: 'Application Coaching', desc: 'Personalized guidance' },
+  { title: 'Visa Support', desc: 'Immigration assistance' },
+  { title: 'Essay Review', desc: 'Writing excellence' },
+  { title: 'Interview Prep', desc: 'Master your interview' },
 ]
 
 export function ServiceGrid() {
   return (
-    <section id="services" className="bg-[#FFFEF5] dark:bg-[#1D1D1F] py-20 lg:py-28 transition-colors">
+    <section className="py-20 lg:py-28 bg-white dark:bg-black border-t border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="mb-16 text-center">
-          <span className="mb-4 inline-block rounded-full bg-[#1D4ED8]/10 px-5 py-2 text-sm font-semibold text-[#1D4ED8] dark:bg-[#1D4ED8]/20 dark:text-[#60A5FA]">
-            OUR SERVICES
-          </span>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-4xl lg:text-5xl text-balance">
-            Comprehensive Support for Your Journey
+        <div className="mb-16">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+            Featured Services
+          </p>
+          <h2 className="mb-6 text-4xl font-bold text-black dark:text-white lg:text-5xl text-balance">
+            Everything You Need to Succeed
           </h2>
-          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-            Choose from our range of financial support services designed to help you achieve your dream of studying abroad.
+          <p className="max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+            Comprehensive support covering every step of your study abroad journey.
           </p>
         </div>
 
-        {/* Bento Grid */}
-        <div className="grid auto-rows-[180px] gap-4 md:grid-cols-3 lg:grid-cols-4">
-          {services.map((service, index) => {
-            const color = colorWheel[index % colorWheel.length]
-            const isFeatured = service.featured
-            
-            return (
-              <Link
-                key={service.slug}
-                href={`/apply/${service.slug}`}
-                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${color.bg} ${color.border} dark:bg-opacity-20 dark:border-opacity-30 ${
-                  isFeatured ? "md:col-span-2 md:row-span-2" : ""
-                }`}
-              >
-                {/* Category Badge */}
-                <div className="flex items-center justify-between">
-                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider ${color.bg} ${color.text} border ${color.border}`}>
-                    {isFeatured ? "Featured" : "Service"}
-                  </span>
-                  <div className={`flex h-10 w-10 items-center justify-center rounded-2xl ${color.icon}`}>
-                    <span className="text-lg">{service.emoji}</span>
-                  </div>
-                </div>
+        {/* Apple-Style Card Grid */}
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          {featuredServices.map((service) => (
+            <Link
+              key={service.title}
+              href="/services"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-8 transition-all duration-300 hover:shadow-xl hover:border-gray-300 dark:hover:border-gray-700 hover:-translate-y-1"
+            >
+              {/* Subtle background accent */}
+              <div className="absolute top-0 right-0 h-32 w-32 translate-x-16 -translate-y-16 rounded-full bg-black dark:bg-white opacity-[0.02] group-hover:opacity-[0.05] transition-opacity" />
 
-                {/* Content */}
-                <div className="mt-auto">
-                  <h3 className={`mb-2 font-bold leading-tight ${color.text} ${isFeatured ? "text-2xl" : "text-lg"}`}>
-                    {service.title}
-                  </h3>
-                  <p className={`text-sm leading-relaxed text-gray-600 dark:text-gray-400 ${isFeatured ? "" : "line-clamp-2"}`}>
-                    {service.description}
-                  </p>
-                </div>
+              <div className="relative">
+                <h3 className="mb-2 text-xl font-bold text-black dark:text-white">
+                  {service.title}
+                </h3>
+                <p className="mb-6 text-sm text-gray-600 dark:text-gray-400">
+                  {service.desc}
+                </p>
 
-                {/* Arrow */}
-                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-[#2D2D2F] shadow-md opacity-0 transition-all duration-300 group-hover:opacity-100">
-                  <ArrowRight className={`h-4 w-4 ${color.text}`} />
+                <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white group-hover:gap-3 transition-all">
+                  Learn more
+                  <ArrowRight className="h-4 w-4" />
                 </div>
-              </Link>
-            )
-          })}
+              </div>
+            </Link>
+          ))}
+        </div>
+
+        {/* View All Button */}
+        <div className="mt-12 flex justify-center">
+          <Button 
+            size="lg" 
+            className="rounded-full bg-black dark:bg-white px-8 text-white dark:text-black hover:opacity-90 transition-opacity" 
+            asChild
+          >
+            <Link href="/services">
+              View All Services
+              <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
         </div>
       </div>
     </section>

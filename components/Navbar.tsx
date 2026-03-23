@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 
 const navLinks = [
   { href: "/", label: "Home" },
-  { href: "/#services", label: "Services" },
+  { href: "/services", label: "Services" },
   { href: "/about", label: "About Us" },
   { href: "/contact", label: "Contact" },
 ]
@@ -30,17 +30,17 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border bg-background/90 backdrop-blur-md transition-colors">
-      <nav className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3 lg:px-8">
+    <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-black/90 backdrop-blur-md transition-colors">
+      <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
 
-        {/* Logo */}
-        <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="relative h-12 w-48 rounded-lg bg-white dark:bg-white/95 p-1">
+        {/* Logo with animation */}
+        <Link href="/" className="flex items-center gap-2 shrink-0 group">
+          <div className="relative h-12 w-48 rounded-lg bg-black dark:bg-white p-1 group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
             <Image
               src="/images/logo.png"
               alt="Creative Path Inspired"
               fill
-              className="object-contain"
+              className="object-contain group-hover:opacity-80 transition-opacity"
               priority
             />
           </div>

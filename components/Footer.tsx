@@ -1,79 +1,79 @@
-import Link from "next/link"
-import Image from "next/image"
-import { Mail, MapPin, Phone, Instagram, Twitter, Youtube } from "lucide-react"
+import Link from 'next/link'
+import Image from 'next/image'
+import { Mail, MapPin, Phone, Instagram, Twitter, Youtube } from 'lucide-react'
 
 const footerLinks = {
   services: [
-    { href: "/apply/wes-support",           label: "WES Evaluation" },
-    { href: "/apply/gre-support",           label: "GRE / ETS Fees" },
-    { href: "/apply/visa-fee-support",      label: "Visa Fee Support" },
-    { href: "/apply/sevis-fee-support",     label: "SEVIS Fees" },
-    { href: "/apply/mentorship-program",    label: "Mentorship Program" },
-    { href: "/apply/tuition-fee-support",   label: "Tuition Support" },
+    { href: '/services', label: 'All Services' },
+    { href: '/services', label: 'WES Evaluation' },
+    { href: '/services', label: 'GRE Support' },
+    { href: '/services', label: 'Visa Support' },
+    { href: '/services', label: 'Mentorship' },
   ],
   company: [
-    { href: "/about",       label: "About Us" },
-    { href: "/#how-it-works", label: "How It Works" },
-    { href: "/#testimonials", label: "Success Stories" },
-    { href: "/contact",     label: "Contact Us" },
+    { href: '/', label: 'Home' },
+    { href: '/services', label: 'Services' },
+    { href: '/about', label: 'About Us' },
+    { href: '/contact', label: 'Contact' },
   ],
   legal: [
-    { href: "/privacy", label: "Privacy Policy" },
-    { href: "/terms", label: "Terms of Service" },
+    { href: '/privacy', label: 'Privacy Policy' },
+    { href: '/terms', label: 'Terms of Service' },
   ],
 }
 
 export function Footer() {
   return (
-    <footer className="bg-[#1F2937] text-white">
-      <div className="mx-auto max-w-7xl px-4 py-12 lg:px-8 lg:py-16">
-        <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-4">
+    <footer className="bg-black dark:bg-black text-white transition-colors">
+      <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
+        <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
 
-          {/* Brand */}
-          <div className="lg:col-span-1">
-            {/* Logo on white pill so colors show clearly */}
-            <Link href="/" className="mb-5 inline-flex items-center rounded-2xl bg-white px-4 py-2">
-              <Image
-                src="/images/logo.png"
-                alt="Creative Path Inspired"
-                width={180}
-                height={56}
-                className="h-12 w-auto object-contain"
-              />
+          {/* Brand - 2 cols on mobile, 1 on larger */}
+          <div className="lg:col-span-2">
+            {/* Logo */}
+            <Link href="/" className="mb-6 inline-flex items-center">
+              <div className="h-12 w-48 relative bg-white rounded-lg p-1">
+                <Image
+                  src="/images/logo.png"
+                  alt="Creative Path Inspired"
+                  fill
+                  className="object-contain"
+                />
+              </div>
             </Link>
 
-            <p className="mb-6 text-sm leading-relaxed text-white/70">
-              Empowering students from Africa and around the world to achieve their
-              academic dreams through financial support and mentorship.
+            <p className="mb-8 text-sm leading-relaxed text-white/70 max-w-md">
+              Empowering students from Africa and around the world to achieve their academic dreams through financial support and mentorship.
             </p>
 
-            <div className="flex flex-col gap-3 text-sm">
+            {/* Contact Info */}
+            <div className="mb-8 flex flex-col gap-3 text-sm">
               <a
                 href="mailto:vicecreativepath@gmail.com"
-                className="flex items-center gap-2 text-white/70 transition-colors hover:text-white"
+                className="flex items-center gap-3 text-white/70 hover:text-white transition-colors"
               >
-                <Mail className="h-4 w-4 shrink-0 text-[#B7F34B]" />
+                <Mail className="h-5 w-5 shrink-0" />
                 vicecreativepath@gmail.com
               </a>
               <a
                 href="tel:+1234567890"
-                className="flex items-center gap-2 text-white/70 transition-colors hover:text-white"
+                className="flex items-center gap-3 text-white/70 hover:text-white transition-colors"
               >
-                <Phone className="h-4 w-4 shrink-0 text-[#B7F34B]" />
+                <Phone className="h-5 w-5 shrink-0" />
                 +1 (234) 567-890
               </a>
-              <span className="flex items-center gap-2 text-white/70">
-                <MapPin className="h-4 w-4 shrink-0 text-[#B7F34B]" />
+              <span className="flex items-center gap-3 text-white/70">
+                <MapPin className="h-5 w-5 shrink-0" />
                 Global Operations
               </span>
             </div>
 
-            {/* Socials */}
-            <div className="mt-6 flex gap-3">
+            {/* Social Links */}
+            <div className="flex gap-4">
               {[
-                { icon: Instagram, label: "Instagram", href: "https://instagram.com" },
-                { icon: Twitter,   label: "Twitter", href: "https://twitter.com" },
-                { icon: Youtube,   label: "YouTube", href: "https://youtube.com" },
+                { icon: Instagram, label: 'Instagram', href: 'https://instagram.com' },
+                { icon: Twitter, label: 'Twitter', href: 'https://twitter.com' },
+                { icon: Youtube, label: 'YouTube', href: 'https://youtube.com' },
               ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
@@ -81,9 +81,9 @@ export function Footer() {
                   target="_blank"
                   rel="noopener noreferrer"
                   aria-label={label}
-                  className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/70 transition-colors hover:bg-[#B7F34B] hover:text-[#1F2937]"
+                  className="flex h-10 w-10 items-center justify-center rounded-full bg-white/10 text-white/70 hover:bg-white hover:text-black transition-all duration-300"
                 >
-                  <Icon className="h-4 w-4" />
+                  <Icon className="h-5 w-5" />
                 </a>
               ))}
             </div>
@@ -91,13 +91,13 @@ export function Footer() {
 
           {/* Services */}
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">Services</h3>
+            <h3 className="mb-6 text-xs font-bold uppercase tracking-widest text-white">Services</h3>
             <ul className="space-y-3">
               {footerLinks.services.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/70 transition-colors hover:text-white"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -108,13 +108,13 @@ export function Footer() {
 
           {/* Company */}
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">Company</h3>
+            <h3 className="mb-6 text-xs font-bold uppercase tracking-widest text-white">Company</h3>
             <ul className="space-y-3">
               {footerLinks.company.map((link) => (
-                <li key={link.href}>
+                <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/70 transition-colors hover:text-white"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -123,15 +123,15 @@ export function Footer() {
             </ul>
           </div>
 
-          {/* Legal + CTA */}
+          {/* Legal & CTA */}
           <div>
-            <h3 className="mb-4 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">Legal</h3>
+            <h3 className="mb-6 text-xs font-bold uppercase tracking-widest text-white">Legal</h3>
             <ul className="mb-8 space-y-3">
               {footerLinks.legal.map((link) => (
                 <li key={link.label}>
                   <Link
                     href={link.href}
-                    className="text-sm text-white/70 transition-colors hover:text-white"
+                    className="text-sm text-white/70 hover:text-white transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -140,20 +140,25 @@ export function Footer() {
             </ul>
 
             <Link
-              href="/apply/wes-support"
-              className="inline-flex items-center gap-2 rounded-full bg-[#B7F34B] px-5 py-2.5 text-sm font-bold text-[#1F2937] transition-all hover:bg-[#c9f96a] hover:shadow-lg"
+              href="/services"
+              className="inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-all hover:shadow-lg"
             >
-              Apply Now &rarr;
+              Get Started →
             </Link>
           </div>
         </div>
 
+        {/* Divider */}
+        <div className="my-12 h-px bg-white/10" />
+
         {/* Bottom Bar */}
-        <div className="mt-12 flex flex-col items-center justify-between gap-4 border-t border-white/10 pt-8 md:flex-row">
-          <p className="text-sm text-white/40">
-            &copy; {new Date().getFullYear()} Creative Path Inspired. All rights reserved.
+        <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+          <p className="text-sm text-white/60">
+            © {new Date().getFullYear()} Creative Path Inspired. All rights reserved.
           </p>
-          <p className="text-sm text-white/40">Empowering scholars worldwide</p>
+          <p className="text-sm text-white/60">
+            Empowering scholars worldwide
+          </p>
         </div>
       </div>
     </footer>

@@ -7,21 +7,21 @@ import { Button } from "@/components/ui/button"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-[#F5F5F7] dark:bg-[#1D1D1F] min-h-[92vh] flex items-center transition-colors">
+    <section className="relative overflow-hidden bg-white dark:bg-black min-h-screen flex flex-col items-center justify-center transition-colors">
       {/* Blurred dot grid background */}
       <div
-        className="absolute inset-0 opacity-40 dark:opacity-20 blur-[1px]"
+        className="absolute inset-0 opacity-30 dark:opacity-20 blur-sm"
         style={{
-          backgroundImage: "radial-gradient(circle, #1D4ED8 1.5px, transparent 1.5px)",
-          backgroundSize: "32px 32px",
+          backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
         }}
       />
       
       {/* Additional blur overlay */}
-      <div className="absolute inset-0 backdrop-blur-[0.5px]" />
+      <div className="absolute inset-0 backdrop-blur-sm" />
 
-      <div className="relative mx-auto w-full max-w-7xl px-6 py-16 lg:px-8">
-        <div className="grid items-center gap-8 lg:grid-cols-2 lg:gap-12">
+      <div className="relative mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 flex-1 flex items-center">
+        <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 w-full">
           
           {/* Left column - Image */}
           <div className="relative flex justify-center order-2 lg:order-1">
@@ -32,50 +32,43 @@ export function Hero() {
                 alt="Student ready to study abroad"
                 width={480}
                 height={580}
-                className="relative z-10 w-full object-contain drop-shadow-2xl"
+                className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
                 priority
               />
 
               {/* Floating tile - top left (blue) */}
-              <div className="absolute -left-4 top-4 z-20 w-[160px] rounded-3xl bg-[#2563EB] p-5 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
-                <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/70">
+              <div className="absolute -left-4 top-4 z-20 w-[160px] rounded-3xl bg-black dark:bg-white p-5 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
+                <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white dark:text-black/70">
                   Financial Aid
                 </p>
-                <p className="text-base font-bold leading-tight text-white">
+                <p className="text-base font-bold leading-tight text-white dark:text-black">
                   WES & GRE<br />Fee Support
                 </p>
-                <ul className="mt-3 space-y-1">
-                  {["100% fee waiver", "50% partial waiver", "Application fees"].map((item) => (
-                    <li key={item} className="flex items-center gap-1.5 text-[9px] text-white/80">
-                      <span className="h-1 w-1 rounded-full bg-[#B7F34B]" /> {item}
-                    </li>
-                  ))}
-                </ul>
               </div>
 
-              {/* Floating tile - top right (magenta) */}
-              <div className="absolute -right-4 top-8 z-20 w-[140px] rounded-3xl bg-[#DB2777] p-5 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-300">
-                <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white/70">
+              {/* Floating tile - top right (gray) */}
+              <div className="absolute -right-4 top-8 z-20 w-[140px] rounded-3xl bg-gray-800 dark:bg-gray-200 p-5 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-300">
+                <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white dark:text-gray-800">
                   Mentorship
                 </p>
-                <p className="text-base font-bold leading-tight text-white">
+                <p className="text-base font-bold leading-tight text-white dark:text-gray-800">
                   Expert<br />Guidance
                 </p>
               </div>
 
-              {/* Floating tile - right middle (yellow) */}
-              <div className="absolute -right-8 top-[45%] z-20 w-[130px] rounded-3xl bg-[#FACC15] p-4 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-400">
-                <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-black/60">
+              {/* Floating tile - right middle (light) */}
+              <div className="absolute -right-8 top-[45%] z-20 w-[130px] rounded-3xl bg-gray-600 dark:bg-gray-300 p-4 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-400">
+                <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-white dark:text-gray-700">
                   Registration
                 </p>
-                <p className="text-sm font-bold leading-tight text-black">
+                <p className="text-sm font-bold leading-tight text-white dark:text-gray-700">
                   Applications<br />Still Open
                 </p>
               </div>
 
               {/* Floating tile - bottom left (white) */}
-              <div className="absolute -left-2 bottom-24 z-20 w-[150px] rounded-3xl bg-white dark:bg-[#2D2D2F] p-4 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-500">
-                <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-gray-500">
+              <div className="absolute -left-2 bottom-24 z-20 w-[150px] rounded-3xl bg-white dark:bg-black border border-black dark:border-white p-4 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-500">
+                <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
                   Visa Support
                 </p>
                 <p className="text-sm font-bold leading-tight text-gray-900 dark:text-white">
@@ -87,17 +80,17 @@ export function Hero() {
 
           {/* Right column - Text */}
           <div className="relative z-10 order-1 lg:order-2">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] animate-in fade-in slide-in-from-right-4 duration-500">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-gray-500 dark:text-gray-400 animate-in fade-in slide-in-from-right-4 duration-500">
               Creative Path Inspired &nbsp;|&nbsp; Study Abroad Support
             </p>
 
-            <h1 className="mb-6 font-sans text-[2.8rem] font-bold leading-[1.05] tracking-tight text-gray-900 dark:text-white sm:text-[3.5rem] lg:text-[4rem] text-balance animate-in fade-in slide-in-from-right-4 duration-500 delay-100">
+            <h1 className="mb-6 font-sans text-[2.8rem] font-bold leading-[1.05] tracking-tight text-black dark:text-white sm:text-[3.5rem] lg:text-[4rem] text-balance animate-in fade-in slide-in-from-right-4 duration-500 delay-100">
               Time To<br />
-              <span className="text-[#2563EB]">Take Off</span><br />
+              <span className="text-gray-500 dark:text-gray-300">Take Off</span><br />
               To Your Dream<br />
               <span className="relative inline-block">
                 University
-                <span className="absolute -bottom-1 left-0 h-2 w-full bg-[#B7F34B] -z-10 rounded-sm" />
+                <span className="absolute -bottom-1 left-0 h-2 w-full bg-black dark:bg-white -z-10 rounded-sm" />
               </span>
             </h1>
 
@@ -110,11 +103,11 @@ export function Hero() {
             <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-right-4 duration-500 delay-300">
               <Button
                 size="lg"
-                className="rounded-full bg-[#1D1D1F] dark:bg-white px-8 text-white dark:text-[#1D1D1F] shadow-lg hover:opacity-90 transition-all h-12"
+                className="rounded-full bg-black dark:bg-white px-8 text-white dark:text-black shadow-lg hover:opacity-90 transition-all h-12"
                 asChild
               >
-                <Link href="#services">
-                  Apply for Support
+                <Link href="/services">
+                  Explore Services
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
@@ -124,7 +117,7 @@ export function Hero() {
                 className="rounded-full border-2 border-gray-300 dark:border-gray-600 px-8 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-all h-12"
                 asChild
               >
-                <Link href="/contact">Contact Us</Link>
+                <Link href="/contact">Learn More</Link>
               </Button>
             </div>
 
@@ -136,20 +129,25 @@ export function Hero() {
                 { value: "100%", label: "Dedication" },
               ].map((stat) => (
                 <div key={stat.label}>
-                  <p className="text-3xl font-bold text-gray-900 dark:text-white">{stat.value}</p>
-                  <p className="text-sm text-gray-500">{stat.label}</p>
+                  <p className="text-3xl font-bold text-black dark:text-white">{stat.value}</p>
+                  <p className="text-sm text-gray-500 dark:text-gray-400">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
         </div>
+      </div>
 
-        {/* Bottom ticker */}
-        <div className="absolute bottom-8 left-1/2 z-20 -translate-x-1/2 rounded-full bg-[#2563EB] px-6 py-3 shadow-xl animate-in fade-in zoom-in duration-500 delay-600">
-          <p className="whitespace-nowrap text-sm font-medium text-white">
-            Start Before Doubt Returns &nbsp;·&nbsp;
-            <span className="text-[#B7F34B] font-semibold">Apply Today</span>
-          </p>
+      {/* Bottom ticker - Moved below hero */}
+      <div className="relative w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 py-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-3 w-3 rounded-full bg-black dark:bg-white animate-pulse" />
+            <p className="text-center text-sm font-medium text-gray-900 dark:text-white">
+              <span className="font-bold">Start Before Doubt Returns</span> — Apply today and begin your journey to your dream university
+            </p>
+            <div className="h-3 w-3 rounded-full bg-black dark:bg-white animate-pulse" />
+          </div>
         </div>
       </div>
     </section>
