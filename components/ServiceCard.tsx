@@ -1,12 +1,43 @@
 "use client"
 
 import Link from "next/link"
-import { ArrowRight, LucideIcon } from "lucide-react"
+import { 
+  ArrowRight, 
+  FileCheck,
+  GraduationCap,
+  BookOpen,
+  CreditCard,
+  Languages,
+  Stamp,
+  Plane,
+  DollarSign,
+  FileText,
+  School,
+  Users,
+  Building,
+} from "lucide-react"
+
+const iconMap = {
+  FileCheck,
+  GraduationCap,
+  BookOpen,
+  CreditCard,
+  Languages,
+  Stamp,
+  Plane,
+  DollarSign,
+  FileText,
+  School,
+  Users,
+  Building,
+} as const
+
+type IconName = keyof typeof iconMap
 
 interface ServiceCardProps {
   title: string
   description: string
-  icon: LucideIcon
+  iconName: IconName
   slug: string
   color?: "default" | "highlight" | "scholarship" | "success"
 }
@@ -18,7 +49,9 @@ const colorClasses = {
   success: "bg-success/10 hover:bg-success/20",
 }
 
-export function ServiceCard({ title, description, icon: Icon, slug, color = "default" }: ServiceCardProps) {
+export function ServiceCard({ title, description, iconName, slug, color = "default" }: ServiceCardProps) {
+  const Icon = iconMap[iconName]
+  
   return (
     <Link href={`/apply/${slug}`} className="group block">
       <article
