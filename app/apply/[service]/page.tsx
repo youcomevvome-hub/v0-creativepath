@@ -39,68 +39,30 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors">
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
       <Navbar />
-      
       {/* Page Hero */}
-      <div className="relative overflow-hidden bg-gradient-to-b from-gray-50 to-white dark:from-gray-900 dark:to-black py-20 lg:py-28">
+      <div className="relative overflow-hidden bg-[#1D1D1F] py-16">
         <div
-          className="absolute inset-0 opacity-20 dark:opacity-10"
+          className="absolute inset-0 opacity-20 blur-[1px]"
           style={{
-            backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
+            backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
+            backgroundSize: "32px 32px",
           }}
         />
-        <div className="absolute inset-0 backdrop-blur-sm" />
-        
         <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400 animate-in fade-in slide-in-from-left-4 duration-500">Apply for Support</p>
-          <h1 className="text-4xl font-bold text-black dark:text-white md:text-5xl lg:text-6xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#B7F34B] animate-in fade-in slide-in-from-left-4 duration-500">Apply Now</p>
+          <h1 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
             {service.title}
           </h1>
-          <p className="mt-6 max-w-2xl text-lg text-gray-600 dark:text-gray-400 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">{service.description}</p>
+          <p className="mt-3 max-w-2xl text-lg text-white/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">{service.description}</p>
         </div>
       </div>
-
       <main className="py-12 lg:py-16">
-        <div className="mx-auto max-w-5xl px-6 lg:px-8">
+        <div className="px-6 lg:px-8">
           <EligibilityForm serviceSlug={serviceSlug} serviceTitle={service.title} />
         </div>
       </main>
-
-      {/* Ready to Get Started CTA */}
-      <section className="relative overflow-hidden py-20 lg:py-28 border-t border-gray-200 dark:border-gray-800">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60 dark:bg-black/70" />
-        
-        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="mb-6 text-4xl font-bold text-white lg:text-5xl">
-            Ready to Transform Your Future?
-          </h2>
-          <p className="mb-8 text-lg text-white/80 max-w-2xl mx-auto">
-            Take the first step towards your dream university. Our team is here to support you every step of the way.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <a href="#apply" className="inline-flex items-center gap-2 rounded-full bg-white text-black px-8 py-3 font-semibold hover:bg-gray-200 transition-all">
-              Continue Application
-              <svg className="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-              </svg>
-            </a>
-            <a href="/contact" className="inline-flex items-center gap-2 rounded-full border-2 border-white text-white px-8 py-3 font-semibold hover:bg-white hover:text-black transition-all">
-              Need Help?
-            </a>
-          </div>
-        </div>
-      </section>
-
       <Footer />
     </div>
   )

@@ -4,98 +4,25 @@ import Link from "next/link"
 import { ArrowLeft } from "lucide-react"
 
 export default function TermsPage() {
-  const sections = [
-    {
-      id: 1,
-      title: "Acceptance of Terms",
-      description: "By accessing and using Creative Path Inspired's website and services, you agree to be bound by these Terms of Service.",
-      image: "https://images.pexels.com/photos/3184335/pexels-photo-3184335.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 2,
-      title: "Description of Services",
-      description: "We provide comprehensive educational support including financial aid, mentorship, application guidance, and fee sponsorships for international students.",
-      image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 3,
-      title: "User Responsibilities",
-      description: "Users must provide accurate information, use funds for intended purposes, and respect the confidentiality of all guidance and mentorship relationships.",
-      image: "https://images.pexels.com/photos/3184398/pexels-photo-3184398.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-    {
-      id: 4,
-      title: "Intellectual Property Rights",
-      description: "All content on our website is protected by intellectual property laws. Unauthorized reproduction or distribution is prohibited.",
-      image: "https://images.pexels.com/photos/3184654/pexels-photo-3184654.jpeg?auto=compress&cs=tinysrgb&w=600",
-    },
-  ]
-
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors">
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
       <Navbar />
       
-      <main>
-        {/* Hero */}
-        <section className="relative overflow-hidden py-20 lg:py-32 bg-gray-50 dark:bg-gray-900/50">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="text-center">
-              <Link 
-                href="/" 
-                className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-gray-600 dark:text-gray-400 hover:text-black dark:hover:text-white transition-colors"
-              >
-                <ArrowLeft className="h-4 w-4" />
-                Back to Home
-              </Link>
-              <h1 className="mb-6 text-5xl font-bold text-black dark:text-white lg:text-6xl">
-                Terms of Service
-              </h1>
-              <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-                Please review our terms carefully. By using our services, you agree to these terms and conditions.
-              </p>
-            </div>
-          </div>
-        </section>
+      <main className="py-16 lg:py-24">
+        <div className="mx-auto max-w-3xl px-6 lg:px-8">
+          <Link 
+            href="/" 
+            className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-gray-500 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white transition-colors"
+          >
+            <ArrowLeft className="h-4 w-4" />
+            Back to Home
+          </Link>
 
-        {/* Sections with Images */}
-        <section className="py-20 lg:py-28">
-          <div className="mx-auto max-w-7xl px-6 lg:px-8 space-y-20 lg:space-y-32">
-            {sections.map((section, idx) => (
-              <div key={section.id} className={`grid gap-12 items-center lg:grid-cols-2 ${idx % 2 === 1 ? '' : ''}`}>
-                {/* Image */}
-                <div className={`relative w-full h-96 rounded-2xl overflow-hidden shadow-lg ${idx % 2 === 1 ? 'lg:order-2' : ''}`}>
-                  <Image
-                    src={section.image}
-                    alt={section.title}
-                    fill
-                    className="object-cover w-full h-full"
-                  />
-                  <div className="absolute inset-0 bg-black/10 dark:bg-black/30" />
-                </div>
+          <h1 className="mb-8 text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+            Terms of Service
+          </h1>
 
-                {/* Content */}
-                <div className={idx % 2 === 1 ? 'lg:order-1' : ''}>
-                  <div className="inline-flex items-center gap-3 mb-6">
-                    <div className="h-10 w-10 rounded-lg bg-black dark:bg-white flex items-center justify-center font-bold text-white dark:text-black">
-                      {section.id}
-                    </div>
-                  </div>
-                  <h2 className="mb-4 text-3xl font-bold text-black dark:text-white">
-                    {section.title}
-                  </h2>
-                  <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                    {section.description}
-                  </p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </section>
-
-        {/* Full Terms */}
-        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-gray-900/50">
-          <div className="mx-auto max-w-3xl px-6 lg:px-8">
-            <div className="prose prose-gray dark:prose-invert max-w-none">
+          <div className="prose prose-gray dark:prose-invert max-w-none">
             <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
               Last updated: March 2026
             </p>
@@ -212,7 +139,7 @@ export default function TermsPage() {
               </section>
             </div>
           </div>
-        </section>
+        </div>
       </main>
 
       <Footer />

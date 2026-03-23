@@ -140,11 +140,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   const questions = useMemo(() => serviceQuestions[serviceSlug] || [], [serviceSlug])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    const { name, value } = e.target
-    setFormData(prev => {
-      const updated = { ...prev, [name]: value }
-      return updated
-    })
+    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
   const handleRadio = (name: string, value: string) =>

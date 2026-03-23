@@ -150,30 +150,20 @@ export default function ServicesPage() {
         </div>
       </section>
 
-      {/* CTA with Background Image */}
-      <section className="relative overflow-hidden border-t border-gray-200 dark:border-gray-800 py-20 lg:py-28">
-        <div 
-          className="absolute inset-0"
-          style={{
-            backgroundImage: "url('https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600')",
-            backgroundSize: "cover",
-            backgroundPosition: "center",
-          }}
-        />
-        <div className="absolute inset-0 bg-black/60 dark:bg-black/70" />
-        
-        <div className="relative mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="mb-6 text-4xl font-bold text-white lg:text-5xl">
+      {/* CTA */}
+      <section className="border-t border-gray-200 dark:border-gray-800 py-20 lg:py-28 bg-gray-50 dark:bg-gray-900/50">
+        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+          <h2 className="mb-6 text-4xl font-bold text-black dark:text-white lg:text-5xl">
             Ready to Begin Your Journey?
           </h2>
-          <p className="mb-8 text-lg text-white/80">
+          <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
             Choose a service above to get started, or contact our team for a personalized consultation.
           </p>
           <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="rounded-full bg-white text-black hover:bg-gray-200 px-8 font-semibold" asChild>
+            <Button size="lg" className="rounded-full bg-black dark:bg-white px-8 text-white dark:text-black hover:opacity-90" asChild>
               <Link href="/apply/wes-support">Apply Now</Link>
             </Button>
-            <Button size="lg" className="rounded-full border-2 border-white text-white hover:bg-white hover:text-black px-8 font-semibold transition-all" asChild>
+            <Button size="lg" variant="outline" className="rounded-full border-2 border-gray-300 dark:border-gray-600 px-8 hover:bg-gray-100 dark:hover:bg-gray-800" asChild>
               <Link href="/contact">Contact Us</Link>
             </Button>
           </div>
