@@ -39,27 +39,27 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background transition-colors">
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
       <Navbar />
       {/* Page Hero */}
-      <div className="relative overflow-hidden bg-primary py-12">
+      <div className="relative overflow-hidden bg-[#1D1D1F] py-16">
         <div
-          className="absolute inset-0 opacity-10"
+          className="absolute inset-0 opacity-20 blur-[1px]"
           style={{
             backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
-            backgroundSize: "28px 28px",
+            backgroundSize: "32px 32px",
           }}
         />
-        <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-highlight animate-in fade-in slide-in-from-left-4 duration-500">Apply Now</p>
-          <h1 className="text-3xl font-black uppercase text-primary-foreground md:text-4xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+          <p className="mb-3 text-xs font-semibold uppercase tracking-widest text-[#B7F34B] animate-in fade-in slide-in-from-left-4 duration-500">Apply Now</p>
+          <h1 className="text-3xl font-bold text-white md:text-4xl lg:text-5xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
             {service.title}
           </h1>
-          <p className="mt-2 text-primary-foreground/60 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">{service.description}</p>
+          <p className="mt-3 max-w-2xl text-lg text-white/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">{service.description}</p>
         </div>
       </div>
       <main className="py-12 lg:py-16">
-        <div className="px-4 lg:px-8">
+        <div className="px-6 lg:px-8">
           <EligibilityForm serviceSlug={serviceSlug} serviceTitle={service.title} />
         </div>
       </main>

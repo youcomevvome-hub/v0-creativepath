@@ -18,8 +18,8 @@ const footerLinks = {
     { href: "/contact",     label: "Contact Us" },
   ],
   legal: [
-    { href: "#", label: "Privacy Policy" },
-    { href: "#", label: "Terms of Service" },
+    { href: "/privacy", label: "Privacy Policy" },
+    { href: "/terms", label: "Terms of Service" },
   ],
 }
 
@@ -71,13 +71,15 @@ export function Footer() {
             {/* Socials */}
             <div className="mt-6 flex gap-3">
               {[
-                { icon: Instagram, label: "Instagram" },
-                { icon: Twitter,   label: "Twitter" },
-                { icon: Youtube,   label: "YouTube" },
-              ].map(({ icon: Icon, label }) => (
+                { icon: Instagram, label: "Instagram", href: "https://instagram.com" },
+                { icon: Twitter,   label: "Twitter", href: "https://twitter.com" },
+                { icon: Youtube,   label: "YouTube", href: "https://youtube.com" },
+              ].map(({ icon: Icon, label, href }) => (
                 <a
                   key={label}
-                  href="#"
+                  href={href}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   aria-label={label}
                   className="flex h-9 w-9 items-center justify-center rounded-full bg-white/10 text-white/70 transition-colors hover:bg-[#B7F34B] hover:text-[#1F2937]"
                 >

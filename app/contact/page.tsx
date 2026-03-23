@@ -3,133 +3,113 @@
 import { useState } from "react"
 import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
-import { Mail, Phone, MapPin, Send, CheckCircle, Clock, MessageSquare } from "lucide-react"
+import Link from "next/link"
+import { Mail, Phone, MapPin, Send, CheckCircle, Clock, Heart, Users, DollarSign, ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const contactInfo = [
-  {
-    icon: Mail,
-    label: "Email Us",
-    value: "vicecreativepath@gmail.com",
-    href: "mailto:vicecreativepath@gmail.com",
-    color: "#2563EB",
-    bg: "#DBEAFE",
-  },
-  {
-    icon: Phone,
-    label: "Call Us",
-    value: "+1 (234) 567-890",
-    href: "tel:+1234567890",
-    color: "#0D9488",
-    bg: "#CCFBF1",
-  },
-  {
-    icon: Clock,
-    label: "Response Time",
-    value: "Within 24–48 hours",
-    href: null,
-    color: "#65A30D",
-    bg: "#ECFCCB",
-  },
-  {
-    icon: MapPin,
-    label: "Operations",
-    value: "Global — serving students worldwide",
-    href: null,
-    color: "#9333EA",
-    bg: "#F3E8FF",
-  },
+  { icon: Mail, label: "Email Us", value: "vicecreativepath@gmail.com", href: "mailto:vicecreativepath@gmail.com" },
+  { icon: Phone, label: "Call Us", value: "+1 (234) 567-890", href: "tel:+1234567890" },
+  { icon: Clock, label: "Response Time", value: "Within 24-48 hours", href: null },
+  { icon: MapPin, label: "Operations", value: "Global - serving students worldwide", href: null },
+]
+
+const tabs = [
+  { id: "contact", label: "Contact Us", icon: Mail },
+  { id: "mentor", label: "Become a Mentor", icon: Users },
+  { id: "donate", label: "Support Our Mission", icon: Heart },
 ]
 
 export default function ContactPage() {
-  const [form, setForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" })
+  const [activeTab, setActiveTab] = useState("contact")
   const [loading, setLoading] = useState(false)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState("")
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setForm((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
+  // Contact form
+  const [contactForm, setContactForm] = useState({ name: "", email: "", phone: "", subject: "", message: "" })
+  // Mentor form
+  const [mentorForm, setMentorForm] = useState({ name: "", email: "", country: "", expertise: "", linkedin: "", motivation: "" })
+  // Donate form
+  const [donateForm, setDonateForm] = useState({ name: "", email: "", amount: "", frequency: "", message: "" })
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     setError("")
 
+    const formData = activeTab === "contact" ? contactForm : activeTab === "mentor" ? mentorForm : donateForm
+
     try {
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...formData, type: activeTab }),
       })
 
       if (res.ok) {
         setSuccess(true)
-        setForm({ name: "", email: "", phone: "", subject: "", message: "" })
       } else {
-        throw new Error("Failed to send message")
+        throw new Error("Failed to send")
       }
     } catch {
-      setError("Something went wrong. Please try again or email us directly.")
+      setError("Something went wrong. Please try again.")
     } finally {
       setLoading(false)
     }
   }
 
-  return (
-    <div className="min-h-screen bg-background transition-colors">
-      <Navbar />
-      <main>
+  const inputClass = "w-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#2D2D2F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all focus:border-[#2563EB] focus:bg-white dark:focus:bg-[#1D1D1F] focus:ring-4 focus:ring-[#2563EB]/10"
 
-        {/* ── Page Hero ─────────────────────────────── */}
-        <section className="relative overflow-hidden bg-primary py-20 lg:py-28 transition-colors">
+  return (
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
+      <Navbar />
+
+      <main>
+        {/* Hero - Apple style minimal */}
+        <section className="relative overflow-hidden bg-[#1D1D1F] py-20 lg:py-28">
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 opacity-20 blur-[1px]"
             style={{
               backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
+              backgroundSize: "32px 32px",
             }}
           />
-          <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-highlight animate-in fade-in slide-in-from-left-4 duration-500">
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8 text-center">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#B7F34B] animate-in fade-in duration-500">
               Get in Touch
             </p>
-            <h1 className="mb-4 text-4xl font-black uppercase leading-tight text-primary-foreground md:text-6xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
-              We Would Love<br />
-              <span className="text-highlight">to Hear From You</span>
+            <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl animate-in fade-in duration-500 delay-100">
+              We would love to<br />
+              <span className="text-[#B7F34B]">hear from you</span>
             </h1>
-            <p className="max-w-xl text-lg text-primary-foreground/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
-              Have questions about our support services? Ready to apply?
-              Reach out and our team will get back to you within 24–48 hours.
+            <p className="mx-auto max-w-2xl text-lg text-white/70 animate-in fade-in duration-500 delay-200">
+              Whether you are a student seeking support, a professional wanting to mentor, 
+              or someone who wants to contribute to our mission.
             </p>
           </div>
         </section>
 
-        {/* ── Contact Info Cards ────────────────────── */}
-        <section className="py-12">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        {/* Contact Info Cards - Apple style */}
+        <section className="py-12 -mt-8">
+          <div className="mx-auto max-w-5xl px-6 lg:px-8">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-              {contactInfo.map((item) => (
+              {contactInfo.map((item, index) => (
                 <div
                   key={item.label}
-                  className="rounded-3xl p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-                  style={{ backgroundColor: item.bg }}
+                  className="group rounded-3xl bg-white dark:bg-[#1D1D1F] p-6 shadow-sm transition-all hover:-translate-y-1 hover:shadow-xl animate-in fade-in slide-in-from-bottom-4 duration-500"
+                  style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div
-                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
-                    style={{ backgroundColor: item.color }}
-                  >
-                    <item.icon className="h-6 w-6 text-white" />
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-[#2563EB] transition-transform group-hover:scale-110">
+                    <item.icon className="h-5 w-5 text-white" />
                   </div>
-                  <p className="mb-1 text-xs font-bold uppercase tracking-widest text-[#6B7280]">{item.label}</p>
+                  <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-400">{item.label}</p>
                   {item.href ? (
-                    <a
-                      href={item.href}
-                      className="text-sm font-semibold text-[#1F2937] underline-offset-2 hover:underline"
-                    >
+                    <a href={item.href} className="text-sm font-medium text-gray-900 dark:text-white hover:text-[#2563EB] transition-colors">
                       {item.value}
                     </a>
                   ) : (
-                    <p className="text-sm font-semibold text-[#1F2937]">{item.value}</p>
+                    <p className="text-sm font-medium text-gray-900 dark:text-white">{item.value}</p>
                   )}
                 </div>
               ))}
@@ -137,170 +117,282 @@ export default function ContactPage() {
           </div>
         </section>
 
-        {/* ── Contact Form ──────────────────────────── */}
-        <section className="pb-20 pt-4">
-          <div className="mx-auto max-w-3xl px-4 lg:px-8">
-
-            {success ? (
-              <div className="rounded-3xl bg-card p-12 text-center shadow-xl transition-colors">
-                <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#DCFCE7]">
-                  <CheckCircle className="h-10 w-10 text-[#16A34A]" />
-                </div>
-                <h2 className="mb-3 text-2xl font-bold text-[#1F2937]">Message Sent!</h2>
-                <p className="mb-6 text-[#6B7280]">
-                  Thank you for reaching out. We will reply to{" "}
-                  <span className="font-semibold text-[#2563EB]">{form.email || "your email"}</span>{" "}
-                  within 24–48 hours.
-                </p>
-                <button
-                  onClick={() => setSuccess(false)}
-                  className="rounded-full bg-[#1F2937] px-8 py-3 text-sm font-semibold text-white transition-all hover:bg-[#374151]"
-                >
-                  Send Another Message
-                </button>
+        {/* Tabbed Forms - Apple style */}
+        <section className="py-16">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8">
+            {/* Tab Navigation */}
+            <div className="mb-8 flex justify-center">
+              <div className="inline-flex rounded-full bg-white dark:bg-[#1D1D1F] p-1.5 shadow-sm">
+                {tabs.map((tab) => (
+                  <button
+                    key={tab.id}
+                    onClick={() => { setActiveTab(tab.id); setSuccess(false); setError(""); }}
+                    className={`flex items-center gap-2 rounded-full px-6 py-3 text-sm font-medium transition-all ${
+                      activeTab === tab.id
+                        ? "bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] shadow-md"
+                        : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
+                    }`}
+                  >
+                    <tab.icon className="h-4 w-4" />
+                    {tab.label}
+                  </button>
+                ))}
               </div>
-            ) : (
-              <div className="rounded-3xl bg-card p-8 shadow-xl md:p-12 transition-colors">
-                {/* Form header */}
-                <div className="mb-8 flex items-center gap-4 border-b border-[#E5E7EB] pb-6">
-                  <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2937]">
-                    <MessageSquare className="h-6 w-6 text-[#B7F34B]" />
+            </div>
+
+            {/* Form Container */}
+            <div className="rounded-[2rem] bg-white dark:bg-[#1D1D1F] p-8 shadow-xl md:p-12 transition-all">
+              {success ? (
+                <div className="py-12 text-center animate-in fade-in zoom-in duration-300">
+                  <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#DCFCE7] dark:bg-[#166534]">
+                    <CheckCircle className="h-10 w-10 text-[#16A34A] dark:text-[#86EFAC]" />
                   </div>
-                  <div>
-                    <h2 className="text-xl font-bold text-[#1F2937]">Send Us a Message</h2>
-                    <p className="text-sm text-[#6B7280]">All fields marked * are required</p>
-                  </div>
+                  <h2 className="mb-3 text-2xl font-bold text-gray-900 dark:text-white">
+                    {activeTab === "contact" ? "Message Sent!" : activeTab === "mentor" ? "Application Received!" : "Thank You!"}
+                  </h2>
+                  <p className="mb-8 text-gray-600 dark:text-gray-400">
+                    {activeTab === "contact" 
+                      ? "We will reply within 24-48 hours." 
+                      : activeTab === "mentor" 
+                      ? "We will review your application and get back to you soon."
+                      : "Your generosity helps students achieve their dreams."}
+                  </p>
+                  <Button onClick={() => setSuccess(false)} className="rounded-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-8">
+                    {activeTab === "contact" ? "Send Another" : "Go Back"}
+                  </Button>
                 </div>
-
-                <form onSubmit={handleSubmit} className="space-y-5">
-                  {/* Name + Email */}
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="name" className="text-sm font-semibold text-[#374151]">
-                        Full Name <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="name"
-                        name="name"
-                        value={form.name}
-                        onChange={handleChange}
-                        required
-                        placeholder="Your full name"
-                        className="rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none ring-0 transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="email" className="text-sm font-semibold text-[#374151]">
-                        Email Address <span className="text-red-500">*</span>
-                      </label>
-                      <input
-                        id="email"
-                        name="email"
-                        type="email"
-                        value={form.email}
-                        onChange={handleChange}
-                        required
-                        placeholder="you@example.com"
-                        className="rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none ring-0 transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Phone + Subject */}
-                  <div className="grid gap-5 sm:grid-cols-2">
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="phone" className="text-sm font-semibold text-[#374151]">
-                        Phone Number
-                      </label>
-                      <input
-                        id="phone"
-                        name="phone"
-                        type="tel"
-                        value={form.phone}
-                        onChange={handleChange}
-                        placeholder="+1 (234) 567-890"
-                        className="rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none ring-0 transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
-                      />
-                    </div>
-                    <div className="flex flex-col gap-1.5">
-                      <label htmlFor="subject" className="text-sm font-semibold text-[#374151]">
-                        Subject <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="subject"
-                        name="subject"
-                        value={form.subject}
-                        onChange={handleChange}
-                        required
-                        className="rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] outline-none ring-0 transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
-                      >
-                        <option value="">Select a subject</option>
-                        <option value="wes">WES Evaluation Support</option>
-                        <option value="gre">GRE / ETS Fee Support</option>
-                        <option value="visa">Visa / SEVIS Fee Support</option>
-                        <option value="mentorship">Mentorship Program</option>
-                        <option value="tuition">Tuition Fee Support</option>
-                        <option value="general">General Inquiry</option>
-                        <option value="other">Other</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Message */}
-                  <div className="flex flex-col gap-1.5">
-                    <label htmlFor="message" className="text-sm font-semibold text-[#374151]">
-                      Message <span className="text-red-500">*</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={form.message}
-                      onChange={handleChange}
-                      required
-                      rows={6}
-                      placeholder="Tell us how we can help you..."
-                      className="resize-none rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none ring-0 transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
-                    />
-                  </div>
-
-                  {error && (
-                    <p className="rounded-xl bg-red-50 px-4 py-3 text-sm text-red-600">{error}</p>
+              ) : (
+                <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Contact Form */}
+                  {activeTab === "contact" && (
+                    <>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name *</label>
+                          <input
+                            required
+                            value={contactForm.name}
+                            onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
+                            placeholder="Your full name"
+                            className={inputClass}
+                          />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Email *</label>
+                          <input
+                            type="email"
+                            required
+                            value={contactForm.email}
+                            onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
+                            placeholder="you@example.com"
+                            className={inputClass}
+                          />
+                        </div>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Phone</label>
+                          <input
+                            type="tel"
+                            value={contactForm.phone}
+                            onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
+                            placeholder="+1 (234) 567-890"
+                            className={inputClass}
+                          />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Subject *</label>
+                          <select
+                            required
+                            value={contactForm.subject}
+                            onChange={(e) => setContactForm({ ...contactForm, subject: e.target.value })}
+                            className={inputClass}
+                          >
+                            <option value="">Select a subject</option>
+                            <option value="wes">WES Evaluation Support</option>
+                            <option value="gre">GRE / ETS Fee Support</option>
+                            <option value="visa">Visa / SEVIS Fee Support</option>
+                            <option value="mentorship">Mentorship Program</option>
+                            <option value="general">General Inquiry</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Message *</label>
+                        <textarea
+                          required
+                          rows={5}
+                          value={contactForm.message}
+                          onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
+                          placeholder="Tell us how we can help you..."
+                          className={inputClass + " resize-none"}
+                        />
+                      </div>
+                    </>
                   )}
 
-                  <button
+                  {/* Mentor Form */}
+                  {activeTab === "mentor" && (
+                    <>
+                      <div className="rounded-2xl bg-[#EFF6FF] dark:bg-[#1E3A5F] p-6 mb-6">
+                        <h3 className="font-semibold text-[#1D4ED8] dark:text-[#60A5FA] mb-2">Become a Mentor</h3>
+                        <p className="text-sm text-gray-600 dark:text-gray-300">
+                          Share your expertise with students from Africa and around the world. 
+                          Help guide them through applications, interviews, and their academic journey.
+                        </p>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name *</label>
+                          <input required value={mentorForm.name} onChange={(e) => setMentorForm({ ...mentorForm, name: e.target.value })} placeholder="Your full name" className={inputClass} />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Email *</label>
+                          <input type="email" required value={mentorForm.email} onChange={(e) => setMentorForm({ ...mentorForm, email: e.target.value })} placeholder="you@example.com" className={inputClass} />
+                        </div>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Country *</label>
+                          <input required value={mentorForm.country} onChange={(e) => setMentorForm({ ...mentorForm, country: e.target.value })} placeholder="Your country" className={inputClass} />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Area of Expertise *</label>
+                          <select required value={mentorForm.expertise} onChange={(e) => setMentorForm({ ...mentorForm, expertise: e.target.value })} className={inputClass}>
+                            <option value="">Select area</option>
+                            <option value="admissions">University Admissions</option>
+                            <option value="scholarships">Scholarships & Funding</option>
+                            <option value="visa">Visa & Immigration</option>
+                            <option value="career">Career Guidance</option>
+                            <option value="research">Research & Academia</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">LinkedIn Profile</label>
+                        <input value={mentorForm.linkedin} onChange={(e) => setMentorForm({ ...mentorForm, linkedin: e.target.value })} placeholder="https://linkedin.com/in/yourprofile" className={inputClass} />
+                      </div>
+                      <div>
+                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Why do you want to mentor? *</label>
+                        <textarea required rows={4} value={mentorForm.motivation} onChange={(e) => setMentorForm({ ...mentorForm, motivation: e.target.value })} placeholder="Share your motivation..." className={inputClass + " resize-none"} />
+                      </div>
+                    </>
+                  )}
+
+                  {/* Donate Form */}
+                  {activeTab === "donate" && (
+                    <>
+                      <div className="rounded-2xl bg-[#FEF3C7] dark:bg-[#78350F] p-6 mb-6">
+                        <div className="flex items-center gap-3 mb-2">
+                          <DollarSign className="h-6 w-6 text-[#B45309] dark:text-[#FCD34D]" />
+                          <h3 className="font-semibold text-[#B45309] dark:text-[#FCD34D]">Support Our Mission</h3>
+                        </div>
+                        <p className="text-sm text-gray-700 dark:text-gray-200">
+                          Your contribution directly helps students cover application fees, testing costs, 
+                          and visa expenses. Every dollar makes a difference.
+                        </p>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Full Name *</label>
+                          <input required value={donateForm.name} onChange={(e) => setDonateForm({ ...donateForm, name: e.target.value })} placeholder="Your full name" className={inputClass} />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Email *</label>
+                          <input type="email" required value={donateForm.email} onChange={(e) => setDonateForm({ ...donateForm, email: e.target.value })} placeholder="you@example.com" className={inputClass} />
+                        </div>
+                      </div>
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Amount (USD) *</label>
+                          <div className="flex gap-2 mb-3">
+                            {["25", "50", "100", "250"].map((amt) => (
+                              <button
+                                key={amt}
+                                type="button"
+                                onClick={() => setDonateForm({ ...donateForm, amount: amt })}
+                                className={`flex-1 rounded-xl py-3 text-sm font-semibold transition-all ${
+                                  donateForm.amount === amt
+                                    ? "bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F]"
+                                    : "bg-gray-100 dark:bg-[#2D2D2F] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#3D3D3F]"
+                                }`}
+                              >
+                                ${amt}
+                              </button>
+                            ))}
+                          </div>
+                          <input
+                            type="number"
+                            value={donateForm.amount}
+                            onChange={(e) => setDonateForm({ ...donateForm, amount: e.target.value })}
+                            placeholder="Or enter custom amount"
+                            className={inputClass}
+                          />
+                        </div>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Frequency</label>
+                          <select value={donateForm.frequency} onChange={(e) => setDonateForm({ ...donateForm, frequency: e.target.value })} className={inputClass}>
+                            <option value="one-time">One-time</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                            <option value="yearly">Yearly</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div>
+                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Message (Optional)</label>
+                        <textarea rows={3} value={donateForm.message} onChange={(e) => setDonateForm({ ...donateForm, message: e.target.value })} placeholder="Leave a message of support..." className={inputClass + " resize-none"} />
+                      </div>
+                    </>
+                  )}
+
+                  {error && <p className="rounded-xl bg-red-50 dark:bg-red-900/30 px-4 py-3 text-sm text-red-600 dark:text-red-400">{error}</p>}
+
+                  <Button
                     type="submit"
                     disabled={loading}
-                    className="flex w-full items-center justify-center gap-2 rounded-xl bg-[#1F2937] py-4 text-base font-bold text-white shadow-lg transition-all hover:bg-[#374151] hover:shadow-xl disabled:opacity-60"
+                    className="w-full rounded-2xl bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] py-6 text-base font-semibold hover:opacity-90 transition-all h-auto"
                   >
                     {loading ? (
-                      <>
+                      <span className="flex items-center gap-2">
                         <svg className="h-5 w-5 animate-spin" viewBox="0 0 24 24" fill="none">
                           <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
                           <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
                         </svg>
-                        Sending...
-                      </>
+                        Processing...
+                      </span>
                     ) : (
-                      <>
-                        <Send className="h-5 w-5" />
-                        Send Message
-                      </>
+                      <span className="flex items-center gap-2">
+                        {activeTab === "contact" && <><Send className="h-5 w-5" /> Send Message</>}
+                        {activeTab === "mentor" && <><Users className="h-5 w-5" /> Submit Application</>}
+                        {activeTab === "donate" && <><Heart className="h-5 w-5" /> Complete Donation</>}
+                      </span>
                     )}
-                  </button>
-
-                  <p className="text-center text-xs text-[#9CA3AF]">
-                    Or email us directly at{" "}
-                    <a href="mailto:vicecreativepath@gmail.com" className="font-semibold text-[#2563EB] hover:underline">
-                      vicecreativepath@gmail.com
-                    </a>
-                  </p>
+                  </Button>
                 </form>
-              </div>
-            )}
+              )}
+            </div>
           </div>
         </section>
 
+        {/* CTA */}
+        <section className="bg-[#1D1D1F] py-16">
+          <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="mb-8 text-lg text-white/70">
+              Browse our services and apply for the support that matches your needs.
+            </p>
+            <Button size="lg" className="rounded-full bg-white text-[#1D1D1F] hover:bg-gray-100 px-8 h-12" asChild>
+              <Link href="/#services">
+                Explore Services <ArrowRight className="ml-2 h-4 w-4" />
+              </Link>
+            </Button>
+          </div>
+        </section>
       </main>
+
       <Footer />
     </div>
   )

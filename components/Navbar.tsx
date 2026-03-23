@@ -35,12 +35,12 @@ export function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 shrink-0">
-          <div className="relative h-14 w-52">
+          <div className="relative h-12 w-48 rounded-lg bg-white dark:bg-white/95 p-1">
             <Image
               src="/images/logo.png"
               alt="Creative Path Inspired"
               fill
-              className="object-contain object-left"
+              className="object-contain"
               priority
             />
           </div>

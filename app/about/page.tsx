@@ -2,123 +2,122 @@ import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Target, Heart, Globe, Lightbulb } from "lucide-react"
+import { ArrowRight, Globe, Heart, Users, ChevronRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
-const values = [
+const programs = [
   {
-    icon: Target,
-    title: "Mission-Driven",
-    description: "Every service we offer is designed with one goal: removing financial barriers from your path to a world-class education.",
-    color: "#DBEAFE",
-    iconColor: "#2563EB",
+    tags: ["Beginner", "Basics"],
+    title: "Getting\nStarted",
+    description: "New to studying abroad? Start here with foundational support.",
+    color: "bg-[#2563EB]",
+    textLight: true,
+    featured: true,
   },
   {
-    icon: Heart,
-    title: "Community First",
-    description: "We believe in the transformative power of community. Our scholars lift each other through mentorship, networking, and shared wisdom.",
-    color: "#FFE4E6",
-    iconColor: "#E11D48",
+    title: "Scholar\nSquad",
+    description: "Join ambitious students pursuing dreams.",
+    color: "bg-[#F5F5F7] dark:bg-[#2D2D2F]",
   },
   {
-    icon: Globe,
-    title: "Globally Connected",
-    description: "From Nigeria to Kenya, Ghana to Cameroon — we support students across Africa and beyond in reaching universities worldwide.",
-    color: "#CCFBF1",
-    iconColor: "#0D9488",
-  },
-  {
-    icon: Lightbulb,
-    title: "Results-Oriented",
-    description: "We track outcomes. Over 500 students have accessed universities in the US, UK, Canada, and Europe through our support.",
-    color: "#ECFCCB",
-    iconColor: "#65A30D",
+    title: "MVP\nGrind",
+    description: "Intensive support for high-achievers.",
+    color: "bg-[#FACC15]",
   },
 ]
 
-const team = [
-  { name: "Dr. Victoria Emmanuel", role: "Founder & Executive Director", initial: "VE", color: "#2563EB" },
-  { name: "Kweku Asante",          role: "Head of Mentorship",          initial: "KA", color: "#0D9488" },
-  { name: "Amina Bello",           role: "Financial Aid Coordinator",   initial: "AB", color: "#9333EA" },
-  { name: "Chidi Okafor",          role: "Student Liaison Officer",     initial: "CO", color: "#E11D48" },
+const initiatives = [
+  { number: "01", title: "WES Fee Support", description: "Full credential evaluation coverage for academic transcripts", expanded: false },
+  { number: "02", title: "GRE/TOEFL Support", description: "Testing fee assistance for standardized exams required by universities worldwide.", expanded: true },
+  { number: "03", title: "Visa Support", description: "SEVIS and visa application fee assistance", expanded: false },
+  { number: "04", title: "Mentorship Program", description: "One-on-one guidance from experienced scholars", expanded: false },
+]
+
+const stats = [
+  { value: "500+", label: "Students Supported" },
+  { value: "25+", label: "Countries Reached" },
+  { value: "$2M+", label: "Fees Covered" },
+  { value: "98%", label: "Success Rate" },
 ]
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-background transition-colors">
+    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
       <Navbar />
-      <main>
 
-        {/* ── Hero ───────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-primary py-20 lg:py-28 transition-colors">
-          {/* dot grid */}
+      <main>
+        {/* Hero Section */}
+        <section className="relative overflow-hidden bg-[#1D1D1F] py-24 lg:py-32">
           <div
-            className="absolute inset-0 opacity-10"
+            className="absolute inset-0 opacity-20 blur-[1px]"
             style={{
               backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
-              backgroundSize: "28px 28px",
+              backgroundSize: "32px 32px",
             }}
           />
-          <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">
+          <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#B7F34B] animate-in fade-in slide-in-from-left-4 duration-500">
               About Us
             </p>
-            <h1 className="mb-6 text-4xl font-black uppercase leading-tight text-white md:text-6xl text-balance">
-              We Open Doors<br />
-              <span className="text-[#B7F34B]">Others Keep Closed</span>
+            <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+              A Global Community<br />
+              <span className="text-[#B7F34B]">Helping Students</span><br />
+              Reach New Heights
             </h1>
-            <p className="max-w-2xl text-lg leading-relaxed text-white/70">
-              Creative Path Inspired was founded by scholars who lived the struggle of financing
-              international education. We exist to ensure no student loses their opportunity
-              because of a credential evaluation fee, a visa cost, or a SEVIS charge.
+            <p className="max-w-2xl text-lg text-white/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
+              We are a network of scholars, professionals, and educators from around the world 
+              united by a single mission: making quality education accessible to talented students 
+              from underrepresented regions.
             </p>
           </div>
         </section>
 
-        {/* ── Story ─────────────────────────────────── */}
-        <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="grid items-center gap-12 lg:grid-cols-2">
+        {/* Programs Section - IMG_1338 style */}
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-12 flex items-center gap-4">
+              <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
+                02 &nbsp; Programs
+              </span>
+            </div>
+
+            <div className="grid gap-8 lg:grid-cols-2">
               <div>
-                <span className="mb-4 inline-block rounded-full bg-[#DBEAFE] px-4 py-2 text-sm font-semibold text-[#1D4ED8]">
-                  OUR STORY
-                </span>
-                <h2 className="mb-6 text-3xl font-bold text-[#1F2937] md:text-4xl text-balance">
-                  Born from Personal Experience
+                <h2 className="text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
+                  Programs Designed for<br />All Levels
                 </h2>
-                <div className="space-y-4 text-[#4B5563] leading-relaxed">
-                  <p>
-                    Creative Path Inspired was founded after our founder, a first-generation
-                    university graduate from West Africa, almost lost her opportunity to attend
-                    a top U.S. graduate program because of a $250 WES credential evaluation fee.
-                  </p>
-                  <p>
-                    That experience became the foundation of everything we do today. We gathered
-                    a team of mentors, scholarship recipients, and finance professionals who
-                    believe in paying it forward.
-                  </p>
-                  <p>
-                    Today, we support students across Africa and the developing world with
-                    financial waivers, mentorship, and guided application support — so they
-                    can focus on what matters: getting accepted.
-                  </p>
-                </div>
               </div>
 
-              {/* Stat tiles */}
-              <div className="grid grid-cols-2 gap-4">
-                {[
-                  { value: "500+", label: "Students Supported", bg: "#DBEAFE", color: "#2563EB" },
-                  { value: "25+",  label: "Countries Reached",  bg: "#CCFBF1", color: "#0D9488" },
-                  { value: "12",   label: "Support Services",   bg: "#ECFCCB", color: "#65A30D" },
-                  { value: "$0",   label: "Cost to Apply",      bg: "#FFE4E6", color: "#E11D48" },
-                ].map((stat) => (
+              <div className="grid gap-4 sm:grid-cols-3">
+                {programs.map((program, index) => (
                   <div
-                    key={stat.label}
-                    className="flex flex-col items-center justify-center rounded-3xl p-8 text-center shadow-md"
-                    style={{ backgroundColor: stat.bg }}
+                    key={index}
+                    className={`relative overflow-hidden rounded-3xl ${program.color} p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${
+                      program.featured ? "sm:col-span-2 sm:row-span-2" : ""
+                    }`}
                   >
-                    <p className="text-4xl font-black" style={{ color: stat.color }}>{stat.value}</p>
-                    <p className="mt-2 text-sm font-medium text-[#374151]">{stat.label}</p>
+                    {program.tags && (
+                      <div className="mb-4 flex gap-2">
+                        {program.tags.map((tag) => (
+                          <span key={tag} className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold text-white">
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                    <h3 className={`whitespace-pre-line font-bold leading-tight ${
+                      program.textLight ? "text-white" : "text-gray-900 dark:text-white"
+                    } ${program.featured ? "text-3xl" : "text-xl"}`}>
+                      {program.title}
+                    </h3>
+                    <p className={`mt-2 text-sm ${program.textLight ? "text-white/80" : "text-gray-600 dark:text-gray-400"}`}>
+                      {program.description}
+                    </p>
+                    <button className={`absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full ${
+                      program.textLight ? "bg-white/20" : "bg-black/10 dark:bg-white/20"
+                    } backdrop-blur-sm transition-transform hover:scale-110`}>
+                      <ArrowRight className={`h-4 w-4 ${program.textLight ? "text-white" : "text-gray-900 dark:text-white"}`} />
+                    </button>
                   </div>
                 ))}
               </div>
@@ -126,83 +125,124 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Values ────────────────────────────────── */}
-        <section className="bg-white py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="mb-12 text-center">
-              <span className="mb-4 inline-block rounded-full bg-[#ECFCCB] px-4 py-2 text-sm font-semibold text-[#65A30D]">
-                OUR VALUES
+        {/* Initiatives Section - IMG_1338 accordion style */}
+        <section className="py-20 lg:py-28 bg-white dark:bg-[#1D1D1F] transition-colors">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-12 flex items-center gap-4">
+              <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
+                03 &nbsp; Initiatives
               </span>
-              <h2 className="text-3xl font-bold text-[#1F2937] md:text-4xl text-balance">
-                What We Stand For
+            </div>
+
+            <div className="grid gap-12 lg:grid-cols-2">
+              <div>
+                <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+                  Our Key<br />Initiatives &<br />Programs
+                </h2>
+                <p className="text-gray-600 dark:text-gray-400">
+                  We provide comprehensive support across every stage of your study abroad journey.
+                </p>
+                <Button className="mt-6 rounded-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-6 hover:opacity-90" asChild>
+                  <Link href="/#services">
+                    Join us <ArrowRight className="ml-2 h-4 w-4" />
+                  </Link>
+                </Button>
+              </div>
+
+              <div className="space-y-4">
+                {initiatives.map((item) => (
+                  <div
+                    key={item.number}
+                    className={`rounded-2xl border border-gray-200 dark:border-gray-800 p-5 transition-all ${
+                      item.expanded ? "bg-gray-50 dark:bg-[#2D2D2F]" : "bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#2D2D2F]"
+                    }`}
+                  >
+                    <div className="flex items-center justify-between cursor-pointer">
+                      <div className="flex items-center gap-4">
+                        <span className="text-sm font-medium text-gray-400">{item.number}</span>
+                        <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.title}</h3>
+                      </div>
+                      <ChevronRight className={`h-5 w-5 text-gray-400 transition-transform ${item.expanded ? "rotate-90" : ""}`} />
+                    </div>
+                    {item.expanded && (
+                      <div className="mt-4">
+                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{item.description}</p>
+                        <Button variant="outline" className="rounded-full text-sm">
+                          View Details
+                        </Button>
+                      </div>
+                    )}
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Stats Section - Calmerry/Apple style */}
+        <section className="py-20 lg:py-28 bg-[#E0F2FE] dark:bg-[#0C4A6E] transition-colors">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="mb-12 text-center">
+              <h2 className="text-3xl font-bold text-[#0C4A6E] dark:text-white md:text-4xl">
+                Fueling academic growth<br />through collective support
               </h2>
             </div>
-            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-              {values.map((v) => (
-                <div
-                  key={v.title}
-                  className="rounded-3xl p-6 shadow-md transition-all hover:-translate-y-1 hover:shadow-xl"
-                  style={{ backgroundColor: v.color }}
-                >
-                  <div
-                    className="mb-4 flex h-12 w-12 items-center justify-center rounded-2xl"
-                    style={{ backgroundColor: v.iconColor }}
-                  >
-                    <v.icon className="h-6 w-6 text-white" />
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold text-[#1F2937]">{v.title}</h3>
-                  <p className="text-sm leading-relaxed text-[#4B5563]">{v.description}</p>
+
+            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+              {stats.map((stat) => (
+                <div key={stat.label} className="rounded-3xl bg-white/80 dark:bg-white/10 backdrop-blur-sm p-8 text-center transition-all hover:-translate-y-1 hover:shadow-xl">
+                  <p className="text-4xl font-bold text-[#0369A1] dark:text-[#7DD3FC]">{stat.value}</p>
+                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{stat.label}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── Team ──────────────────────────────────── */}
-        <section className="py-16 lg:py-24">
-          <div className="mx-auto max-w-7xl px-4 lg:px-8">
-            <div className="mb-12 text-center">
-              <span className="mb-4 inline-block rounded-full bg-[#F3E8FF] px-4 py-2 text-sm font-semibold text-[#9333EA]">
-                THE TEAM
-              </span>
-              <h2 className="text-3xl font-bold text-[#1F2937] md:text-4xl">Meet the People Behind the Mission</h2>
-            </div>
-            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
-              {team.map((member) => (
-                <div key={member.name} className="rounded-3xl bg-white p-6 text-center shadow-md hover:shadow-xl transition-all hover:-translate-y-1">
-                  <div
-                    className="mx-auto mb-4 flex h-20 w-20 items-center justify-center rounded-full text-2xl font-black text-white"
-                    style={{ backgroundColor: member.color }}
-                  >
-                    {member.initial}
+        {/* Mission Section */}
+        <section className="py-20 lg:py-28 bg-white dark:bg-[#1D1D1F] transition-colors">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-3">
+              {[
+                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", color: "bg-[#2563EB]" },
+                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", color: "bg-[#DB2777]" },
+                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", color: "bg-[#059669]" },
+              ].map((value) => (
+                <div key={value.title} className="text-center group">
+                  <div className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl ${value.color} transition-transform group-hover:scale-110`}>
+                    <value.icon className="h-8 w-8 text-white" />
                   </div>
-                  <p className="font-bold text-[#1F2937]">{member.name}</p>
-                  <p className="mt-1 text-sm text-[#6B7280]">{member.role}</p>
+                  <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{value.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
                 </div>
               ))}
             </div>
           </div>
         </section>
 
-        {/* ── CTA ───────────────────────────────────── */}
-        <section className="bg-primary py-16 transition-colors">
-          <div className="mx-auto max-w-3xl px-4 text-center lg:px-8">
-            <h2 className="mb-4 text-3xl font-black uppercase text-white md:text-4xl text-balance">
+        {/* CTA Section */}
+        <section className="bg-[#1D1D1F] py-16">
+          <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
+            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
               Ready to Start Your Journey?
             </h2>
-            <p className="mb-8 text-white/70">
-              Browse our services and apply for the support that matches your needs today.
+            <p className="mb-8 text-lg text-white/70">
+              Join hundreds of scholars who have achieved their dreams with our support.
             </p>
-            <Link
-              href="/#services"
-              className="inline-flex items-center gap-2 rounded-full bg-[#B7F34B] px-8 py-3 font-bold text-[#1F2937] transition-all hover:bg-[#c9f96a] hover:shadow-lg"
-            >
-              Explore Services <ArrowRight className="h-5 w-5" />
-            </Link>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button size="lg" className="rounded-full bg-white text-[#1D1D1F] hover:bg-gray-100 px-8 h-12" asChild>
+                <Link href="/apply/wes-support">
+                  Apply Now <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button size="lg" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12" asChild>
+                <Link href="/contact">Become a Mentor</Link>
+              </Button>
+            </div>
           </div>
         </section>
-
       </main>
+
       <Footer />
     </div>
   )

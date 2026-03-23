@@ -190,7 +190,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   if (isSuccess) {
     return (
       <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="rounded-3xl bg-card p-8 shadow-2xl md:p-12">
+        <div className="rounded-3xl bg-white dark:bg-[#1D1D1F] p-8 shadow-2xl md:p-12">
           <div className="mx-auto max-w-2xl text-center">
             <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
               <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-400" />
@@ -267,7 +267,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   )
 
   const inputCls =
-    "rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all duration-200 focus:border-scholarship focus:bg-card focus:ring-2 focus:ring-scholarship/20"
+    "w-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#2D2D2F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#2563EB] focus:bg-white dark:focus:bg-[#1D1D1F] focus:ring-4 focus:ring-[#2563EB]/10"
 
   /* Step Content */
   const steps = [
@@ -456,7 +456,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
         Back to Services
       </Link>
 
-      <div className="overflow-hidden rounded-3xl bg-card shadow-2xl">
+      <div className="overflow-hidden rounded-3xl bg-white dark:bg-[#1D1D1F] shadow-2xl">
         {/* Progress bar */}
         <div className="h-1.5 bg-muted">
           <div

@@ -1,117 +1,97 @@
 "use client"
 
-import { ServiceCard } from "./ServiceCard"
+import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+
+// Chromatic color wheel - solid colors, no gradients
+const colorWheel = [
+  { bg: "bg-[#EEF2FF]", text: "text-[#4338CA]", icon: "bg-[#4338CA]", border: "border-[#C7D2FE]" },
+  { bg: "bg-[#FDF4FF]", text: "text-[#A21CAF]", icon: "bg-[#A21CAF]", border: "border-[#F5D0FE]" },
+  { bg: "bg-[#FFF7ED]", text: "text-[#C2410C]", icon: "bg-[#C2410C]", border: "border-[#FED7AA]" },
+  { bg: "bg-[#FEFCE8]", text: "text-[#A16207]", icon: "bg-[#A16207]", border: "border-[#FEF08A]" },
+  { bg: "bg-[#F0FDF4]", text: "text-[#15803D]", icon: "bg-[#15803D]", border: "border-[#BBF7D0]" },
+  { bg: "bg-[#ECFEFF]", text: "text-[#0E7490]", icon: "bg-[#0E7490]", border: "border-[#A5F3FC]" },
+  { bg: "bg-[#EFF6FF]", text: "text-[#1D4ED8]", icon: "bg-[#1D4ED8]", border: "border-[#BFDBFE]" },
+  { bg: "bg-[#FAF5FF]", text: "text-[#7C3AED]", icon: "bg-[#7C3AED]", border: "border-[#DDD6FE]" },
+  { bg: "bg-[#FFF1F2]", text: "text-[#BE123C]", icon: "bg-[#BE123C]", border: "border-[#FECDD3]" },
+  { bg: "bg-[#F0FDFA]", text: "text-[#0F766E]", icon: "bg-[#0F766E]", border: "border-[#99F6E4]" },
+  { bg: "bg-[#F8FAFC]", text: "text-[#334155]", icon: "bg-[#334155]", border: "border-[#CBD5E1]" },
+  { bg: "bg-[#FFFBEB]", text: "text-[#B45309]", icon: "bg-[#B45309]", border: "border-[#FDE68A]" },
+]
 
 const services = [
-  {
-    title: "WES Evaluation Support",
-    description: "We pay between 100% to 25% of WES evaluation fees for your credential assessment.",
-    iconName: "FileCheck" as const,
-    slug: "wes-support",
-    cardColor: "blue" as const,
-  },
-  {
-    title: "GRE / ETS Fee Support",
-    description: "We cover full or partial GRE testing fees to help you prepare for graduate school.",
-    iconName: "GraduationCap" as const,
-    slug: "gre-support",
-    cardColor: "indigo" as const,
-  },
-  {
-    title: "Application Fee Support",
-    description: "Financial help for university application fees across multiple institutions.",
-    iconName: "BookOpen" as const,
-    slug: "application-fee-support",
-    cardColor: "teal" as const,
-  },
-  {
-    title: "Initial Deposit Support",
-    description: "We support your first enrollment deposit to secure your admission offer.",
-    iconName: "CreditCard" as const,
-    slug: "initial-deposit-support",
-    cardColor: "green" as const,
-  },
-  {
-    title: "English Test Fee Support",
-    description: "Support for IELTS, TOEFL, and Duolingo English test fees.",
-    iconName: "Languages" as const,
-    slug: "english-test-support",
-    cardColor: "lime" as const,
-  },
-  {
-    title: "SEVIS Fee Support",
-    description: "Help with U.S. SEVIS immigration fee required for your student visa.",
-    iconName: "Stamp" as const,
-    slug: "sevis-fee-support",
-    cardColor: "amber" as const,
-  },
-  {
-    title: "Visa Application Fee Support",
-    description: "Support for visa application costs to study in your destination country.",
-    iconName: "Plane" as const,
-    slug: "visa-fee-support",
-    cardColor: "orange" as const,
-  },
-  {
-    title: "Tuition Fee Support",
-    description: "Partial scholarship assistance to help cover your tuition costs.",
-    iconName: "DollarSign" as const,
-    slug: "tuition-fee-support",
-    cardColor: "rose" as const,
-  },
-  {
-    title: "Transcript Evaluation Support",
-    description: "Support for transcript verification and evaluation services.",
-    iconName: "FileText" as const,
-    slug: "transcript-support",
-    cardColor: "purple" as const,
-  },
-  {
-    title: "College Board Fee Support",
-    description: "Support for SAT and related College Board services.",
-    iconName: "School" as const,
-    slug: "college-board-support",
-    cardColor: "sky" as const,
-  },
-  {
-    title: "Mentorship Program",
-    description: "Personalized academic guidance from experienced scholars and mentors.",
-    iconName: "Users" as const,
-    slug: "mentorship-program",
-    cardColor: "navy" as const,
-  },
-  {
-    title: "Enrollment Deposit Support",
-    description: "Financial help for confirming your admission and securing your spot.",
-    iconName: "Building" as const,
-    slug: "enrollment-deposit-support",
-    cardColor: "slate" as const,
-  },
+  { title: "WES Evaluation Support", description: "100% to 25% of WES evaluation fees for credential assessment", emoji: "📄", slug: "wes-support", featured: true },
+  { title: "GRE / ETS Fee Support", description: "Full or partial GRE testing fees for graduate school prep", emoji: "🎓", slug: "gre-support" },
+  { title: "Application Fee Support", description: "University application fees across multiple institutions", emoji: "📚", slug: "application-fee-support" },
+  { title: "Initial Deposit Support", description: "First enrollment deposit to secure your admission offer", emoji: "💳", slug: "initial-deposit-support" },
+  { title: "English Test Fee Support", description: "IELTS, TOEFL, and Duolingo English test fees", emoji: "🗣️", slug: "english-test-support" },
+  { title: "SEVIS Fee Support", description: "U.S. SEVIS immigration fee for your student visa", emoji: "🛂", slug: "sevis-fee-support", featured: true },
+  { title: "Visa Application Fee Support", description: "Visa application costs to study in your destination", emoji: "✈️", slug: "visa-fee-support" },
+  { title: "Tuition Fee Support", description: "Partial scholarship assistance to cover tuition costs", emoji: "💰", slug: "tuition-fee-support" },
+  { title: "Transcript Evaluation Support", description: "Transcript verification and evaluation services", emoji: "📋", slug: "transcript-support" },
+  { title: "College Board Fee Support", description: "SAT and related College Board services", emoji: "🏫", slug: "college-board-support" },
+  { title: "Mentorship Program", description: "Personalized guidance from experienced scholars", emoji: "👥", slug: "mentorship-program", featured: true },
+  { title: "Enrollment Deposit Support", description: "Confirming your admission and securing your spot", emoji: "🏛️", slug: "enrollment-deposit-support" },
 ]
 
 export function ServiceGrid() {
   return (
-    <section id="services" className="bg-background py-16 lg:py-24 transition-colors">
-      <div className="mx-auto max-w-7xl px-4 lg:px-8">
+    <section id="services" className="bg-[#FFFEF5] dark:bg-[#1D1D1F] py-20 lg:py-28 transition-colors">
+      <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-12 max-w-2xl">
-          <span className="mb-4 inline-block rounded-full bg-[#DBEAFE] px-4 py-2 text-sm font-semibold text-[#1D4ED8]">
+        <div className="mb-16 text-center">
+          <span className="mb-4 inline-block rounded-full bg-[#1D4ED8]/10 px-5 py-2 text-sm font-semibold text-[#1D4ED8] dark:bg-[#1D4ED8]/20 dark:text-[#60A5FA]">
             OUR SERVICES
           </span>
-          <h2 className="mb-4 text-3xl font-bold tracking-tight text-foreground md:text-4xl text-balance">
-            Comprehensive Support for Your Academic Journey
+          <h2 className="mb-4 text-3xl font-bold tracking-tight text-gray-900 dark:text-white md:text-4xl lg:text-5xl text-balance">
+            Comprehensive Support for Your Journey
           </h2>
-          <p className="text-lg text-muted-foreground text-pretty">
-            Choose from our range of financial support services designed to help you achieve
-            your dream of studying abroad.
+          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+            Choose from our range of financial support services designed to help you achieve your dream of studying abroad.
           </p>
         </div>
 
-        {/* Services Grid */}
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-          {services.map((service) => (
-            <ServiceCard key={service.slug} {...service} />
-          ))}
+        {/* Bento Grid */}
+        <div className="grid auto-rows-[180px] gap-4 md:grid-cols-3 lg:grid-cols-4">
+          {services.map((service, index) => {
+            const color = colorWheel[index % colorWheel.length]
+            const isFeatured = service.featured
+            
+            return (
+              <Link
+                key={service.slug}
+                href={`/apply/${service.slug}`}
+                className={`group relative flex flex-col justify-between overflow-hidden rounded-3xl border p-6 transition-all duration-300 hover:-translate-y-1 hover:shadow-xl ${color.bg} ${color.border} dark:bg-opacity-20 dark:border-opacity-30 ${
+                  isFeatured ? "md:col-span-2 md:row-span-2" : ""
+                }`}
+              >
+                {/* Category Badge */}
+                <div className="flex items-center justify-between">
+                  <span className={`inline-flex items-center rounded-full px-3 py-1 text-[10px] font-semibold uppercase tracking-wider ${color.bg} ${color.text} border ${color.border}`}>
+                    {isFeatured ? "Featured" : "Service"}
+                  </span>
+                  <div className={`flex h-10 w-10 items-center justify-center rounded-2xl ${color.icon}`}>
+                    <span className="text-lg">{service.emoji}</span>
+                  </div>
+                </div>
+
+                {/* Content */}
+                <div className="mt-auto">
+                  <h3 className={`mb-2 font-bold leading-tight ${color.text} ${isFeatured ? "text-2xl" : "text-lg"}`}>
+                    {service.title}
+                  </h3>
+                  <p className={`text-sm leading-relaxed text-gray-600 dark:text-gray-400 ${isFeatured ? "" : "line-clamp-2"}`}>
+                    {service.description}
+                  </p>
+                </div>
+
+                {/* Arrow */}
+                <div className="absolute bottom-5 right-5 flex h-10 w-10 items-center justify-center rounded-full bg-white dark:bg-[#2D2D2F] shadow-md opacity-0 transition-all duration-300 group-hover:opacity-100">
+                  <ArrowRight className={`h-4 w-4 ${color.text}`} />
+                </div>
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>
