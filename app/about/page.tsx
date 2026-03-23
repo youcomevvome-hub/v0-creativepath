@@ -2,33 +2,31 @@ import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
 import Image from "next/image"
 import Link from "next/link"
-import { ArrowRight, Globe, Heart, Users, ChevronRight } from "lucide-react"
+import { ArrowRight, Globe, Heart, Users, ChevronRight, CheckCircle } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const programs = [
   {
-    tags: ["Beginner", "Basics"],
-    title: "Getting\nStarted",
+    title: "Getting Started",
     description: "New to studying abroad? Start here with foundational support.",
-    color: "bg-[#2563EB]",
-    textLight: true,
+    image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
     featured: true,
   },
   {
-    title: "Scholar\nSquad",
+    title: "Scholar Squad",
     description: "Join ambitious students pursuing dreams.",
-    color: "bg-[#F5F5F7] dark:bg-[#2D2D2F]",
+    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
   },
   {
-    title: "MVP\nGrind",
+    title: "MVP Grind",
     description: "Intensive support for high-achievers.",
-    color: "bg-[#FACC15]",
+    image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400",
   },
 ]
 
 const initiatives = [
   { number: "01", title: "WES Fee Support", description: "Full credential evaluation coverage for academic transcripts", expanded: false },
-  { number: "02", title: "GRE/TOEFL Support", description: "Testing fee assistance for standardized exams required by universities worldwide.", expanded: true },
+  { number: "02", title: "GRE/TOEFL Support", description: "Testing fee assistance for standardized exams required by universities worldwide.", expanded: true, image: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=400" },
   { number: "03", title: "Visa Support", description: "SEVIS and visa application fee assistance", expanded: false },
   { number: "04", title: "Mentorship Program", description: "One-on-one guidance from experienced scholars", expanded: false },
 ]
@@ -40,40 +38,51 @@ const stats = [
   { value: "98%", label: "Success Rate" },
 ]
 
+const team = [
+  { name: "Dr. Sarah Johnson", role: "Founder & Director", image: "https://images.pexels.com/photos/3184611/pexels-photo-3184611.jpeg?auto=compress&cs=tinysrgb&w=300" },
+  { name: "Michael Chen", role: "Head of Operations", image: "https://images.pexels.com/photos/3184339/pexels-photo-3184339.jpeg?auto=compress&cs=tinysrgb&w=300" },
+  { name: "Amara Obi", role: "Student Success Lead", image: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=300" },
+]
+
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#F5F5F7] dark:bg-[#0A0A0A] transition-colors">
+    <div className="min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
       <Navbar />
 
       <main>
-        {/* Hero Section */}
-        <section className="relative overflow-hidden bg-[#1D1D1F] py-24 lg:py-32">
-          <div
-            className="absolute inset-0 opacity-20 blur-[1px]"
-            style={{
-              backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
-              backgroundSize: "32px 32px",
-            }}
-          />
-          <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#B7F34B] animate-in fade-in slide-in-from-left-4 duration-500">
-              About Us
-            </p>
-            <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
-              A Global Community<br />
-              <span className="text-[#B7F34B]">Helping Students</span><br />
-              Reach New Heights
-            </h1>
-            <p className="max-w-2xl text-lg text-white/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
-              We are a network of scholars, professionals, and educators from around the world 
-              united by a single mission: making quality education accessible to talented students 
-              from underrepresented regions.
-            </p>
+        {/* Hero Section with Image */}
+        <section className="relative overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="Students collaborating"
+              fill
+              className="object-cover"
+              priority
+            />
+            <div className="absolute inset-0 bg-gradient-to-r from-[#0C1220]/95 to-[#0C1220]/70" />
+          </div>
+          <div className="relative py-24 lg:py-40">
+            <div className="mx-auto max-w-7xl px-6 lg:px-8">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#F59E0B] animate-in fade-in slide-in-from-left-4 duration-500">
+                About Us
+              </p>
+              <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+                A Global Community<br />
+                <span className="text-[#2563EB]">Helping Students</span><br />
+                Reach New Heights
+              </h1>
+              <p className="max-w-2xl text-lg text-white/80 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
+                We are a network of scholars, professionals, and educators from around the world 
+                united by a single mission: making quality education accessible to talented students 
+                from underrepresented regions.
+              </p>
+            </div>
           </div>
         </section>
 
-        {/* Programs Section - IMG_1338 style */}
-        <section className="py-20 lg:py-28">
+        {/* Programs Section with Images */}
+        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F]">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mb-12 flex items-center gap-4">
               <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
@@ -86,38 +95,36 @@ export default function AboutPage() {
                 <h2 className="text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
                   Programs Designed for<br />All Levels
                 </h2>
+                <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-lg">
+                  Whether you&apos;re just starting your journey or ready for advanced support, 
+                  we have programs tailored to your needs.
+                </p>
               </div>
 
-              <div className="grid gap-4 sm:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-2">
                 {programs.map((program, index) => (
                   <div
                     key={index}
-                    className={`relative overflow-hidden rounded-3xl ${program.color} p-6 transition-all hover:-translate-y-1 hover:shadow-xl ${
-                      program.featured ? "sm:col-span-2 sm:row-span-2" : ""
+                    className={`group relative overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:shadow-xl ${
+                      program.featured ? "sm:col-span-2" : ""
                     }`}
                   >
-                    {program.tags && (
-                      <div className="mb-4 flex gap-2">
-                        {program.tags.map((tag) => (
-                          <span key={tag} className="rounded-full bg-white/20 px-3 py-1 text-[10px] font-semibold text-white">
-                            {tag}
-                          </span>
-                        ))}
+                    <div className={`relative ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
+                      <Image
+                        src={program.image}
+                        alt={program.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-xl font-bold text-white mb-1">{program.title}</h3>
+                        <p className="text-sm text-white/80">{program.description}</p>
                       </div>
-                    )}
-                    <h3 className={`whitespace-pre-line font-bold leading-tight ${
-                      program.textLight ? "text-white" : "text-gray-900 dark:text-white"
-                    } ${program.featured ? "text-3xl" : "text-xl"}`}>
-                      {program.title}
-                    </h3>
-                    <p className={`mt-2 text-sm ${program.textLight ? "text-white/80" : "text-gray-600 dark:text-gray-400"}`}>
-                      {program.description}
-                    </p>
-                    <button className={`absolute bottom-4 right-4 flex h-10 w-10 items-center justify-center rounded-full ${
-                      program.textLight ? "bg-white/20" : "bg-black/10 dark:bg-white/20"
-                    } backdrop-blur-sm transition-transform hover:scale-110`}>
-                      <ArrowRight className={`h-4 w-4 ${program.textLight ? "text-white" : "text-gray-900 dark:text-white"}`} />
-                    </button>
+                      <button className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm transition-transform hover:scale-110">
+                        <ArrowRight className="h-4 w-4 text-white" />
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -125,8 +132,8 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Initiatives Section - IMG_1338 accordion style */}
-        <section className="py-20 lg:py-28 bg-white dark:bg-[#1D1D1F] transition-colors">
+        {/* Initiatives Section with Image */}
+        <section className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mb-12 flex items-center gap-4">
               <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
@@ -139,12 +146,20 @@ export default function AboutPage() {
                 <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
                   Our Key<br />Initiatives &<br />Programs
                 </h2>
-                <p className="text-gray-600 dark:text-gray-400">
+                <p className="text-gray-600 dark:text-gray-400 mb-6">
                   We provide comprehensive support across every stage of your study abroad journey.
                 </p>
-                <Button className="mt-6 rounded-full bg-[#1D1D1F] dark:bg-white text-white dark:text-[#1D1D1F] px-6 hover:opacity-90" asChild>
-                  <Link href="/#services">
-                    Join us <ArrowRight className="ml-2 h-4 w-4" />
+                <div className="relative rounded-2xl overflow-hidden h-[200px] mb-6">
+                  <Image
+                    src="https://images.pexels.com/photos/3184632/pexels-photo-3184632.jpeg?auto=compress&cs=tinysrgb&w=600"
+                    alt="Team collaboration"
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <Button className="rounded-full bg-[#2563EB] text-white px-6 hover:bg-[#1D4ED8]" asChild>
+                  <Link href="/services">
+                    View All Services <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
                 </Button>
               </div>
@@ -153,11 +168,11 @@ export default function AboutPage() {
                 {initiatives.map((item) => (
                   <div
                     key={item.number}
-                    className={`rounded-2xl border border-gray-200 dark:border-gray-800 p-5 transition-all ${
-                      item.expanded ? "bg-gray-50 dark:bg-[#2D2D2F]" : "bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#2D2D2F]"
+                    className={`rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all ${
+                      item.expanded ? "bg-gray-50 dark:bg-[#1D1D1F]" : "bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#1D1D1F]"
                     }`}
                   >
-                    <div className="flex items-center justify-between cursor-pointer">
+                    <div className="flex items-center justify-between p-5 cursor-pointer">
                       <div className="flex items-center gap-4">
                         <span className="text-sm font-medium text-gray-400">{item.number}</span>
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.title}</h3>
@@ -165,11 +180,20 @@ export default function AboutPage() {
                       <ChevronRight className={`h-5 w-5 text-gray-400 transition-transform ${item.expanded ? "rotate-90" : ""}`} />
                     </div>
                     {item.expanded && (
-                      <div className="mt-4">
-                        <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{item.description}</p>
-                        <Button variant="outline" className="rounded-full text-sm">
-                          View Details
-                        </Button>
+                      <div className="px-5 pb-5">
+                        <div className="flex gap-4">
+                          {item.image && (
+                            <div className="relative w-24 h-24 rounded-xl overflow-hidden shrink-0">
+                              <Image src={item.image} alt={item.title} fill className="object-cover" />
+                            </div>
+                          )}
+                          <div>
+                            <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{item.description}</p>
+                            <Button variant="outline" className="rounded-full text-sm" asChild>
+                              <Link href="/services">View Details</Link>
+                            </Button>
+                          </div>
+                        </div>
                       </div>
                     )}
                   </div>
@@ -179,7 +203,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section - Calmerry/Apple style */}
+        {/* Stats Section - Calmerry style */}
         <section className="py-20 lg:py-28 bg-[#E0F2FE] dark:bg-[#0C4A6E] transition-colors">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mb-12 text-center">
@@ -199,21 +223,35 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Mission Section */}
-        <section className="py-20 lg:py-28 bg-white dark:bg-[#1D1D1F] transition-colors">
+        {/* Mission Section with Images */}
+        <section className="py-20 lg:py-28">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="grid gap-12 lg:grid-cols-3">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl mb-4">
+                Our Core Values
+              </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                These principles guide everything we do as we support students on their journey.
+              </p>
+            </div>
+            <div className="grid gap-8 lg:grid-cols-3">
               {[
-                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", color: "bg-[#2563EB]" },
-                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", color: "bg-[#DB2777]" },
-                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", color: "bg-[#059669]" },
+                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", color: "bg-[#2563EB]", image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", color: "bg-[#0891B2]", image: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", color: "bg-[#059669]", image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400" },
               ].map((value) => (
-                <div key={value.title} className="text-center group">
-                  <div className={`mx-auto mb-4 flex h-16 w-16 items-center justify-center rounded-2xl ${value.color} transition-transform group-hover:scale-110`}>
-                    <value.icon className="h-8 w-8 text-white" />
+                <div key={value.title} className="group rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl">
+                  <div className="relative h-48">
+                    <Image src={value.image} alt={value.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className={`absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl ${value.color}`}>
+                      <value.icon className="h-6 w-6 text-white" />
+                    </div>
                   </div>
-                  <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{value.title}</h3>
-                  <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
+                  <div className="p-6">
+                    <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{value.title}</h3>
+                    <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
+                  </div>
                 </div>
               ))}
             </div>
@@ -221,16 +259,16 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-[#1D1D1F] py-16">
+        <section className="bg-[#2563EB] py-16">
           <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
             <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
               Ready to Start Your Journey?
             </h2>
-            <p className="mb-8 text-lg text-white/70">
+            <p className="mb-8 text-lg text-white/80">
               Join hundreds of scholars who have achieved their dreams with our support.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="rounded-full bg-white text-[#1D1D1F] hover:bg-gray-100 px-8 h-12" asChild>
+              <Button size="lg" className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12" asChild>
                 <Link href="/apply/wes-support">
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>

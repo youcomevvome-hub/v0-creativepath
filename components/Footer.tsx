@@ -24,7 +24,7 @@ const footerLinks = {
 
 export function Footer() {
   return (
-    <footer className="bg-black dark:bg-black text-white transition-colors">
+    <footer className="bg-[#0A0F1A] dark:bg-[#0A0F1A] text-white transition-colors">
       <div className="mx-auto max-w-7xl px-6 py-16 lg:px-8 lg:py-20">
         <div className="grid gap-12 md:grid-cols-2 lg:grid-cols-5">
 
@@ -141,7 +141,7 @@ export function Footer() {
 
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-full bg-white text-black px-6 py-3 text-sm font-semibold hover:bg-gray-100 transition-all hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1D4ED8] transition-all hover:shadow-lg"
             >
               Get Started →
             </Link>

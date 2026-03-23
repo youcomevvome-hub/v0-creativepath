@@ -267,7 +267,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   )
 
   const inputCls =
-    "w-full rounded-2xl border border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-[#2D2D2F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-all duration-200 focus:border-[#2563EB] focus:bg-white dark:focus:bg-[#1D1D1F] focus:ring-4 focus:ring-[#2563EB]/10"
+    "w-full rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1D1D1F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none ring-0 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
 
   /* Step Content */
   const steps = [

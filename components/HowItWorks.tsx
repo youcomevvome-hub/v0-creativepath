@@ -1,121 +1,132 @@
 'use client'
 
-import { FileText, CheckCircle, Key, CreditCard } from 'lucide-react'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
+import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import { Button } from '@/components/ui/button'
 
 const steps = [
   {
     number: '01',
-    icon: FileText,
-    title: 'Apply',
-    description: 'Submit your information and choose your desired support service. Our team reviews your profile within 24-48 hours.',
+    title: 'Choose Your Service',
+    description: 'Browse our comprehensive range of support services and select the ones that match your needs.',
+    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     number: '02',
-    icon: CheckCircle,
-    title: 'Get Approved',
-    description: 'Receive your approval letter and eligibility code. We provide transparent communication every step of the way.',
+    title: 'Submit Application',
+    description: 'Fill out our simple eligibility form with your academic background and goals.',
+    image: 'https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     number: '03',
-    icon: Key,
-    title: 'Access Resources',
-    description: 'Unlock exclusive mentorship, application coaching, and premium resources tailored to your journey.',
+    title: 'Get Approved',
+    description: 'Our team reviews your application within 48 hours and notifies you of your status.',
+    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   {
     number: '04',
-    icon: CreditCard,
-    title: 'Get Funded',
-    description: 'Receive direct financial support or fee waivers for eligible services. Track your benefits in real-time.',
+    title: 'Receive Support',
+    description: 'Access your approved financial support and start your journey to your dream university.',
+    image: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
 ]
 
 export function HowItWorks() {
   return (
-    <section className="bg-white dark:bg-black py-20 lg:py-28 border-t border-gray-200 dark:border-gray-800 transition-colors">
+    <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F] transition-colors">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-16">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">
+        <div className="mb-16 text-center">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#2563EB]">
             How It Works
           </p>
-          <h2 className="mb-6 text-4xl font-bold text-black dark:text-white lg:text-5xl text-balance">
-            Your Path to Success in 4 Steps
+          <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white lg:text-5xl text-balance">
+            Your Path to Success
           </h2>
-          <p className="max-w-2xl text-lg text-gray-600 dark:text-gray-400">
-            A streamlined process designed to get you the support you need, fast and efficiently.
+          <p className="mx-auto max-w-2xl text-lg text-gray-600 dark:text-gray-400">
+            Four simple steps to access financial support for your study abroad journey.
           </p>
         </div>
 
         {/* Steps Grid */}
-        <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4 mb-16">
-          {steps.map((step, idx) => {
-            const Icon = step.icon
-            return (
-              <div
-                key={step.number}
-                className="group relative animate-in fade-in slide-in-from-bottom-4 duration-700"
-                style={{ animationDelay: `${idx * 100}ms` }}
-              >
-                {/* Card */}
-                <div className="h-full rounded-2xl border border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-2 hover:border-gray-300 dark:hover:border-gray-700">
-                  {/* Step Number Circle */}
-                  <div className="mb-6 inline-flex h-14 w-14 items-center justify-center rounded-full bg-black dark:bg-white text-2xl font-bold text-white dark:text-black shadow-lg group-hover:scale-110 transition-transform">
-                    {step.number}
-                  </div>
-
-                  {/* Icon */}
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-black/5 dark:bg-white/10 group-hover:bg-black dark:group-hover:bg-white transition-colors duration-300">
-                    <Icon className="h-6 w-6 text-gray-700 dark:text-gray-300 group-hover:text-white dark:group-hover:text-black transition-colors" />
-                  </div>
-
-                  {/* Content */}
-                  <h3 className="mb-3 text-xl font-bold text-black dark:text-white">
-                    {step.title}
-                  </h3>
-                  <p className="text-sm leading-relaxed text-gray-600 dark:text-gray-400">
-                    {step.description}
-                  </p>
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {steps.map((step, idx) => (
+            <div
+              key={step.number}
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              style={{ animationDelay: `${idx * 100}ms` }}
+            >
+              {/* Image */}
+              <div className="relative h-40 overflow-hidden">
+                <Image
+                  src={step.image}
+                  alt={step.title}
+                  fill
+                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB] text-white font-bold text-sm">
+                  {step.number}
                 </div>
-
-                {/* Connector Line (hidden on last item) */}
-                {idx < steps.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/3 -right-8 w-8 h-0.5 bg-gray-200 dark:bg-gray-800" />
-                )}
               </div>
-            )
-          })}
+
+              {/* Content */}
+              <div className="p-5">
+                <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">
+                  {step.title}
+                </h3>
+                <p className="text-sm text-gray-600 dark:text-gray-400 leading-relaxed">
+                  {step.description}
+                </p>
+              </div>
+
+              {/* Connector line (except last) */}
+              {idx < steps.length - 1 && (
+                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gray-300 dark:bg-gray-700 z-10" />
+              )}
+            </div>
+          ))}
         </div>
 
         {/* CTA Section */}
-        <div className="rounded-2xl border border-gray-200 dark:border-gray-800 bg-gradient-to-br from-gray-50 to-white dark:from-gray-900 dark:to-black p-12 text-center shadow-lg">
-          <h3 className="mb-4 text-2xl font-bold text-black dark:text-white lg:text-3xl">
-            Ready to Start Your Journey?
-          </h3>
-          <p className="mb-8 text-base text-gray-600 dark:text-gray-400 lg:text-lg">
-            Join thousands of students who have received support through Creative Path Inspired. Apply today and take the first step toward your dream university.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button
-              size="lg"
-              className="rounded-full bg-black dark:bg-white px-8 text-white dark:text-black hover:opacity-90 transition-opacity"
-              asChild
-            >
-              <Link href="/services">
-                Explore Services
-              </Link>
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              className="rounded-full border-2 border-gray-300 dark:border-gray-600 px-8 text-gray-900 dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors"
-              asChild
-            >
-              <Link href="/contact">
-                Learn More
-              </Link>
-            </Button>
+        <div className="mt-16 relative overflow-hidden rounded-3xl">
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
+              alt="Students celebrating"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[#2563EB]/90" />
+          </div>
+          <div className="relative p-8 lg:p-12 text-center">
+            <h3 className="mb-4 text-2xl lg:text-3xl font-bold text-white">
+              Ready to Begin Your Journey?
+            </h3>
+            <p className="mb-8 text-white/80 max-w-xl mx-auto">
+              Join hundreds of students who have successfully navigated their study abroad journey with our support.
+            </p>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Button
+                size="lg"
+                className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12"
+                asChild
+              >
+                <Link href="/services">
+                  Get Started
+                  <ArrowRight className="ml-2 h-4 w-4" />
+                </Link>
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12"
+                asChild
+              >
+                <Link href="/contact">Contact Us</Link>
+              </Button>
+            </div>
           </div>
         </div>
       </div>
