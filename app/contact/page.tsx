@@ -76,12 +76,12 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA]">
+    <div className="min-h-screen bg-background transition-colors">
       <Navbar />
       <main>
 
         {/* ── Page Hero ─────────────────────────────── */}
-        <section className="relative overflow-hidden bg-[#1F2937] py-20 lg:py-28">
+        <section className="relative overflow-hidden bg-primary py-20 lg:py-28 transition-colors">
           <div
             className="absolute inset-0 opacity-10"
             style={{
@@ -90,14 +90,14 @@ export default function ContactPage() {
             }}
           />
           <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">
+            <p className="mb-3 text-xs font-bold uppercase tracking-widest text-highlight animate-in fade-in slide-in-from-left-4 duration-500">
               Get in Touch
             </p>
-            <h1 className="mb-4 text-4xl font-black uppercase leading-tight text-white md:text-6xl text-balance">
+            <h1 className="mb-4 text-4xl font-black uppercase leading-tight text-primary-foreground md:text-6xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
               We Would Love<br />
-              <span className="text-[#B7F34B]">to Hear From You</span>
+              <span className="text-highlight">to Hear From You</span>
             </h1>
-            <p className="max-w-xl text-lg text-white/70">
+            <p className="max-w-xl text-lg text-primary-foreground/70 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
               Have questions about our support services? Ready to apply?
               Reach out and our team will get back to you within 24–48 hours.
             </p>
@@ -142,7 +142,7 @@ export default function ContactPage() {
           <div className="mx-auto max-w-3xl px-4 lg:px-8">
 
             {success ? (
-              <div className="rounded-3xl bg-white p-12 text-center shadow-xl">
+              <div className="rounded-3xl bg-card p-12 text-center shadow-xl transition-colors">
                 <div className="mx-auto mb-6 flex h-20 w-20 items-center justify-center rounded-full bg-[#DCFCE7]">
                   <CheckCircle className="h-10 w-10 text-[#16A34A]" />
                 </div>
@@ -160,7 +160,7 @@ export default function ContactPage() {
                 </button>
               </div>
             ) : (
-              <div className="rounded-3xl bg-white p-8 shadow-xl md:p-12">
+              <div className="rounded-3xl bg-card p-8 shadow-xl md:p-12 transition-colors">
                 {/* Form header */}
                 <div className="mb-8 flex items-center gap-4 border-b border-[#E5E7EB] pb-6">
                   <div className="flex h-12 w-12 items-center justify-center rounded-2xl bg-[#1F2937]">

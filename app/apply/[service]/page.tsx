@@ -39,10 +39,10 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#F7F8FA]">
+    <div className="min-h-screen bg-background transition-colors">
       <Navbar />
       {/* Page Hero */}
-      <div className="relative overflow-hidden bg-[#1F2937] py-12">
+      <div className="relative overflow-hidden bg-primary py-12">
         <div
           className="absolute inset-0 opacity-10"
           style={{
@@ -51,15 +51,15 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
           }}
         />
         <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">Apply Now</p>
-          <h1 className="text-3xl font-black uppercase text-white md:text-4xl text-balance">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-highlight animate-in fade-in slide-in-from-left-4 duration-500">Apply Now</p>
+          <h1 className="text-3xl font-black uppercase text-primary-foreground md:text-4xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
             {service.title}
           </h1>
-          <p className="mt-2 text-white/60">{service.description}</p>
+          <p className="mt-2 text-primary-foreground/60 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">{service.description}</p>
         </div>
       </div>
       <main className="py-12 lg:py-16">
-        <div className="mx-auto max-w-7xl px-4 lg:px-8">
+        <div className="px-4 lg:px-8">
           <EligibilityForm serviceSlug={serviceSlug} serviceTitle={service.title} />
         </div>
       </main>

@@ -1,3 +1,5 @@
+"use client"
+
 import { FileText, CheckCircle, Key, CreditCard } from "lucide-react"
 
 const steps = [
@@ -29,7 +31,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section id="how-it-works" className="bg-card py-16 lg:py-24">
+    <section id="how-it-works" className="bg-card py-16 lg:py-24 transition-colors">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Section Header */}
         <div className="mb-16 text-center">

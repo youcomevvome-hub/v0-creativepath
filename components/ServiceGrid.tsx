@@ -91,7 +91,7 @@ const services = [
 
 export function ServiceGrid() {
   return (
-    <section id="services" className="bg-background py-16 lg:py-24">
+    <section id="services" className="bg-background py-16 lg:py-24 transition-colors">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Section Header */}
         <div className="mb-12 max-w-2xl">

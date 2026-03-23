@@ -2,12 +2,13 @@
 
 import Link from "next/link"
 import { ArrowRight,
-  FileCheck, GraduationCap, BookOpen, CreditCard,
-  Languages, Stamp, Plane, DollarSign, FileText,
-  School, Users, Building,
+FileCheck, GraduationCap, BookOpen, CreditCard,
+Languages, Stamp, Plane, DollarSign, FileText,
+School, Users, Building,
+type LucideIcon
 } from "lucide-react"
 
-const iconMap = {
+const iconMap: Record<string, LucideIcon> = {
   FileCheck,
   GraduationCap,
   BookOpen,
@@ -20,9 +21,21 @@ const iconMap = {
   School,
   Users,
   Building,
-} as const
+}
 
-type IconName = keyof typeof iconMap
+type IconName = 
+  | "FileCheck"
+  | "GraduationCap"
+  | "BookOpen"
+  | "CreditCard"
+  | "Languages"
+  | "Stamp"
+  | "Plane"
+  | "DollarSign"
+  | "FileText"
+  | "School"
+  | "Users"
+  | "Building"
 
 type CardColor =
   | "blue"
@@ -73,56 +86,55 @@ const palette: Record<CardColor, {
 }
 
 export function ServiceCard({ title, description, iconName, slug, cardColor }: ServiceCardProps) {
-  const Icon = iconMap[iconName]
-  const p = palette[cardColor]
+  const Icon = iconMap[iconName] || FileCheck
+  const p = palette[cardColor] || palette.blue
 
   return (
     <Link href={`/apply/${slug}`} className="group block h-full">
       <article
-        className="relative flex h-full flex-col overflow-hidden rounded-3xl p-6 shadow-md transition-all duration-300 hover:-translate-y-2 hover:shadow-2xl"
+        className="relative flex h-full flex-col overflow-hidden rounded-3xl p-6 shadow-md transition-all duration-300 group-hover:shadow-xl group-hover:-translate-y-1"
         style={{ backgroundColor: p.bg }}
       >
         {/* Top row — badge + icon */}
         <div className="mb-4 flex items-center justify-between">
           <span
-            className="rounded-full px-3 py-1 text-xs font-semibold"
+            className="rounded-full px-3 py-1 text-xs font-semibold uppercase tracking-wide"
             style={{ backgroundColor: p.badge, color: p.badgeText }}
           >
             Support
           </span>
-          <div
-            className="flex h-10 w-10 items-center justify-center rounded-full shadow"
+          <span
+            className="flex h-11 w-11 items-center justify-center rounded-full transition-transform duration-300 group-hover:scale-110"
             style={{ backgroundColor: p.iconBg }}
           >
             <Icon className="h-5 w-5" style={{ color: p.iconColor }} />
-          </div>
+          </span>
         </div>
 
-        {/* Content */}
+        {/* Title */}
         <h3
-          className="mb-2 text-lg font-bold leading-snug"
+          className="mb-2 text-lg font-bold leading-tight"
           style={{ color: p.title }}
         >
           {title}
         </h3>
+
+        {/* Description */}
         <p
-          className="mb-6 flex-1 text-sm leading-relaxed"
+          className="mb-6 flex-grow text-sm leading-relaxed"
           style={{ color: p.desc }}
         >
           {description}
         </p>
 
-        {/* CTA */}
-        <div className="flex items-center justify-between">
-          <span className="text-sm font-semibold" style={{ color: p.title }}>
-            Apply Now
-          </span>
-          <div
-            className="flex h-10 w-10 items-center justify-center rounded-full shadow transition-transform group-hover:translate-x-1"
+        {/* Arrow CTA */}
+        <div className="flex items-center justify-end">
+          <span
+            className="flex h-9 w-9 items-center justify-center rounded-full transition-transform duration-300 group-hover:translate-x-1"
             style={{ backgroundColor: p.arrowBg }}
           >
-            <ArrowRight className="h-5 w-5" style={{ color: p.arrowIcon }} />
-          </div>
+            <ArrowRight className="h-4 w-4" style={{ color: p.arrowIcon }} />
+          </span>
         </div>
       </article>
     </Link>

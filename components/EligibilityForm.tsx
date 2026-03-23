@@ -1,11 +1,12 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import {
   ArrowLeft, CheckCircle, ChevronRight, Copy, Check,
-  User, School, BookOpen, Star, GraduationCap,
-  Target, FileText, Send,
+  User, School, BookOpen, Star, Send,
+  FileCheck, GraduationCap, CreditCard, Languages,
+  Stamp, Plane, DollarSign, FileText, Users, Building, LucideIcon,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -15,11 +16,11 @@ interface EligibilityFormProps {
 }
 
 const waiverOptions = [
-  { id: "100-app",   label: "100% Application fee waiver" },
-  { id: "50-app",    label: "50% Application fee waiver" },
-  { id: "100-wes",   label: "100% WES fee waiver" },
-  { id: "50-wes",    label: "50% WES fee waiver" },
-  { id: "mentorship",label: "Mentorship" },
+  { id: "100-app", label: "100% Application fee waiver" },
+  { id: "50-app", label: "50% Application fee waiver" },
+  { id: "100-wes", label: "100% WES fee waiver" },
+  { id: "50-wes", label: "50% WES fee waiver" },
+  { id: "mentorship", label: "Mentorship" },
 ]
 
 function generateEligibilityCode(serviceSlug: string): string {
@@ -30,20 +31,89 @@ function generateEligibilityCode(serviceSlug: string): string {
   return `${prefix}-${serviceCode}-${year}-${uniqueNum}`
 }
 
+const iconMap: Record<string, LucideIcon> = {
+  User, School, BookOpen, Star, FileCheck, GraduationCap,
+  CreditCard, Languages, Stamp, Plane, DollarSign, FileText, Users, Building,
+}
+
 const SECTIONS = [
-  { id: "personal",     label: "Personal Info",        icon: User },
-  { id: "academic",     label: "Academic Details",     icon: School },
-  { id: "application",  label: "Application Status",   icon: BookOpen },
-  { id: "opportunity",  label: "Opportunity Essay",    icon: Star },
+  { id: "personal", label: "Personal Info", iconName: "User" },
+  { id: "academic", label: "Academic Details", iconName: "School" },
+  { id: "application", label: "Application Status", iconName: "BookOpen" },
+  { id: "opportunity", label: "Opportunity Essay", iconName: "Star" },
 ]
+
+// Service-specific questions based on the service slug
+const serviceQuestions: Record<string, { label: string; placeholder: string; hint?: string }[]> = {
+  "wes-support": [
+    { label: "Which country did you complete your education in?", placeholder: "e.g. Nigeria, Ghana, Kenya" },
+    { label: "Have you started the WES application process?", placeholder: "Describe your current status" },
+    { label: "What degree are you seeking evaluation for?", placeholder: "e.g. Bachelor's in Computer Science" },
+  ],
+  "gre-support": [
+    { label: "Have you registered for the GRE?", placeholder: "Yes/No and registration details" },
+    { label: "What is your target GRE score?", placeholder: "e.g. 320+ (Verbal: 155, Quant: 165)" },
+    { label: "How are you preparing for the GRE?", placeholder: "Describe your study plan and resources" },
+  ],
+  "application-fee-support": [
+    { label: "How many universities are you applying to?", placeholder: "e.g. 5-10 universities" },
+    { label: "List the universities you plan to apply to", placeholder: "University names and programs" },
+    { label: "What is the total application fee amount needed?", placeholder: "e.g. $500 for 5 applications" },
+  ],
+  "initial-deposit-support": [
+    { label: "Which university requires the deposit?", placeholder: "University name and program" },
+    { label: "What is the deposit amount required?", placeholder: "e.g. $500 USD" },
+    { label: "What is the deadline for the deposit?", placeholder: "e.g. May 1, 2026" },
+  ],
+  "english-test-support": [
+    { label: "Which English test are you taking?", placeholder: "IELTS, TOEFL, or Duolingo" },
+    { label: "Have you registered for the test?", placeholder: "Registration status and test date" },
+    { label: "What is your target score?", placeholder: "e.g. IELTS 7.0 or TOEFL 100" },
+  ],
+  "sevis-fee-support": [
+    { label: "Have you received your I-20 form?", placeholder: "Yes/No and details" },
+    { label: "What is your SEVIS ID number?", placeholder: "Your SEVIS ID (if available)" },
+    { label: "When is your visa interview scheduled?", placeholder: "Date of interview or expected date" },
+  ],
+  "visa-fee-support": [
+    { label: "Which country's visa are you applying for?", placeholder: "e.g. United States, United Kingdom, Canada" },
+    { label: "What type of visa are you applying for?", placeholder: "e.g. F-1 Student Visa" },
+    { label: "Have you received your admission letter?", placeholder: "Yes/No and university details" },
+  ],
+  "tuition-fee-support": [
+    { label: "What is the total tuition amount per year?", placeholder: "e.g. $35,000 USD" },
+    { label: "Do you have other funding sources?", placeholder: "Scholarships, loans, family support, etc." },
+    { label: "How much tuition support do you need?", placeholder: "Specific amount or percentage" },
+  ],
+  "transcript-support": [
+    { label: "Which institution issued your transcript?", placeholder: "University or college name" },
+    { label: "What type of transcript evaluation do you need?", placeholder: "e.g. Course-by-course, document-by-document" },
+    { label: "How many copies do you need evaluated?", placeholder: "Number of transcripts" },
+  ],
+  "college-board-support": [
+    { label: "Which College Board services do you need?", placeholder: "SAT, AP, CSS Profile, etc." },
+    { label: "Have you registered for the SAT?", placeholder: "Registration status and test date" },
+    { label: "What is your target SAT score?", placeholder: "e.g. 1400+" },
+  ],
+  "mentorship-program": [
+    { label: "What area do you need mentorship in?", placeholder: "Application strategy, essay writing, interview prep, etc." },
+    { label: "What is your biggest challenge in the application process?", placeholder: "Describe your main obstacles" },
+    { label: "What are your career goals after completing your degree?", placeholder: "Your long-term aspirations" },
+  ],
+  "enrollment-deposit-support": [
+    { label: "Which university requires the enrollment deposit?", placeholder: "University name" },
+    { label: "What is the enrollment deposit amount?", placeholder: "e.g. $300 USD" },
+    { label: "Have you been officially admitted?", placeholder: "Yes/No and admission details" },
+  ],
+}
 
 export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormProps) {
   const router = useRouter()
-  const [step, setStep]         = useState(0)
+  const [step, setStep] = useState(0)
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess]       = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
   const [eligibilityCode, setEligibilityCode] = useState("")
-  const [copied, setCopied]     = useState(false)
+  const [copied, setCopied] = useState(false)
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -61,7 +131,13 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     concreteStep: "",
     whySelected: "",
     targetUniversities: "",
+    // Service-specific fields
+    serviceQuestion1: "",
+    serviceQuestion2: "",
+    serviceQuestion3: "",
   })
+
+  const questions = useMemo(() => serviceQuestions[serviceSlug] || [], [serviceSlug])
 
   const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
@@ -90,7 +166,6 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     try {
       const code = generateEligibilityCode(serviceSlug)
 
-      // Send application data to API — which emails vicecreativepath@gmail.com
       await fetch("/api/applications", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -111,45 +186,43 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     }
   }
 
-  /* ── Success Screen ─────────────────────────────── */
+  /* Success Screen */
   if (isSuccess) {
     return (
-      <div className="mx-auto max-w-2xl">
-        <div className="rounded-3xl bg-white p-8 shadow-2xl md:p-12">
-          <div className="text-center">
-            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-[#DCFCE7]">
-              <CheckCircle className="h-12 w-12 text-[#16A34A]" />
+      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="rounded-3xl bg-card p-8 shadow-2xl md:p-12">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+              <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-400" />
             </div>
-            <h2 className="mb-2 text-2xl font-black uppercase text-[#1F2937] md:text-3xl">
+            <h2 className="mb-2 text-2xl font-black uppercase text-foreground md:text-3xl">
               Application Received!
             </h2>
-            <p className="mb-8 text-[#6B7280]">
+            <p className="mb-8 text-muted-foreground">
               Your eligibility application for{" "}
-              <span className="font-semibold text-[#2563EB]">{serviceTitle}</span>{" "}
+              <span className="font-semibold text-scholarship">{serviceTitle}</span>{" "}
               has been submitted. Our team will review it within 48 hours.
             </p>
 
-            {/* Code box */}
-            <div className="mb-6 overflow-hidden rounded-2xl border-2 border-dashed border-[#B7F34B] bg-[#F7FDED] p-6">
-              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#6B7280]">
+            <div className="mb-6 overflow-hidden rounded-2xl border-2 border-dashed border-highlight bg-highlight/10 p-6">
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
                 Your Eligibility Code
               </p>
-              <p className="mb-4 font-mono text-2xl font-black tracking-widest text-[#1F2937] md:text-3xl">
+              <p className="mb-4 font-mono text-2xl font-black tracking-widest text-foreground md:text-3xl">
                 {eligibilityCode}
               </p>
               <button
                 onClick={handleCopy}
-                className="inline-flex items-center gap-2 rounded-full bg-[#1F2937] px-5 py-2 text-sm font-semibold text-white transition-all hover:bg-[#374151]"
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
               >
-                {copied ? <Check className="h-4 w-4 text-[#B7F34B]" /> : <Copy className="h-4 w-4" />}
+                {copied ? <Check className="h-4 w-4 text-highlight" /> : <Copy className="h-4 w-4" />}
                 {copied ? "Copied!" : "Copy Code"}
               </button>
             </div>
 
-            {/* Instructions */}
-            <div className="mb-8 rounded-2xl bg-[#F3F4F6] p-5 text-left">
-              <p className="mb-3 text-sm font-bold text-[#1F2937]">Next Steps:</p>
-              <ul className="space-y-2 text-sm text-[#4B5563]">
+            <div className="mb-8 rounded-2xl bg-muted p-5 text-left">
+              <p className="mb-3 text-sm font-bold text-foreground">Next Steps:</p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
                 {[
                   "Save your eligibility code — you will need it for payment verification.",
                   "Check your email for a confirmation from our team.",
@@ -157,7 +230,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                   "Once approved, use your code to redeem your financial support.",
                 ].map((item, i) => (
                   <li key={i} className="flex items-start gap-2">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#B7F34B] text-xs font-bold text-[#1F2937]">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-highlight text-xs font-bold text-accent-foreground">
                       {i + 1}
                     </span>
                     {item}
@@ -168,7 +241,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
 
             <button
               onClick={() => router.push("/")}
-              className="inline-flex items-center gap-2 rounded-full bg-[#1F2937] px-8 py-3 font-semibold text-white transition-all hover:bg-[#374151]"
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-semibold text-primary-foreground transition-all hover:opacity-90"
             >
               Return to Home
             </button>
@@ -178,30 +251,29 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     )
   }
 
-  /* ── Field Component ─────────────────────────────── */
+  /* Field Component */
   const Field = ({
-    id, label, required = true, children,
-    hint,
+    id, label, required = true, children, hint,
   }: {
     id: string; label: string; required?: boolean; children: React.ReactNode; hint?: string
   }) => (
     <div className="flex flex-col gap-1.5">
-      <label htmlFor={id} className="text-sm font-semibold text-[#374151]">
-        {label}{required && <span className="ml-1 text-red-500">*</span>}
+      <label htmlFor={id} className="text-sm font-semibold text-foreground">
+        {label}{required && <span className="ml-1 text-destructive">*</span>}
       </label>
-      {hint && <p className="text-xs text-[#9CA3AF]">{hint}</p>}
+      {hint && <p className="text-xs text-muted-foreground">{hint}</p>}
       {children}
     </div>
   )
 
   const inputCls =
-    "rounded-xl border border-[#E5E7EB] bg-[#F9FAFB] px-4 py-3 text-sm text-[#1F2937] placeholder-[#9CA3AF] outline-none transition focus:border-[#2563EB] focus:bg-white focus:ring-2 focus:ring-[#2563EB]/20"
+    "rounded-xl border border-border bg-muted px-4 py-3 text-sm text-foreground placeholder-muted-foreground outline-none transition-all duration-200 focus:border-scholarship focus:bg-card focus:ring-2 focus:ring-scholarship/20"
 
-  /* ── Step Content ────────────────────────────────── */
+  /* Step Content */
   const steps = [
     /* Step 0 — Personal Info */
-    <div key="personal" className="space-y-5">
-      <div className="grid gap-5 sm:grid-cols-2">
+    <div key="personal" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
+      <div className="grid gap-5 md:grid-cols-2">
         <Field id="fullName" label="Full Name">
           <input id="fullName" name="fullName" value={formData.fullName} onChange={handleInput} required placeholder="Your full name" className={inputCls} />
         </Field>
@@ -209,7 +281,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
           <input id="email" name="email" type="email" value={formData.email} onChange={handleInput} required placeholder="you@example.com" className={inputCls} />
         </Field>
       </div>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         <Field id="phone" label="Phone Number" required={false}>
           <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInput} placeholder="+234 801 234 5678" className={inputCls} />
         </Field>
@@ -220,11 +292,11 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     </div>,
 
     /* Step 1 — Academic Details */
-    <div key="academic" className="space-y-5">
+    <div key="academic" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <Field id="university" label="University Attended">
         <input id="university" name="university" value={formData.university} onChange={handleInput} required placeholder="Your undergraduate university" className={inputCls} />
       </Field>
-      <div className="grid gap-5 sm:grid-cols-2">
+      <div className="grid gap-5 md:grid-cols-2">
         <Field id="course" label="Course Studied">
           <input id="course" name="course" value={formData.course} onChange={handleInput} required placeholder="e.g. Computer Science" className={inputCls} />
         </Field>
@@ -237,20 +309,41 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       </Field>
     </div>,
 
-    /* Step 2 — Application Status */
-    <div key="application" className="space-y-6">
+    /* Step 2 — Application Status with Service-Specific Questions */
+    <div key="application" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-6">
+      {/* Service-specific questions */}
+      {questions.length > 0 && (
+        <div className="rounded-2xl border border-scholarship/20 bg-scholarship/5 p-5 space-y-5">
+          <p className="text-sm font-bold text-scholarship">Questions specific to {serviceTitle}</p>
+          {questions.map((q, idx) => (
+            <Field key={idx} id={`serviceQuestion${idx + 1}`} label={q.label} hint={q.hint}>
+              <textarea
+                id={`serviceQuestion${idx + 1}`}
+                name={`serviceQuestion${idx + 1}`}
+                value={formData[`serviceQuestion${idx + 1}` as keyof typeof formData] as string}
+                onChange={handleInput}
+                rows={2}
+                required
+                placeholder={q.placeholder}
+                className={`${inputCls} resize-none`}
+              />
+            </Field>
+          ))}
+        </div>
+      )}
+
       <div>
-        <p className="mb-3 text-sm font-semibold text-[#374151]">
-          Have you started your graduate application? <span className="text-red-500">*</span>
+        <p className="mb-3 text-sm font-semibold text-foreground">
+          Have you started your graduate application? <span className="text-destructive">*</span>
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           {["yes", "no"].map((v) => (
             <label
               key={v}
-              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition-all ${
+              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition-all duration-200 ${
                 formData.hasStartedApplication === v
-                  ? "border-[#2563EB] bg-[#DBEAFE] font-semibold text-[#2563EB]"
-                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#2563EB]/40"
+                  ? "border-scholarship bg-scholarship/10 font-semibold text-scholarship"
+                  : "border-border text-muted-foreground hover:border-scholarship/40"
               }`}
             >
               <input
@@ -268,43 +361,43 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-semibold text-[#374151]">
-          Which support would you like to subscribe to? <span className="text-red-500">*</span>
+        <p className="mb-3 text-sm font-semibold text-foreground">
+          Which support would you like to subscribe to? <span className="text-destructive">*</span>
         </p>
         <div className="space-y-3">
           {waiverOptions.map((opt) => (
             <label
               key={opt.id}
-              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 transition-all ${
+              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-4 py-3 transition-all duration-200 ${
                 formData.waiverOptions.includes(opt.id)
-                  ? "border-[#2563EB] bg-[#DBEAFE]"
-                  : "border-[#E5E7EB] hover:border-[#2563EB]/40"
+                  ? "border-scholarship bg-scholarship/10"
+                  : "border-border hover:border-scholarship/40"
               }`}
             >
               <input
                 type="checkbox"
                 checked={formData.waiverOptions.includes(opt.id)}
                 onChange={(e) => handleCheckbox(opt.id, e.target.checked)}
-                className="h-4 w-4 rounded accent-[#2563EB]"
+                className="h-4 w-4 rounded accent-scholarship"
               />
-              <span className="text-sm font-medium text-[#1F2937]">{opt.label}</span>
+              <span className="text-sm font-medium text-foreground">{opt.label}</span>
             </label>
           ))}
         </div>
       </div>
 
       <div>
-        <p className="mb-3 text-sm font-semibold text-[#374151]">
-          100% waiver is limited. Would you accept a partial waiver? <span className="text-red-500">*</span>
+        <p className="mb-3 text-sm font-semibold text-foreground">
+          100% waiver is limited. Would you accept a partial waiver? <span className="text-destructive">*</span>
         </p>
-        <div className="flex gap-4">
+        <div className="flex flex-wrap gap-4">
           {["yes", "no"].map((v) => (
             <label
               key={v}
-              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition-all ${
+              className={`flex cursor-pointer items-center gap-3 rounded-xl border-2 px-5 py-3 transition-all duration-200 ${
                 formData.acceptPartialWaiver === v
-                  ? "border-[#2563EB] bg-[#DBEAFE] font-semibold text-[#2563EB]"
-                  : "border-[#E5E7EB] text-[#6B7280] hover:border-[#2563EB]/40"
+                  ? "border-scholarship bg-scholarship/10 font-semibold text-scholarship"
+                  : "border-border text-muted-foreground hover:border-scholarship/40"
               }`}
             >
               <input
@@ -327,7 +420,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     </div>,
 
     /* Step 3 — Essay */
-    <div key="opportunity" className="space-y-5">
+    <div key="opportunity" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <Field
         id="concreteStep"
         label="Describe one concrete step you have taken toward your graduate application"
@@ -337,7 +430,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       </Field>
       <Field
         id="whySelected"
-        label="In 100–150 words, why should you be selected and how will you maximize this opportunity?"
+        label="In 100-150 words, why should you be selected and how will you maximize this opportunity?"
       >
         <textarea id="whySelected" name="whySelected" value={formData.whySelected} onChange={handleInput} rows={6} required placeholder="Explain why you should be selected..." className={`${inputCls} resize-none`} />
       </Field>
@@ -353,40 +446,40 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   const isLastStep = step === SECTIONS.length - 1
 
   return (
-    <div className="mx-auto max-w-3xl">
+    <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
       {/* Back */}
       <Link
         href="/#services"
-        className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-[#6B7280] transition-colors hover:text-[#1F2937]"
+        className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
         Back to Services
       </Link>
 
-      <div className="overflow-hidden rounded-3xl bg-white shadow-2xl">
+      <div className="overflow-hidden rounded-3xl bg-card shadow-2xl">
         {/* Progress bar */}
-        <div className="h-1.5 bg-[#F3F4F6]">
+        <div className="h-1.5 bg-muted">
           <div
-            className="h-full bg-[#2563EB] transition-all duration-500"
+            className="h-full bg-scholarship transition-all duration-500"
             style={{ width: `${((step + 1) / SECTIONS.length) * 100}%` }}
           />
         </div>
 
         {/* Step tabs */}
-        <div className="grid grid-cols-4 border-b border-[#E5E7EB]">
+        <div className="grid grid-cols-4 border-b border-border">
           {SECTIONS.map((s, i) => {
-            const Icon = s.icon
+            const Icon = iconMap[s.iconName] || User
             return (
               <button
                 key={s.id}
                 type="button"
                 onClick={() => i <= step && setStep(i)}
-                className={`flex flex-col items-center gap-1 px-2 py-4 text-center transition-colors ${
+                className={`flex flex-col items-center gap-1 px-2 py-4 text-center transition-all duration-200 ${
                   i === step
-                    ? "bg-[#EFF6FF] text-[#2563EB]"
+                    ? "bg-scholarship/10 text-scholarship"
                     : i < step
-                    ? "cursor-pointer text-[#16A34A] hover:bg-[#F0FDF4]"
-                    : "cursor-default text-[#D1D5DB]"
+                    ? "cursor-pointer text-green-600 dark:text-green-400 hover:bg-muted"
+                    : "cursor-default text-muted-foreground/50"
                 }`}
               >
                 {i < step ? (
@@ -403,12 +496,12 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
 
         {/* Form body */}
         <form onSubmit={isLastStep ? handleSubmit : (e) => { e.preventDefault(); setStep(step + 1) }}>
-          <div className="p-8 md:p-10">
+          <div className="p-6 md:p-10">
             <div className="mb-6">
-              <p className="text-xs font-bold uppercase tracking-widest text-[#9CA3AF]">
+              <p className="text-xs font-bold uppercase tracking-widest text-muted-foreground">
                 Step {step + 1} of {SECTIONS.length}
               </p>
-              <h2 className="mt-1 text-xl font-bold text-[#1F2937]">{SECTIONS[step].label}</h2>
+              <h2 className="mt-1 text-xl font-bold text-foreground">{SECTIONS[step].label}</h2>
             </div>
 
             {steps[step]}
@@ -419,7 +512,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                 <button
                   type="button"
                   onClick={() => setStep(step - 1)}
-                  className="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-[#6B7280] transition-all hover:bg-[#F3F4F6]"
+                  className="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-semibold text-muted-foreground transition-all hover:bg-muted"
                 >
                   <ArrowLeft className="h-4 w-4" />
                   Previous
@@ -431,7 +524,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="flex items-center gap-2 rounded-xl bg-[#1F2937] px-8 py-3 text-sm font-bold text-white shadow-lg transition-all hover:bg-[#374151] hover:shadow-xl disabled:opacity-60"
+                className="flex items-center gap-2 rounded-xl bg-primary px-8 py-3 text-sm font-bold text-primary-foreground shadow-lg transition-all hover:opacity-90 hover:shadow-xl disabled:opacity-60"
               >
                 {isSubmitting ? (
                   <>

@@ -44,7 +44,7 @@ export function Testimonials() {
   const prev = () => setCurrent((prev) => (prev - 1 + testimonials.length) % testimonials.length)
 
   return (
-    <section id="testimonials" className="bg-background py-16 lg:py-24">
+    <section id="testimonials" className="bg-background py-16 lg:py-24 transition-colors">
       <div className="mx-auto max-w-7xl px-4 lg:px-8">
         {/* Section Header */}
         <div className="mb-12 flex flex-col items-start justify-between gap-6 md:flex-row md:items-end">

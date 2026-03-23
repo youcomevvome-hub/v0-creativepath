@@ -44,12 +44,12 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#F7F8FA]">
+    <div className="min-h-screen bg-background transition-colors">
       <Navbar />
       <main>
 
         {/* ── Hero ───────────────────────────────────── */}
-        <section className="relative overflow-hidden bg-[#1F2937] py-20 lg:py-28">
+        <section className="relative overflow-hidden bg-primary py-20 lg:py-28 transition-colors">
           {/* dot grid */}
           <div
             className="absolute inset-0 opacity-10"
@@ -185,7 +185,7 @@ export default function AboutPage() {
         </section>
 
         {/* ── CTA ───────────────────────────────────── */}
-        <section className="bg-[#1F2937] py-16">
+        <section className="bg-primary py-16 transition-colors">
           <div className="mx-auto max-w-3xl px-4 text-center lg:px-8">
             <h2 className="mb-4 text-3xl font-black uppercase text-white md:text-4xl text-balance">
               Ready to Start Your Journey?
