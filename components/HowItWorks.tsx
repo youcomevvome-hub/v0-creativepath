@@ -58,12 +58,12 @@ export function HowItWorks() {
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Image */}
-              <div className="relative h-40 overflow-hidden">
+              <div className="relative w-full h-40 overflow-hidden">
                 <Image
                   src={step.image}
                   alt={step.title}
                   fill
-                  className="object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
                 <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB] text-white font-bold text-sm">
@@ -90,13 +90,13 @@ export function HowItWorks() {
         </div>
 
         {/* CTA Section */}
-        <div className="mt-16 relative overflow-hidden rounded-3xl">
-          <div className="absolute inset-0">
+        <div className="mt-16 relative overflow-hidden rounded-3xl w-full">
+          <div className="absolute inset-0 w-full h-full">
             <Image
               src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1200"
               alt="Students celebrating"
               fill
-              className="object-cover"
+              className="object-cover w-full h-full"
             />
             <div className="absolute inset-0 bg-[#2563EB]/90" />
           </div>

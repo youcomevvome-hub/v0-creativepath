@@ -52,12 +52,12 @@ export default function AboutPage() {
       <main>
         {/* Hero Section with Image */}
         <section className="relative overflow-hidden">
-          <div className="absolute inset-0">
+          <div className="absolute inset-0 w-full h-full">
             <Image
               src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt="Students collaborating"
               fill
-              className="object-cover"
+              className="object-cover w-full h-full"
               priority
             />
             <div className="absolute inset-0 bg-gradient-to-r from-[#0C1220]/95 to-[#0C1220]/70" />
@@ -109,12 +109,12 @@ export default function AboutPage() {
                       program.featured ? "sm:col-span-2" : ""
                     }`}
                   >
-                    <div className={`relative ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
+                    <div className={`relative w-full ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
                       <Image
                         src={program.image}
                         alt={program.title}
                         fill
-                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                        className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
                       <div className="absolute bottom-0 left-0 right-0 p-6">
@@ -203,20 +203,23 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Stats Section - Calmerry style */}
-        <section className="py-20 lg:py-28 bg-[#E0F2FE] dark:bg-[#0C4A6E] transition-colors">
+        {/* Impact Stats Section */}
+        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-gray-900/50 transition-colors">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="mb-12 text-center">
-              <h2 className="text-3xl font-bold text-[#0C4A6E] dark:text-white md:text-4xl">
-                Fueling academic growth<br />through collective support
+            <div className="mb-16 text-center">
+              <h2 className="text-3xl font-bold text-black dark:text-white md:text-4xl mb-4">
+                Our Impact
               </h2>
+              <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Measurable results from our commitment to supporting talented students.
+              </p>
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((stat) => (
-                <div key={stat.label} className="rounded-3xl bg-white/80 dark:bg-white/10 backdrop-blur-sm p-8 text-center transition-all hover:-translate-y-1 hover:shadow-xl">
-                  <p className="text-4xl font-bold text-[#0369A1] dark:text-[#7DD3FC]">{stat.value}</p>
-                  <p className="mt-2 text-sm text-gray-600 dark:text-gray-300">{stat.label}</p>
+                <div key={stat.label} className="rounded-2xl bg-white dark:bg-white/5 border border-gray-200 dark:border-white/10 p-8 text-center transition-all hover:shadow-lg hover:-translate-y-1">
+                  <p className="text-4xl font-bold text-black dark:text-white">{stat.value}</p>
+                  <p className="mt-3 text-sm font-medium text-gray-600 dark:text-gray-400">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -236,16 +239,16 @@ export default function AboutPage() {
             </div>
             <div className="grid gap-8 lg:grid-cols-3">
               {[
-                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", color: "bg-[#2563EB]", image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400" },
-                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", color: "bg-[#0891B2]", image: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400" },
-                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", color: "bg-[#059669]", image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", image: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400" },
               ].map((value) => (
-                <div key={value.title} className="group rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl">
-                  <div className="relative h-48">
-                    <Image src={value.image} alt={value.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
+                <div key={value.title} className="group rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/10">
+                  <div className="relative w-full h-48">
+                    <Image src={value.image} alt={value.title} fill className="object-cover w-full h-full transition-transform duration-500 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className={`absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl ${value.color}`}>
-                      <value.icon className="h-6 w-6 text-white" />
+                    <div className="absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl bg-black dark:bg-white">
+                      <value.icon className="h-6 w-6 text-white dark:text-black" />
                     </div>
                   </div>
                   <div className="p-6">
@@ -259,21 +262,21 @@ export default function AboutPage() {
         </section>
 
         {/* CTA Section */}
-        <section className="bg-[#2563EB] py-16">
+        <section className="bg-black dark:bg-gray-900 py-20 lg:py-28">
           <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-            <h2 className="mb-4 text-3xl font-bold text-white md:text-4xl">
+            <h2 className="mb-4 text-4xl font-bold text-white md:text-5xl">
               Ready to Start Your Journey?
             </h2>
-            <p className="mb-8 text-lg text-white/80">
+            <p className="mb-8 text-lg text-gray-300">
               Join hundreds of scholars who have achieved their dreams with our support.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12" asChild>
+              <Button size="lg" className="rounded-full bg-white text-black hover:bg-gray-200 px-8 h-12 font-semibold" asChild>
                 <Link href="/apply/wes-support">
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12" asChild>
+              <Button size="lg" className="rounded-full border-2 border-white text-white hover:bg-white hover:text-black px-8 h-12 font-semibold transition-all" asChild>
                 <Link href="/contact">Become a Mentor</Link>
               </Button>
             </div>

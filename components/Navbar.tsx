@@ -15,20 +15,35 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ]
 
-// Animated balls around logo - simplified without style jsx
+// Animated balls around logo - moves towards and away
 function AnimatedBalls() {
+  const positions = [
+    { duration: "3s", delay: "0s", x: "80%", y: "20%" },
+    { duration: "3.5s", delay: "0.5s", x: "70%", y: "80%" },
+    { duration: "3.2s", delay: "1s", x: "20%", y: "70%" },
+  ]
+
   return (
     <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {[...Array(3)].map((_, i) => (
+      <style>{`
+        @keyframes orbitIn {
+          0%, 100% { transform: translate(var(--start-x), var(--start-y)); opacity: 0.6; }
+          50% { transform: translate(50%, 50%); opacity: 0; }
+        }
+        .ball-animate {
+          animation: orbitIn forwards;
+        }
+      `}</style>
+      {positions.map((pos, i) => (
         <div
           key={i}
-          className="absolute w-2 h-2 rounded-full bg-[#2563EB]/60 animate-pulse"
+          className="absolute w-2 h-2 rounded-full bg-[#2563EB]"
           style={{
-            top: `${30 + i * 20}%`,
-            left: `${20 + i * 25}%`,
-            animationDelay: `${i * 0.3}s`,
-            animationDuration: `${1.5 + i * 0.5}s`,
-          }}
+            animation: `orbitIn ${pos.duration} infinite ease-in-out`,
+            animationDelay: pos.delay,
+            '--start-x': pos.x,
+            '--start-y': pos.y,
+          } as React.CSSProperties}
         />
       ))}
     </div>

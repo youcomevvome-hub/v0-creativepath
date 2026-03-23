@@ -10,7 +10,7 @@ import { Button } from "@/components/ui/button"
 
 const contactInfo = [
   { icon: Mail, label: "Email Us", value: "vicecreativepath@gmail.com", href: "mailto:vicecreativepath@gmail.com" },
-  { icon: Phone, label: "Call Us", value: "+1 (234) 567-890", href: "tel:+1234567890" },
+  { icon: Phone, label: "Call Us", value: "+447404599897", href: "tel:+447404599897" },
   { icon: Clock, label: "Response Time", value: "Within 24-48 hours", href: null },
   { icon: MapPin, label: "Operations", value: "Global - serving students worldwide", href: null },
 ]
@@ -88,12 +88,12 @@ export default function ContactPage() {
               </div>
 
               {/* Team Image */}
-              <div className="relative h-[300px] lg:h-[400px]">
+              <div className="relative w-full h-[300px] lg:h-[400px]">
                 <Image
                   src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200"
                   alt="Our Global Team"
                   fill
-                  className="object-cover"
+                  className="object-cover w-full h-full"
                   priority
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />

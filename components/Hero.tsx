@@ -46,18 +46,18 @@ export function Hero() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section className="relative overflow-hidden bg-[#F0F4F8] dark:bg-[#0C1220] min-h-screen flex flex-col items-center justify-center transition-colors">
-      {/* Blurred dot grid background with pattern */}
+    <section className="relative overflow-hidden bg-white dark:bg-[#0C1220] min-h-screen flex flex-col items-center justify-center transition-colors">
+      {/* Smooth dot grid background with pattern */}
       <div
-        className="absolute inset-0 opacity-40 dark:opacity-30"
+        className="absolute inset-0 opacity-20 dark:opacity-30"
         style={{
-          backgroundImage: "radial-gradient(circle, #94A3B8 1.5px, transparent 1.5px)",
-          backgroundSize: "48px 48px",
+          backgroundImage: "radial-gradient(circle, #D1D5DB 1px, transparent 1px)",
+          backgroundSize: "50px 50px",
         }}
       />
       
-      {/* Additional blur overlay */}
-      <div className="absolute inset-0 backdrop-blur-[2px]" />
+      {/* Blur overlay for smooth effect */}
+      <div className="absolute inset-0 backdrop-blur-sm" />
 
       {/* Decorative circles */}
       <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#2563EB]/10 blur-3xl" />
@@ -72,14 +72,13 @@ export function Hero() {
               {/* Main Hero Image */}
               <div className="relative rounded-3xl overflow-hidden shadow-2xl">
                 <Image
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Students collaborating"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
+                  alt="Student ready for studying abroad"
                   width={500}
                   height={600}
                   className="w-full h-auto object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
 
               {/* Interactive Floating Cards */}
