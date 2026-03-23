@@ -143,6 +143,11 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
   }
 
+  const handleFocus = (e: React.FocusEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    // Keep focus on the input - prevents blur on typing
+    e.currentTarget.focus()
+  }
+
   const handleRadio = (name: string, value: string) =>
     setFormData((prev) => ({ ...prev, [name]: value }))
 
@@ -275,7 +280,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     <div key="personal" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <div className="grid gap-5 md:grid-cols-2">
         <Field id="fullName" label="Full Name">
-          <input id="fullName" name="fullName" value={formData.fullName} onChange={handleInput} required placeholder="Your full name" className={inputCls} />
+          <input id="fullName" name="fullName" value={formData.fullName} onChange={handleInput} onFocus={handleFocus} required placeholder="Your full name" className={inputCls} />
         </Field>
         <Field id="email" label="Email Address">
           <input id="email" name="email" type="email" value={formData.email} onChange={handleInput} required placeholder="you@example.com" className={inputCls} />
