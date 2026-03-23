@@ -8,17 +8,17 @@ import { Button } from "@/components/ui/button"
 export function Hero() {
   return (
     <section className="relative overflow-hidden bg-white dark:bg-black min-h-screen flex flex-col items-center justify-center transition-colors">
-      {/* Blurred patterned background */}
-      <div className="absolute inset-0 opacity-50 dark:opacity-30">
-        <div
-          className="absolute inset-0 blur-3xl"
-          style={{
-            backgroundImage: "radial-gradient(circle, #e0e0e0 0.5px, transparent 0.5px), radial-gradient(circle, #d0d0d0 0.5px, transparent 0.5px)",
-            backgroundSize: "50px 50px, 80px 80px",
-            backgroundPosition: "0 0, 25px 25px",
-          }}
-        />
-      </div>
+      {/* Blurred dot grid background */}
+      <div
+        className="absolute inset-0 opacity-30 dark:opacity-20 blur-sm"
+        style={{
+          backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
+          backgroundSize: "40px 40px",
+        }}
+      />
+      
+      {/* Additional blur overlay */}
+      <div className="absolute inset-0 backdrop-blur-sm" />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 flex-1 flex items-center">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 w-full">
@@ -26,20 +26,18 @@ export function Hero() {
           {/* Left column - Image */}
           <div className="relative flex justify-center order-2 lg:order-1">
             <div className="relative w-full max-w-[480px] animate-in fade-in slide-in-from-left-8 duration-700">
-              <div className="relative w-full aspect-[6/7]">
-                <Image
-                  src="/images/hero-student.png"
-                  alt="Student ready to study abroad"
-                  fill
-                  className="object-contain drop-shadow-2xl"
-                  priority
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 480px"
-                />
-              </div>
+              {/* Student photo */}
+              <Image
+                src="/images/hero-student.png"
+                alt="Student ready to study abroad"
+                width={480}
+                height={580}
+                className="relative z-10 w-full h-auto object-contain drop-shadow-2xl"
+                priority
+              />
 
-              {/* Interactive floating tile - top left */}
-              <div className="absolute -left-4 top-4 z-20 w-[160px] rounded-3xl bg-black dark:bg-white p-5 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-200 hover:shadow-xl hover:scale-105 transition-all cursor-pointer group">
-                <div className="absolute inset-0 rounded-3xl bg-black dark:bg-white opacity-0 group-hover:opacity-5 transition-all" />
+              {/* Floating tile - top left (blue) */}
+              <div className="absolute -left-4 top-4 z-20 w-[160px] rounded-3xl bg-black dark:bg-white p-5 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
                 <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white dark:text-black/70">
                   Financial Aid
                 </p>
@@ -48,9 +46,8 @@ export function Hero() {
                 </p>
               </div>
 
-              {/* Interactive floating tile - top right */}
-              <div className="absolute -right-4 top-8 z-20 w-[140px] rounded-3xl bg-gray-800 dark:bg-gray-200 p-5 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-300 hover:shadow-xl hover:scale-105 transition-all cursor-pointer group">
-                <div className="absolute inset-0 rounded-3xl bg-white dark:bg-black opacity-0 group-hover:opacity-10 transition-all" />
+              {/* Floating tile - top right (gray) */}
+              <div className="absolute -right-4 top-8 z-20 w-[140px] rounded-3xl bg-gray-800 dark:bg-gray-200 p-5 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-300">
                 <p className="mb-1 text-[10px] font-semibold uppercase tracking-widest text-white dark:text-gray-800">
                   Mentorship
                 </p>
@@ -59,9 +56,8 @@ export function Hero() {
                 </p>
               </div>
 
-              {/* Interactive floating tile - right middle */}
-              <div className="absolute -right-8 top-[45%] z-20 w-[130px] rounded-3xl bg-gray-600 dark:bg-gray-300 p-4 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-400 hover:shadow-xl hover:scale-105 transition-all cursor-pointer group">
-                <div className="absolute inset-0 rounded-3xl bg-white dark:bg-black opacity-0 group-hover:opacity-10 transition-all" />
+              {/* Floating tile - right middle (light) */}
+              <div className="absolute -right-8 top-[45%] z-20 w-[130px] rounded-3xl bg-gray-600 dark:bg-gray-300 p-4 shadow-2xl animate-in fade-in slide-in-from-right-4 duration-500 delay-400">
                 <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-white dark:text-gray-700">
                   Registration
                 </p>
@@ -70,9 +66,8 @@ export function Hero() {
                 </p>
               </div>
 
-              {/* Interactive floating tile - bottom left */}
-              <div className="absolute -left-2 bottom-24 z-20 w-[150px] rounded-3xl bg-white dark:bg-black border border-black dark:border-white p-4 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-500 hover:shadow-xl hover:scale-105 transition-all cursor-pointer group">
-                <div className="absolute inset-0 rounded-3xl bg-black dark:bg-white opacity-0 group-hover:opacity-5 transition-all" />
+              {/* Floating tile - bottom left (white) */}
+              <div className="absolute -left-2 bottom-24 z-20 w-[150px] rounded-3xl bg-white dark:bg-black border border-black dark:border-white p-4 shadow-2xl animate-in fade-in slide-in-from-left-4 duration-500 delay-500">
                 <p className="mb-1 text-[9px] font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
                   Visa Support
                 </p>
@@ -139,6 +134,19 @@ export function Hero() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Bottom ticker - Moved below hero */}
+      <div className="relative w-full border-t border-gray-200 dark:border-gray-800 bg-gray-50 dark:bg-gray-900/50 py-8">
+        <div className="mx-auto max-w-7xl px-6 lg:px-8">
+          <div className="flex items-center justify-center gap-3">
+            <div className="h-3 w-3 rounded-full bg-black dark:bg-white animate-pulse" />
+            <p className="text-center text-sm font-medium text-gray-900 dark:text-white">
+              <span className="font-bold">Start Before Doubt Returns</span> — Apply today and begin your journey to your dream university
+            </p>
+            <div className="h-3 w-3 rounded-full bg-black dark:bg-white animate-pulse" />
           </div>
         </div>
       </div>

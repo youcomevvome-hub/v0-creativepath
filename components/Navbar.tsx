@@ -33,18 +33,14 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/90 dark:bg-black/90 backdrop-blur-md transition-colors">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
 
-        {/* Logo with animation and proper background */}
-        <Link href="/" className="flex items-center gap-2 shrink-0 group relative">
-          {/* Animated balls around logo */}
-          <div className="absolute -left-8 top-0 h-3 w-3 rounded-full bg-black dark:bg-white animate-bounce" style={{ animationDelay: '0s' }} />
-          <div className="absolute -right-8 bottom-1 h-2.5 w-2.5 rounded-full bg-gray-400 dark:bg-gray-600 animate-bounce" style={{ animationDelay: '0.2s' }} />
-          
-          <div className="relative h-12 w-48 rounded-lg bg-black dark:bg-white p-2 group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
+        {/* Logo with animation */}
+        <Link href="/" className="flex items-center gap-2 shrink-0 group">
+          <div className="relative h-12 w-48 rounded-lg bg-black dark:bg-white p-1 group-hover:shadow-lg transition-all duration-300 group-hover:scale-105">
             <Image
               src="/images/logo.png"
               alt="Creative Path Inspired"
               fill
-              className="object-contain drop-shadow-sm"
+              className="object-contain group-hover:opacity-80 transition-opacity"
               priority
             />
           </div>
