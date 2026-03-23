@@ -5,12 +5,12 @@ import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
 import Image from "next/image"
 import Link from "next/link"
-import { Mail, Phone, MapPin, Send, CheckCircle, Clock, Heart, Users, DollarSign, ArrowRight } from "lucide-react"
+import { Mail, Phone, MapPin, CheckCircle, Clock, Heart, Users, ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
 const contactInfo = [
   { icon: Mail, label: "Email Us", value: "vicecreativepath@gmail.com", href: "mailto:vicecreativepath@gmail.com" },
-  { icon: Phone, label: "Call Us", value: "+1 (234) 567-890", href: "tel:+1234567890" },
+  { icon: Phone, label: "Call Us", value: "+447404599897", href: "tel:+447404599897" },
   { icon: Clock, label: "Response Time", value: "Within 24-48 hours", href: null },
   { icon: MapPin, label: "Operations", value: "Global - serving students worldwide", href: null },
 ]
@@ -61,29 +61,29 @@ export default function ContactPage() {
     }
   }
 
-  const inputClass = "w-full rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1D1D1F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
+  const inputClass = "w-full rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1D1D1F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none transition-colors focus:border-[#1E3A5F] dark:focus:border-white"
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
       <Navbar />
 
       <main>
-        {/* Hero Banner with Team Image - Calmerry Style */}
-        <section className="relative overflow-hidden bg-[#E0F2FE] dark:bg-[#0C4A6E] py-16 lg:py-24">
+        {/* Hero Banner with Team Image */}
+        <section className="relative overflow-hidden bg-gray-100 dark:bg-[#1D1D1F] py-16 lg:py-24">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
-            <div className="rounded-3xl overflow-hidden bg-white dark:bg-[#1D1D1F] shadow-2xl">
+            <div className="rounded-3xl overflow-hidden bg-white dark:bg-[#0C1220] shadow-2xl dark:shadow-white/5 border border-gray-200 dark:border-white/10">
               {/* Header */}
               <div className="p-6 flex items-center justify-between border-b border-gray-100 dark:border-gray-800">
                 <div className="flex items-center gap-2">
-                  <div className="h-8 w-8 rounded-lg bg-[#2563EB] flex items-center justify-center">
+                  <div className="h-8 w-8 rounded-lg bg-[#1E3A5F] flex items-center justify-center">
                     <span className="text-white text-xs font-bold">CP</span>
                   </div>
                   <span className="font-semibold text-gray-900 dark:text-white">Creative Path Inspired</span>
                 </div>
                 <div className="hidden md:flex gap-6 text-sm">
-                  <button onClick={() => setActiveSection("contact")} className={activeSection === "contact" ? "text-[#2563EB] font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#2563EB]"}>Contact</button>
-                  <button onClick={() => setActiveSection("mentor")} className={activeSection === "mentor" ? "text-[#2563EB] font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#2563EB]"}>Become a Mentor</button>
-                  <button onClick={() => setActiveSection("support")} className={activeSection === "support" ? "text-[#2563EB] font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#2563EB]"}>Support Us</button>
+                  <button onClick={() => { setActiveSection("contact"); setSuccess(false); }} className={activeSection === "contact" ? "text-[#1E3A5F] dark:text-white font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#1E3A5F] dark:hover:text-white"}>Contact</button>
+                  <button onClick={() => { setActiveSection("mentor"); setSuccess(false); }} className={activeSection === "mentor" ? "text-[#1E3A5F] dark:text-white font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#1E3A5F] dark:hover:text-white"}>Become a Mentor</button>
+                  <button onClick={() => { setActiveSection("support"); setSuccess(false); }} className={activeSection === "support" ? "text-[#1E3A5F] dark:text-white font-semibold" : "text-gray-600 dark:text-gray-400 hover:text-[#1E3A5F] dark:hover:text-white"}>Support Us</button>
                 </div>
               </div>
 
@@ -96,27 +96,30 @@ export default function ContactPage() {
                   className="object-cover"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent" />
+                <div className="absolute inset-0 bg-black/30" />
               </div>
 
               {/* Headline */}
               <div className="p-8 lg:p-12 text-center">
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                  Fueling academic dreams<br />through collective support
+                  Connect with Our Team
                 </h1>
+                <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
+                  Whether you need support, want to mentor, or contribute to our mission — we&apos;re here to help.
+                </p>
               </div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section - Calmerry Style */}
-        <section className="py-12 bg-[#E0F2FE] dark:bg-[#0C4A6E]">
+        {/* Stats Section */}
+        <section className="py-12 bg-gray-100 dark:bg-[#1D1D1F]">
           <div className="mx-auto max-w-6xl px-6 lg:px-8">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((stat, idx) => (
-                <div key={idx} className="rounded-3xl bg-white/80 dark:bg-white/10 backdrop-blur-sm p-6 text-center shadow-sm">
-                  <p className="text-3xl lg:text-4xl font-bold text-[#0369A1] dark:text-[#7DD3FC]">{stat.value}</p>
-                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-300">{stat.label}</p>
+                <div key={idx} className="rounded-3xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-6 text-center shadow-sm">
+                  <p className="text-3xl lg:text-4xl font-bold text-[#1E3A5F] dark:text-white">{stat.value}</p>
+                  <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
                 </div>
               ))}
             </div>
@@ -124,21 +127,21 @@ export default function ContactPage() {
         </section>
 
         {/* Contact Info Cards */}
-        <section className="py-16">
+        <section className="py-16 bg-white dark:bg-[#0C1220]">
           <div className="mx-auto max-w-5xl px-6 lg:px-8">
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {contactInfo.map((item, index) => (
                 <div
                   key={item.label}
-                  className="group rounded-2xl bg-gray-50 dark:bg-[#1D1D1F] border border-gray-200 dark:border-white/10 p-6 transition-all hover:-translate-y-1 hover:shadow-lg animate-in fade-in slide-in-from-bottom-4 duration-500"
+                  className="group rounded-2xl bg-gray-50 dark:bg-[#1D1D1F] border border-gray-200 dark:border-white/10 p-6 transition-all hover:-translate-y-1 hover:shadow-lg dark:hover:shadow-white/5 animate-in fade-in slide-in-from-bottom-4 duration-500"
                   style={{ animationDelay: `${index * 100}ms` }}
                 >
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#2563EB] transition-transform group-hover:scale-110">
-                    <item.icon className="h-5 w-5 text-white" />
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-black dark:bg-white transition-transform group-hover:scale-110">
+                    <item.icon className="h-5 w-5 text-white dark:text-black" />
                   </div>
                   <p className="mb-1 text-xs font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400">{item.label}</p>
                   {item.href ? (
-                    <a href={item.href} className="text-sm font-medium text-gray-900 dark:text-white hover:text-[#2563EB] transition-colors">
+                    <a href={item.href} className="text-sm font-medium text-gray-900 dark:text-white hover:text-[#1E3A5F] dark:hover:text-gray-300 transition-colors">
                       {item.value}
                     </a>
                   ) : (
@@ -163,7 +166,7 @@ export default function ContactPage() {
                 />
               </div>
               <div>
-                <span className="inline-block rounded-full bg-[#2563EB]/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#2563EB] mb-4">
+                <span className="inline-block rounded-full bg-[#1E3A5F]/10 dark:bg-white/10 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-[#1E3A5F] dark:text-white mb-4">
                   Mentorship
                 </span>
                 <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-6">
@@ -180,7 +183,7 @@ export default function ContactPage() {
                     </li>
                   ))}
                 </ul>
-                <Button className="rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8]" onClick={() => setActiveSection("mentor")}>
+                <Button className="rounded-full bg-[#1E3A5F] text-white hover:bg-[#152C4A]" onClick={() => { setActiveSection("mentor"); window.scrollTo({ top: document.getElementById('form-section')?.offsetTop || 0, behavior: 'smooth' }); }}>
                   Apply as Mentor
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Button>
@@ -190,7 +193,7 @@ export default function ContactPage() {
         </section>
 
         {/* Support Section */}
-        <section className="py-16">
+        <section className="py-16 bg-white dark:bg-[#0C1220]">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="grid gap-12 lg:grid-cols-2 items-center">
               <div className="order-2 lg:order-1">
@@ -210,13 +213,13 @@ export default function ContactPage() {
                     { amount: "$100", desc: "Covers GRE registration" },
                     { amount: "$250", desc: "Covers visa fees" },
                   ].map((item, i) => (
-                    <div key={i} className="rounded-xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] p-4 text-center">
+                    <div key={i} className="rounded-xl border border-gray-200 dark:border-white/10 bg-gray-50 dark:bg-[#1D1D1F] p-4 text-center">
                       <p className="text-2xl font-bold text-[#F59E0B]">{item.amount}</p>
                       <p className="text-xs text-gray-500 dark:text-gray-400">{item.desc}</p>
                     </div>
                   ))}
                 </div>
-                <Button className="rounded-full bg-[#F59E0B] text-white hover:bg-[#D97706]" onClick={() => setActiveSection("support")}>
+                <Button className="rounded-full bg-[#F59E0B] text-white hover:bg-[#D97706]" onClick={() => { setActiveSection("support"); window.scrollTo({ top: document.getElementById('form-section')?.offsetTop || 0, behavior: 'smooth' }); }}>
                   Make a Donation
                   <Heart className="ml-2 h-4 w-4" />
                 </Button>
@@ -234,7 +237,7 @@ export default function ContactPage() {
         </section>
 
         {/* Form Section */}
-        <section className="py-16 bg-gray-50 dark:bg-[#1D1D1F]">
+        <section id="form-section" className="py-16 bg-gray-50 dark:bg-[#1D1D1F]">
           <div className="mx-auto max-w-3xl px-6 lg:px-8">
             {/* Mobile Tab Navigation */}
             <div className="mb-8 flex justify-center md:hidden">
@@ -249,7 +252,7 @@ export default function ContactPage() {
                     onClick={() => { setActiveSection(tab.id); setSuccess(false); setError(""); }}
                     className={`flex items-center gap-1.5 rounded-full px-4 py-2 text-xs font-medium transition-all ${
                       activeSection === tab.id
-                        ? "bg-[#2563EB] text-white shadow-md"
+                        ? "bg-[#1E3A5F] text-white shadow-md"
                         : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white"
                     }`}
                   >
@@ -261,7 +264,7 @@ export default function ContactPage() {
             </div>
 
             {/* Form Container */}
-            <div className="rounded-3xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-8 shadow-xl md:p-12 transition-all">
+            <div className="rounded-3xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-8 shadow-xl dark:shadow-white/5 md:p-12 transition-all">
               <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-2 text-center">
                 {activeSection === "contact" ? "Get in Touch" : activeSection === "mentor" ? "Mentor Application" : "Make a Donation"}
               </h2>
@@ -288,7 +291,7 @@ export default function ContactPage() {
                       ? "We will review your application and get back to you soon."
                       : "Your generosity helps students achieve their dreams."}
                   </p>
-                  <Button onClick={() => setSuccess(false)} className="rounded-full bg-[#2563EB] text-white px-8">
+                  <Button onClick={() => setSuccess(false)} className="rounded-full bg-[#1E3A5F] text-white px-8">
                     {activeSection === "contact" ? "Send Another" : "Go Back"}
                   </Button>
                 </div>
@@ -327,7 +330,7 @@ export default function ContactPage() {
                             type="tel"
                             value={contactForm.phone}
                             onChange={(e) => setContactForm({ ...contactForm, phone: e.target.value })}
-                            placeholder="+1 (234) 567-890"
+                            placeholder="+447404599897"
                             className={inputClass}
                           />
                         </div>
@@ -383,22 +386,22 @@ export default function ContactPage() {
                         <div>
                           <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Area of Expertise *</label>
                           <select required value={mentorForm.expertise} onChange={(e) => setMentorForm({ ...mentorForm, expertise: e.target.value })} className={inputClass}>
-                            <option value="">Select area</option>
-                            <option value="admissions">University Admissions</option>
-                            <option value="scholarships">Scholarships & Funding</option>
-                            <option value="visa">Visa & Immigration</option>
+                            <option value="">Select expertise</option>
+                            <option value="applications">University Applications</option>
+                            <option value="gre">GRE/Test Prep</option>
+                            <option value="visa">Visa Process</option>
                             <option value="career">Career Guidance</option>
-                            <option value="research">Research & Academia</option>
+                            <option value="other">Other</option>
                           </select>
                         </div>
                       </div>
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">LinkedIn Profile</label>
-                        <input value={mentorForm.linkedin} onChange={(e) => setMentorForm({ ...mentorForm, linkedin: e.target.value })} placeholder="https://linkedin.com/in/yourprofile" className={inputClass} />
+                        <input value={mentorForm.linkedin} onChange={(e) => setMentorForm({ ...mentorForm, linkedin: e.target.value })} placeholder="https://linkedin.com/in/..." className={inputClass} />
                       </div>
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Why do you want to mentor? *</label>
-                        <textarea required rows={4} value={mentorForm.motivation} onChange={(e) => setMentorForm({ ...mentorForm, motivation: e.target.value })} placeholder="Share your motivation..." className={inputClass + " resize-none"} />
+                        <textarea required rows={4} value={mentorForm.motivation} onChange={(e) => setMentorForm({ ...mentorForm, motivation: e.target.value })} placeholder="Tell us about your motivation..." className={inputClass + " resize-none"} />
                       </div>
                     </>
                   )}
@@ -416,70 +419,48 @@ export default function ContactPage() {
                           <input type="email" required value={supportForm.email} onChange={(e) => setSupportForm({ ...supportForm, email: e.target.value })} placeholder="you@example.com" className={inputClass} />
                         </div>
                       </div>
-                      <div>
-                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Amount (USD) *</label>
-                        <div className="flex gap-2 mb-3">
-                          {["25", "50", "100", "250"].map((amt) => (
-                            <button
-                              key={amt}
-                              type="button"
-                              onClick={() => setSupportForm({ ...supportForm, amount: amt })}
-                              className={`flex-1 rounded-xl py-3 text-sm font-semibold transition-all ${
-                                supportForm.amount === amt
-                                  ? "bg-[#F59E0B] text-white"
-                                  : "bg-gray-100 dark:bg-[#1D1D1F] text-gray-700 dark:text-gray-300 hover:bg-gray-200 dark:hover:bg-[#2D2D2F] border border-gray-200 dark:border-gray-700"
-                              }`}
-                            >
-                              ${amt}
-                            </button>
-                          ))}
+                      <div className="grid gap-6 sm:grid-cols-2">
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Donation Amount *</label>
+                          <select required value={supportForm.amount} onChange={(e) => setSupportForm({ ...supportForm, amount: e.target.value })} className={inputClass}>
+                            <option value="">Select amount</option>
+                            <option value="25">$25 - Transcript fees</option>
+                            <option value="50">$50 - Application fee</option>
+                            <option value="100">$100 - GRE registration</option>
+                            <option value="250">$250 - Visa fees</option>
+                            <option value="custom">Custom amount</option>
+                          </select>
                         </div>
-                        <input
-                          type="number"
-                          value={supportForm.amount}
-                          onChange={(e) => setSupportForm({ ...supportForm, amount: e.target.value })}
-                          placeholder="Or enter custom amount"
-                          className={inputClass}
-                        />
-                      </div>
-                      <div>
-                        <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Frequency</label>
-                        <select value={supportForm.frequency} onChange={(e) => setSupportForm({ ...supportForm, frequency: e.target.value })} className={inputClass}>
-                          <option value="one-time">One-time</option>
-                          <option value="monthly">Monthly</option>
-                          <option value="quarterly">Quarterly</option>
-                          <option value="yearly">Yearly</option>
-                        </select>
+                        <div>
+                          <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Frequency</label>
+                          <select value={supportForm.frequency} onChange={(e) => setSupportForm({ ...supportForm, frequency: e.target.value })} className={inputClass}>
+                            <option value="one-time">One-time donation</option>
+                            <option value="monthly">Monthly</option>
+                            <option value="quarterly">Quarterly</option>
+                          </select>
+                        </div>
                       </div>
                       <div>
                         <label className="mb-2 block text-sm font-semibold text-gray-700 dark:text-gray-300">Message (Optional)</label>
-                        <textarea rows={3} value={supportForm.message} onChange={(e) => setSupportForm({ ...supportForm, message: e.target.value })} placeholder="Leave a message of support..." className={inputClass + " resize-none"} />
+                        <textarea rows={3} value={supportForm.message} onChange={(e) => setSupportForm({ ...supportForm, message: e.target.value })} placeholder="Any message for us..." className={inputClass + " resize-none"} />
                       </div>
                     </>
                   )}
 
-                  {error && <p className="rounded-xl bg-red-50 dark:bg-red-900/20 p-4 text-sm text-red-600 dark:text-red-400">{error}</p>}
+                  {error && (
+                    <div className="rounded-xl bg-red-50 dark:bg-red-900/20 border border-red-200 dark:border-red-800 p-4 text-sm text-red-600 dark:text-red-400">
+                      {error}
+                    </div>
+                  )}
 
                   <Button
                     type="submit"
                     disabled={loading}
-                    className={`w-full rounded-full py-6 text-base font-semibold transition-all ${
-                      activeSection === "support" 
-                        ? "bg-[#F59E0B] hover:bg-[#D97706]" 
-                        : "bg-[#2563EB] hover:bg-[#1D4ED8]"
-                    } text-white disabled:opacity-50`}
+                    className={`w-full rounded-full py-4 text-white transition-all h-14 text-base font-semibold ${
+                      activeSection === "support" ? "bg-[#F59E0B] hover:bg-[#D97706]" : "bg-[#1E3A5F] hover:bg-[#152C4A]"
+                    }`}
                   >
-                    {loading ? (
-                      <span className="flex items-center justify-center gap-2">
-                        <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
-                        Sending...
-                      </span>
-                    ) : (
-                      <span className="flex items-center justify-center gap-2">
-                        {activeSection === "support" ? "Donate Now" : "Send Message"}
-                        <Send className="h-4 w-4" />
-                      </span>
-                    )}
+                    {loading ? "Sending..." : activeSection === "contact" ? "Send Message" : activeSection === "mentor" ? "Submit Application" : "Complete Donation"}
                   </Button>
                 </form>
               )}

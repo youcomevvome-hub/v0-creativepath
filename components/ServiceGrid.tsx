@@ -49,7 +49,7 @@ export function ServiceGrid() {
     <section className="py-20 lg:py-28 bg-white dark:bg-[#0C1220] border-t border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         <div className="mb-16">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#2563EB]">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#1E3A5F] dark:text-gray-400">
             Featured Services
           </p>
           <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white lg:text-5xl text-balance">
@@ -66,7 +66,7 @@ export function ServiceGrid() {
             <Link
               key={service.title}
               href={`/services/${service.slug}`}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#1D1D1F] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#1D1D1F] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-white/10"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Card Image */}
@@ -77,10 +77,10 @@ export function ServiceGrid() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black/80 backdrop-blur-sm mb-2">
-                    <span className="text-sm font-bold text-white">{String(idx + 1).padStart(2, '0')}</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black dark:bg-white backdrop-blur-sm mb-2">
+                    <span className="text-sm font-bold text-white dark:text-black">{String(idx + 1).padStart(2, '0')}</span>
                   </div>
                 </div>
               </div>
@@ -94,7 +94,7 @@ export function ServiceGrid() {
                   {service.desc}
                 </p>
 
-                <div className="flex items-center gap-2 text-sm font-semibold text-[#2563EB] group-hover:gap-3 transition-all">
+                <div className="flex items-center gap-2 text-sm font-semibold text-[#1E3A5F] dark:text-white group-hover:gap-3 transition-all">
                   Learn more
                   <ArrowRight className="h-4 w-4" />
                 </div>
@@ -107,7 +107,7 @@ export function ServiceGrid() {
         <div className="mt-12 flex justify-center">
           <Button 
             size="lg" 
-            className="rounded-full bg-[#2563EB] px-8 text-white hover:bg-[#1D4ED8] transition-opacity" 
+            className="rounded-full bg-[#1E3A5F] px-8 text-white hover:bg-[#152C4A] transition-opacity" 
             asChild
           >
             <Link href="/services">

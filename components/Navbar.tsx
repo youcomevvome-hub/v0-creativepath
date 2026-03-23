@@ -15,22 +15,51 @@ const navLinks = [
   { href: "/contact", label: "Contact" },
 ]
 
-// Animated balls around logo - simplified without style jsx
+// Animated orbiting balls around logo
 function AnimatedBalls() {
   return (
-    <div className="absolute inset-0 pointer-events-none overflow-hidden">
-      {[...Array(3)].map((_, i) => (
-        <div
-          key={i}
-          className="absolute w-2 h-2 rounded-full bg-[#2563EB]/60 animate-pulse"
-          style={{
-            top: `${30 + i * 20}%`,
-            left: `${20 + i * 25}%`,
-            animationDelay: `${i * 0.3}s`,
-            animationDuration: `${1.5 + i * 0.5}s`,
-          }}
-        />
-      ))}
+    <div className="absolute inset-0 pointer-events-none">
+      {/* Ball 1 - orbiting */}
+      <div 
+        className="absolute w-2 h-2 rounded-full bg-[#1E3A5F]"
+        style={{
+          animation: 'orbit1 3s linear infinite',
+          top: '50%',
+          left: '50%',
+        }}
+      />
+      {/* Ball 2 - orbiting opposite */}
+      <div 
+        className="absolute w-1.5 h-1.5 rounded-full bg-[#F59E0B]"
+        style={{
+          animation: 'orbit2 4s linear infinite',
+          top: '50%',
+          left: '50%',
+        }}
+      />
+      {/* Ball 3 - orbiting */}
+      <div 
+        className="absolute w-1 h-1 rounded-full bg-gray-400"
+        style={{
+          animation: 'orbit3 2.5s linear infinite',
+          top: '50%',
+          left: '50%',
+        }}
+      />
+      <style>{`
+        @keyframes orbit1 {
+          0% { transform: translate(-50%, -50%) rotate(0deg) translateX(30px) rotate(0deg); }
+          100% { transform: translate(-50%, -50%) rotate(360deg) translateX(30px) rotate(-360deg); }
+        }
+        @keyframes orbit2 {
+          0% { transform: translate(-50%, -50%) rotate(180deg) translateX(35px) rotate(-180deg); }
+          100% { transform: translate(-50%, -50%) rotate(540deg) translateX(35px) rotate(-540deg); }
+        }
+        @keyframes orbit3 {
+          0% { transform: translate(-50%, -50%) rotate(90deg) translateX(25px) rotate(-90deg); }
+          100% { transform: translate(-50%, -50%) rotate(450deg) translateX(25px) rotate(-450deg); }
+        }
+      `}</style>
     </div>
   )
 }
@@ -53,9 +82,9 @@ export function Navbar() {
     <header className="sticky top-0 z-50 w-full border-b border-gray-200 dark:border-gray-800 bg-white/95 dark:bg-[#0C1220]/95 backdrop-blur-md transition-colors">
       <nav className="mx-auto flex max-w-7xl items-center justify-between px-6 py-4 lg:px-8">
 
-        {/* Logo with animation */}
+        {/* Logo with orbiting animation */}
         <Link href="/" className="flex items-center gap-2 shrink-0 group">
-          <div className="relative h-12 w-48 rounded-lg bg-white p-1 group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 overflow-visible">
+          <div className="relative h-12 w-48 rounded-lg bg-white dark:bg-white p-1 group-hover:shadow-lg transition-all duration-300 group-hover:scale-105 overflow-visible">
             <Image
               src="/images/logo.png"
               alt="Creative Path Inspired"
@@ -108,7 +137,7 @@ export function Navbar() {
 
           <Button
             variant="outline"
-            className="rounded-full border-[#2563EB] text-[#2563EB] hover:bg-[#2563EB] hover:text-white transition-all duration-200"
+            className="rounded-full border-[#1E3A5F] text-[#1E3A5F] hover:bg-[#1E3A5F] hover:text-white transition-all duration-200"
             asChild
           >
             <Link href="/contact">
@@ -116,7 +145,7 @@ export function Navbar() {
             </Link>
           </Button>
           <Button
-            className="rounded-full bg-[#2563EB] text-white hover:bg-[#1D4ED8] transition-all duration-200"
+            className="rounded-full bg-[#1E3A5F] text-white hover:bg-[#152C4A] transition-all duration-200"
             asChild
           >
             <Link href="/apply/wes-support">Apply Now</Link>
@@ -165,10 +194,10 @@ export function Navbar() {
               </Link>
             ))}
             <div className="mt-4 flex flex-col gap-2">
-              <Button variant="outline" className="w-full rounded-full border-[#2563EB] text-[#2563EB]" asChild>
+              <Button variant="outline" className="w-full rounded-full border-[#1E3A5F] text-[#1E3A5F]" asChild>
                 <Link href="/contact">Contact Us</Link>
               </Button>
-              <Button className="w-full rounded-full bg-[#2563EB] text-white" asChild>
+              <Button className="w-full rounded-full bg-[#1E3A5F] text-white" asChild>
                 <Link href="/apply/wes-support">Apply Now</Link>
               </Button>
             </div>

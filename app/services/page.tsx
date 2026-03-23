@@ -1,174 +1,165 @@
-'use client'
-
-import { Navbar } from '@/components/Navbar'
-import { Footer } from '@/components/Footer'
-import Link from 'next/link'
-import { ArrowRight } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { Navbar } from "@/components/Navbar"
+import { Footer } from "@/components/Footer"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, FileCheck, GraduationCap, Plane, DollarSign, Users, BookOpen } from "lucide-react"
 
 const services = [
   {
-    id: 'wes-support',
-    title: 'WES Credential Evaluation',
-    description: 'Complete support for WES evaluation fees and application processing for international credentials.',
-    details: 'Get your credentials evaluated and recognized globally with full financial support.',
+    slug: "wes-evaluation",
+    icon: FileCheck,
+    title: "WES Evaluation Support",
+    description: "We cover the cost of credential evaluation through World Education Services, helping you get your international credentials recognized.",
+    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["Full fee coverage", "Application guidance", "Document review"],
+    color: "bg-[#1E3A5F]",
   },
   {
-    id: 'gre-preparation',
-    title: 'GRE Exam Support',
-    description: 'Full sponsorship of GRE exam fees and access to premium preparation resources.',
-    details: 'Score high on the GRE with expert guidance and financial coverage.',
+    slug: "gre-gmat",
+    icon: GraduationCap,
+    title: "GRE/GMAT Fee Support",
+    description: "Standardized test fees shouldn't be a barrier. We provide financial support for GRE and GMAT registration costs.",
+    image: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["Test fee coverage", "Study resources", "Score sending support"],
+    color: "bg-[#F59E0B]",
   },
   {
-    id: 'application-coaching',
-    title: 'Application Coaching',
-    description: 'Personal mentorship from experts who have successfully navigated university admissions.',
-    details: 'Craft compelling applications with personalized guidance from admission experts.',
+    slug: "visa-sevis",
+    icon: Plane,
+    title: "Visa & SEVIS Support",
+    description: "Navigate the visa process with confidence. We help cover SEVIS fees and provide guidance through the visa application.",
+    image: "https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["SEVIS fee coverage", "Documentation help", "Interview prep"],
+    color: "bg-[#1E3A5F]",
   },
   {
-    id: 'visa-support',
-    title: 'Visa & Immigration',
-    description: 'Complete support for visa application fees, SEVIS fees, and immigration documents.',
-    details: 'Navigate the visa process confidently with full financial and advisory support.',
+    slug: "application-fees",
+    icon: DollarSign,
+    title: "Application Fee Coverage",
+    description: "Apply to more schools without financial worry. We cover application fees for qualified students at partner universities.",
+    image: "https://images.pexels.com/photos/4778611/pexels-photo-4778611.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["Multiple applications", "Partner universities", "Fee waivers"],
+    color: "bg-[#F59E0B]",
   },
   {
-    id: 'essay-editing',
-    title: 'Essay & Statement Review',
-    description: 'Professional editing and feedback on personal statements and application essays.',
-    details: 'Polish your narrative with expert writing guidance.',
+    slug: "mentorship",
+    icon: Users,
+    title: "Mentorship Program",
+    description: "Connect with experienced scholars who've walked your path. Get personalized guidance throughout your journey.",
+    image: "https://images.pexels.com/photos/3184328/pexels-photo-3184328.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["1-on-1 mentoring", "Essay reviews", "Career guidance"],
+    color: "bg-[#1E3A5F]",
   },
   {
-    id: 'interview-prep',
-    title: 'Interview Preparation',
-    description: 'Mock interviews and coaching for university admission and scholarship interviews.',
-    details: 'Master the interview with practice and personalized feedback.',
-  },
-  {
-    id: 'scholarship-search',
-    title: 'Scholarship Search',
-    description: 'Research and identification of funding opportunities matching your profile.',
-    details: 'Discover scholarships tailored to your background and goals.',
-  },
-  {
-    id: 'financial-planning',
-    title: 'Financial Planning',
-    description: 'Comprehensive guidance on education financing and budgeting for studies abroad.',
-    details: 'Plan your finances strategically with expert support.',
-  },
-  {
-    id: 'language-support',
-    title: 'Language Test Prep',
-    description: 'TOEFL, IELTS, and other language proficiency exam preparation and fee support.',
-    details: 'Excel in English proficiency tests with comprehensive preparation.',
-  },
-  {
-    id: 'career-coaching',
-    title: 'Career Planning',
-    description: 'Post-graduation career planning and job search support in your destination country.',
-    details: 'Build your career path from day one.',
-  },
-  {
-    id: 'networking-events',
-    title: 'Community & Networking',
-    description: 'Access to alumni networks, webinars, and community events.',
-    details: 'Build connections with fellow scholars and mentors.',
-  },
-  {
-    id: 'ongoing-mentorship',
-    title: 'Ongoing Mentorship',
-    description: 'Continuous support from admission to graduation and beyond.',
-    details: 'Long-term guidance throughout your academic journey.',
+    slug: "application-guidance",
+    icon: BookOpen,
+    title: "Application Guidance",
+    description: "From personal statements to interview prep, we provide comprehensive support to strengthen your applications.",
+    image: "https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=800",
+    benefits: ["Essay coaching", "Resume building", "Interview practice"],
+    color: "bg-[#F59E0B]",
   },
 ]
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-black transition-colors">
+    <div className="min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
       <Navbar />
-
-      {/* Hero */}
-      <section className="relative overflow-hidden py-20 lg:py-32">
-        <div
-          className="absolute inset-0 opacity-30 dark:opacity-20 blur-sm"
-          style={{
-            backgroundImage: "radial-gradient(circle, #000 1px, transparent 1px)",
-            backgroundSize: "40px 40px",
-          }}
-        />
-        <div className="absolute inset-0 backdrop-blur-sm" />
-
-        <div className="relative mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="text-center">
-            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-gray-500 dark:text-gray-400 animate-in fade-in slide-in-from-top-4 duration-500">
-              Our Services
+      
+      <main>
+        {/* Hero Section */}
+        <section className="relative overflow-hidden py-20 lg:py-28">
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.pexels.com/photos/3184292/pexels-photo-3184292.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="Students collaborating"
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[#0C1220]/80" />
+          </div>
+          <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#F59E0B]">
+              What We Offer
             </p>
-            <h1 className="mb-6 text-5xl font-bold tracking-tight text-black dark:text-white lg:text-6xl text-balance animate-in fade-in slide-in-from-top-4 duration-500 delay-100">
-              Complete Support for Your Journey
+            <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl text-balance">
+              Our Services
             </h1>
-            <p className="mx-auto max-w-2xl text-xl text-gray-600 dark:text-gray-400 animate-in fade-in slide-in-from-top-4 duration-500 delay-200">
-              From application to graduation, we're here with comprehensive support tailored to your needs.
+            <p className="text-lg text-white/80 max-w-2xl mx-auto text-pretty">
+              Comprehensive support designed to remove financial barriers and help you achieve your study abroad dreams.
             </p>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Services Grid */}
-      <section className="py-20 lg:py-28">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {services.map((service, idx) => (
-              <Link
-                key={service.id}
-                href={`/apply/${service.id}`}
-                className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-gray-800 bg-white dark:bg-gray-900/50 p-8 transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
-              >
-                {/* Background accent */}
-                <div className="absolute top-0 right-0 h-20 w-20 translate-x-8 -translate-y-8 rounded-full bg-black dark:bg-white/10 opacity-5 group-hover:opacity-10 transition-opacity" />
-
-                <div className="relative">
-                  <div className="mb-4 flex items-center gap-3">
-                    <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-black dark:bg-white">
-                      <span className="text-xl font-bold text-white dark:text-black">{idx + 1}</span>
+        {/* Services Grid */}
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
+              {services.map((service) => (
+                <Link
+                  key={service.slug}
+                  href={`/services/${service.slug}`}
+                  className="group relative overflow-hidden rounded-2xl bg-gray-50 dark:bg-[#1D1D1F] border border-gray-200 dark:border-white/10 transition-all hover:shadow-xl dark:hover:shadow-white/5 hover:-translate-y-1"
+                >
+                  <div className="relative h-48 overflow-hidden">
+                    <Image
+                      src={service.image}
+                      alt={service.title}
+                      fill
+                      className="object-cover transition-transform duration-500 group-hover:scale-105"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
+                    <div className={`absolute top-4 left-4 ${service.color} rounded-xl p-3`}>
+                      <service.icon className="h-6 w-6 text-white" />
                     </div>
                   </div>
-
-                  <h3 className="mb-2 text-xl font-bold text-black dark:text-white">
-                    {service.title}
-                  </h3>
-                  <p className="mb-4 text-gray-600 dark:text-gray-400">
-                    {service.description}
-                  </p>
-
-                  <div className="flex items-center gap-2 text-sm font-semibold text-gray-900 dark:text-white group-hover:gap-3 transition-all">
-                    Learn More
-                    <ArrowRight className="h-4 w-4" />
+                  <div className="p-6">
+                    <h3 className="mb-3 text-xl font-bold text-gray-900 dark:text-white group-hover:text-[#1E3A5F] dark:group-hover:text-[#F59E0B] transition-colors">
+                      {service.title}
+                    </h3>
+                    <p className="mb-4 text-gray-600 dark:text-gray-400 text-sm line-clamp-2">
+                      {service.description}
+                    </p>
+                    <ul className="mb-4 flex flex-wrap gap-2">
+                      {service.benefits.map((benefit) => (
+                        <li
+                          key={benefit}
+                          className="rounded-full bg-[#1E3A5F]/10 dark:bg-white/10 px-3 py-1 text-xs font-medium text-[#1E3A5F] dark:text-white"
+                        >
+                          {benefit}
+                        </li>
+                      ))}
+                    </ul>
+                    <div className="flex items-center text-[#1E3A5F] dark:text-[#F59E0B] font-semibold text-sm">
+                      Learn more
+                      <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                </Link>
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
 
-      {/* CTA */}
-      <section className="border-t border-gray-200 dark:border-gray-800 py-20 lg:py-28 bg-gray-50 dark:bg-gray-900/50">
-        <div className="mx-auto max-w-4xl px-6 text-center lg:px-8">
-          <h2 className="mb-6 text-4xl font-bold text-black dark:text-white lg:text-5xl">
-            Ready to Begin Your Journey?
-          </h2>
-          <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
-            Choose a service above to get started, or contact our team for a personalized consultation.
-          </p>
-          <div className="flex gap-4 justify-center flex-wrap">
-            <Button size="lg" className="rounded-full bg-black dark:bg-white px-8 text-white dark:text-black hover:opacity-90" asChild>
-              <Link href="/apply/wes-support">Apply Now</Link>
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full border-2 border-gray-300 dark:border-gray-600 px-8 hover:bg-gray-100 dark:hover:bg-gray-800" asChild>
-              <Link href="/contact">Contact Us</Link>
-            </Button>
+        {/* CTA Section */}
+        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F]">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <h2 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
+              Ready to Start Your Journey?
+            </h2>
+            <p className="mb-8 text-lg text-gray-600 dark:text-gray-400">
+              Apply today and let us help remove the financial barriers standing between you and your dreams.
+            </p>
+            <Link
+              href="/apply/general"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#2D4A6F] transition-colors"
+            >
+              Apply Now
+              <ArrowRight className="h-5 w-5" />
+            </Link>
           </div>
-        </div>
-      </section>
+        </section>
+      </main>
 
       <Footer />
     </div>

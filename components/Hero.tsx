@@ -12,7 +12,7 @@ const floatingCards = [
     title: "Financial Aid",
     subtitle: "WES & GRE Fee Support",
     position: "top-left",
-    color: "bg-[#2563EB]",
+    color: "bg-[#1E3A5F]",
     textColor: "text-white",
   },
   {
@@ -20,7 +20,7 @@ const floatingCards = [
     title: "Mentorship",
     subtitle: "Expert Guidance",
     position: "top-right",
-    color: "bg-[#0891B2]",
+    color: "bg-[#374151]",
     textColor: "text-white",
   },
   {
@@ -46,49 +46,48 @@ export function Hero() {
   const [hoveredCard, setHoveredCard] = useState<number | null>(null)
 
   return (
-    <section className="relative overflow-hidden bg-[#F0F4F8] dark:bg-[#0C1220] min-h-screen flex flex-col items-center justify-center transition-colors">
-      {/* Blurred dot grid background with pattern */}
+    <section className="relative overflow-hidden bg-white dark:bg-[#0C1220] min-h-screen flex flex-col items-center justify-center transition-colors">
+      {/* Soft dot grid background */}
       <div
-        className="absolute inset-0 opacity-40 dark:opacity-30"
+        className="absolute inset-0 opacity-20 dark:opacity-10"
         style={{
-          backgroundImage: "radial-gradient(circle, #94A3B8 1.5px, transparent 1.5px)",
-          backgroundSize: "48px 48px",
+          backgroundImage: "radial-gradient(circle, #94A3B8 1px, transparent 1px)",
+          backgroundSize: "32px 32px",
         }}
       />
       
-      {/* Additional blur overlay */}
-      <div className="absolute inset-0 backdrop-blur-[2px]" />
+      {/* Soft blur overlay */}
+      <div className="absolute inset-0 backdrop-blur-[1px]" />
 
-      {/* Decorative circles */}
-      <div className="absolute top-20 left-10 w-64 h-64 rounded-full bg-[#2563EB]/10 blur-3xl" />
-      <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-[#0891B2]/10 blur-3xl" />
+      {/* Decorative soft circles */}
+      <div className="absolute top-20 left-10 w-96 h-96 rounded-full bg-gray-200/50 dark:bg-gray-800/30 blur-3xl" />
+      <div className="absolute bottom-20 right-10 w-80 h-80 rounded-full bg-gray-300/40 dark:bg-gray-700/20 blur-3xl" />
 
       <div className="relative mx-auto w-full max-w-7xl px-6 py-12 lg:px-8 flex-1 flex items-center">
         <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16 w-full">
           
           {/* Left column - Image with Interactive Cards */}
           <div className="relative flex justify-center order-2 lg:order-1">
-            <div className="relative w-full max-w-[500px] animate-in fade-in slide-in-from-left-8 duration-700">
-              {/* Main Hero Image */}
-              <div className="relative rounded-3xl overflow-hidden shadow-2xl">
+            <div className="relative w-full max-w-[480px] animate-in fade-in slide-in-from-left-8 duration-700">
+              {/* Main Hero Image - Student Photo */}
+              <div className="relative">
                 <Image
-                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=800"
-                  alt="Students collaborating"
-                  width={500}
-                  height={600}
-                  className="w-full h-auto object-cover"
+                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
+                  alt="Student ready to study abroad"
+                  width={480}
+                  height={580}
+                  className="w-full h-auto object-contain drop-shadow-2xl"
                   priority
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
               </div>
 
               {/* Interactive Floating Cards */}
               {floatingCards.map((card, index) => {
                 const positionClasses = {
-                  "top-left": "-left-6 top-8",
-                  "top-right": "-right-6 top-12",
-                  "middle-right": "-right-10 top-[50%]",
-                  "bottom-left": "-left-4 bottom-20",
+                  "top-left": "-left-4 top-8 lg:-left-8",
+                  "top-right": "-right-4 top-16 lg:-right-8",
+                  "middle-right": "-right-6 top-[50%] lg:-right-12",
+                  "bottom-left": "-left-2 bottom-24 lg:-left-6",
                 }[card.position]
 
                 return (
@@ -96,9 +95,9 @@ export function Hero() {
                     key={card.id}
                     onMouseEnter={() => setHoveredCard(card.id)}
                     onMouseLeave={() => setHoveredCard(null)}
-                    className={`absolute z-20 ${positionClasses} w-[150px] rounded-2xl ${card.color} p-4 shadow-xl cursor-pointer transition-all duration-300 animate-in fade-in duration-500 ${
+                    className={`absolute z-20 ${positionClasses} w-[140px] lg:w-[160px] rounded-2xl ${card.color} p-4 shadow-xl cursor-pointer transition-all duration-300 animate-in fade-in duration-500 ${
                       card.border ? "border-2 border-gray-200 dark:border-white" : ""
-                    } ${hoveredCard === card.id ? "scale-110 shadow-2xl -translate-y-1" : "hover:scale-105"}`}
+                    } ${hoveredCard === card.id ? "scale-110 shadow-2xl -translate-y-1" : "hover:scale-105"} dark:hover:shadow-white/10`}
                     style={{ animationDelay: `${(index + 2) * 100}ms` }}
                   >
                     <p className={`mb-1 text-[10px] font-semibold uppercase tracking-widest ${card.textColor} opacity-70`}>
@@ -121,13 +120,13 @@ export function Hero() {
 
           {/* Right column - Text */}
           <div className="relative z-10 order-1 lg:order-2">
-            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#2563EB] animate-in fade-in slide-in-from-right-4 duration-500">
+            <p className="mb-4 text-xs font-semibold uppercase tracking-[0.2em] text-[#1E3A5F] dark:text-gray-400 animate-in fade-in slide-in-from-right-4 duration-500">
               Creative Path Inspired &nbsp;|&nbsp; Study Abroad Support
             </p>
 
             <h1 className="mb-6 font-sans text-[2.8rem] font-bold leading-[1.05] tracking-tight text-gray-900 dark:text-white sm:text-[3.5rem] lg:text-[4rem] text-balance animate-in fade-in slide-in-from-right-4 duration-500 delay-100">
               Time To<br />
-              <span className="text-[#2563EB]">Take Off</span><br />
+              <span className="text-[#1E3A5F] dark:text-gray-300">Take Off</span><br />
               To Your Dream<br />
               <span className="relative inline-block">
                 University
@@ -144,7 +143,7 @@ export function Hero() {
             <div className="flex flex-wrap gap-4 animate-in fade-in slide-in-from-right-4 duration-500 delay-300">
               <Button
                 size="lg"
-                className="rounded-full bg-[#2563EB] px-8 text-white shadow-lg hover:bg-[#1D4ED8] transition-all h-12"
+                className="rounded-full bg-[#1E3A5F] px-8 text-white shadow-lg hover:bg-[#152C4A] transition-all h-12"
                 asChild
               >
                 <Link href="/services">

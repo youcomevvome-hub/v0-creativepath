@@ -1,344 +1,419 @@
-import { notFound } from "next/navigation"
-import { Metadata } from "next"
 import { Navbar } from "@/components/Navbar"
 import { Footer } from "@/components/Footer"
-import Link from "next/link"
 import Image from "next/image"
-import { ArrowRight, CheckCircle, Clock, Users, Award } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Link from "next/link"
+import { notFound } from "next/navigation"
+import { ArrowLeft, ArrowRight, Check, FileCheck, GraduationCap, Plane, DollarSign, Users, BookOpen, type LucideIcon } from "lucide-react"
 
-const serviceDetails: Record<string, {
+interface ServiceData {
+  icon: LucideIcon
   title: string
-  tagline: string
+  subtitle: string
   description: string
   heroImage: string
-  features: string[]
-  process: { step: string; title: string; description: string }[]
-  benefits: { icon: string; title: string; description: string }[]
-  applySlug: string
-}> = {
-  "wes-support": {
-    title: "WES Credential Evaluation",
-    tagline: "Get your credentials recognized globally",
-    description: "We provide complete financial support for World Education Services (WES) credential evaluation, helping international students get their academic qualifications recognized by universities and employers worldwide.",
-    heroImage: "https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "Full coverage of WES evaluation fees",
-      "Document preparation assistance",
-      "Step-by-step guidance through the process",
-      "Priority processing support",
-      "Expert review of your credentials",
-    ],
-    process: [
-      { step: "01", title: "Apply Online", description: "Submit your application through our portal with required documents." },
-      { step: "02", title: "Document Review", description: "Our team reviews your academic documents and eligibility." },
-      { step: "03", title: "WES Submission", description: "We process your WES application with fee coverage." },
-      { step: "04", title: "Get Results", description: "Receive your evaluated credentials for university applications." },
-    ],
-    benefits: [
-      { icon: "dollar", title: "100% Fee Coverage", description: "Complete financial support for evaluation fees." },
-      { icon: "clock", title: "Fast Processing", description: "Priority handling of your application." },
-      { icon: "users", title: "Expert Guidance", description: "Dedicated support throughout the process." },
-    ],
-    applySlug: "wes-support",
-  },
-  "gre-support": {
-    title: "GRE Exam Support",
-    tagline: "Ace your GRE with confidence",
-    description: "Comprehensive support for GRE examination including fee waivers, preparation resources, and expert guidance to help you achieve your target score.",
-    heroImage: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "GRE exam fee sponsorship",
-      "Access to premium prep materials",
-      "Practice test resources",
-      "Study group connections",
-      "Score improvement strategies",
-    ],
-    process: [
-      { step: "01", title: "Register Interest", description: "Apply for GRE support through our platform." },
-      { step: "02", title: "Eligibility Check", description: "We assess your profile and academic goals." },
-      { step: "03", title: "Preparation Phase", description: "Access prep resources and start studying." },
-      { step: "04", title: "Take the Exam", description: "Sit for your GRE with fee coverage." },
-    ],
-    benefits: [
-      { icon: "dollar", title: "Fee Waiver", description: "Up to 100% coverage of exam fees." },
-      { icon: "award", title: "Prep Resources", description: "Premium study materials included." },
-      { icon: "users", title: "Mentorship", description: "Guidance from high scorers." },
-    ],
-    applySlug: "gre-support",
-  },
-  "visa-fee-support": {
-    title: "Visa & Immigration Support",
-    tagline: "Navigate your visa journey smoothly",
-    description: "Complete visa and immigration support including SEVIS fee coverage, visa application assistance, and interview preparation.",
-    heroImage: "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "SEVIS fee coverage",
-      "Visa application fee support",
-      "Document preparation help",
-      "Interview coaching",
-      "Embassy appointment guidance",
-    ],
-    process: [
-      { step: "01", title: "Apply for Support", description: "Submit your visa support application." },
-      { step: "02", title: "Document Prep", description: "Get help preparing all required documents." },
-      { step: "03", title: "Fee Coverage", description: "Receive SEVIS and visa fee support." },
-      { step: "04", title: "Interview Prep", description: "Practice with mock visa interviews." },
-    ],
-    benefits: [
-      { icon: "dollar", title: "Fee Support", description: "Coverage for SEVIS and visa fees." },
-      { icon: "users", title: "Expert Guidance", description: "Immigration advisors at your service." },
-      { icon: "award", title: "Success Rate", description: "High approval rate with our prep." },
-    ],
-    applySlug: "visa-fee-support",
-  },
-  "application-fee-support": {
-    title: "Application Fee Support",
-    tagline: "Apply to more universities",
-    description: "Financial support for university application fees so you can apply to multiple programs without financial barriers.",
-    heroImage: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "Application fee coverage",
-      "Multi-university support",
-      "Application strategy guidance",
-      "Deadline management",
-      "School selection advice",
-    ],
-    process: [
-      { step: "01", title: "List Schools", description: "Identify your target universities." },
-      { step: "02", title: "Apply for Support", description: "Submit your fee support request." },
-      { step: "03", title: "Get Coverage", description: "Receive application fee assistance." },
-      { step: "04", title: "Submit Apps", description: "Apply to your dream schools." },
-    ],
-    benefits: [
-      { icon: "dollar", title: "Fee Coverage", description: "Support for multiple applications." },
-      { icon: "users", title: "Strategy Help", description: "School selection guidance." },
-      { icon: "clock", title: "Timely Support", description: "Meet all your deadlines." },
-    ],
-    applySlug: "application-fee-support",
-  },
-  "transcript-support": {
-    title: "Transcript & Essay Support",
-    tagline: "Perfect your application documents",
-    description: "Professional support for transcript evaluation and essay writing to make your application stand out.",
-    heroImage: "https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "Transcript evaluation support",
-      "Essay editing and review",
-      "Personal statement guidance",
-      "Document formatting",
-      "Quality assurance checks",
-    ],
-    process: [
-      { step: "01", title: "Submit Documents", description: "Share your transcripts and drafts." },
-      { step: "02", title: "Expert Review", description: "Our team reviews your materials." },
-      { step: "03", title: "Revisions", description: "Receive feedback and make edits." },
-      { step: "04", title: "Final Polish", description: "Get application-ready documents." },
-    ],
-    benefits: [
-      { icon: "award", title: "Expert Review", description: "Professional editors and advisors." },
-      { icon: "users", title: "Personalized", description: "Tailored feedback for you." },
-      { icon: "clock", title: "Quick Turn", description: "Fast turnaround times." },
-    ],
-    applySlug: "transcript-support",
-  },
-  "mentorship-program": {
-    title: "Mentorship Program",
-    tagline: "Learn from those who've been there",
-    description: "Connect with experienced mentors who have successfully navigated the study abroad journey and can guide you every step of the way.",
-    heroImage: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1200",
-    features: [
-      "1-on-1 mentorship sessions",
-      "Career guidance",
-      "Application strategy",
-      "Network building",
-      "Ongoing support",
-    ],
-    process: [
-      { step: "01", title: "Apply", description: "Join our mentorship program." },
-      { step: "02", title: "Match", description: "Get paired with the right mentor." },
-      { step: "03", title: "Connect", description: "Start regular mentorship sessions." },
-      { step: "04", title: "Grow", description: "Achieve your academic goals." },
-    ],
-    benefits: [
-      { icon: "users", title: "Expert Mentors", description: "Learn from successful scholars." },
-      { icon: "award", title: "Personalized", description: "Tailored guidance for you." },
-      { icon: "clock", title: "Flexible", description: "Sessions on your schedule." },
-    ],
-    applySlug: "mentorship-program",
-  },
+  benefits: string[]
+  eligibility: string[]
+  process: { step: number; title: string; description: string }[]
+  faq: { question: string; answer: string }[]
 }
 
-interface ServicePageProps {
-  params: Promise<{ slug: string }>
+const servicesData: Record<string, ServiceData> = {
+  "wes-evaluation": {
+    icon: FileCheck,
+    title: "WES Evaluation Support",
+    subtitle: "Get Your Credentials Recognized",
+    description: "World Education Services (WES) credential evaluation is essential for international students applying to US universities. We cover the full cost of your WES evaluation, removing this financial barrier from your path to education.",
+    heroImage: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "Full WES evaluation fee coverage",
+      "Guidance on required documents",
+      "Support with transcript requests",
+      "Course-by-course evaluation included",
+      "Priority processing assistance",
+    ],
+    eligibility: [
+      "Students from underrepresented regions",
+      "Demonstrated financial need",
+      "Strong academic record",
+      "Commitment to pursuing higher education abroad",
+    ],
+    process: [
+      { step: 1, title: "Apply Online", description: "Submit your application through our portal with required documents." },
+      { step: 2, title: "Review Process", description: "Our team reviews your eligibility and academic background." },
+      { step: 3, title: "Approval", description: "Once approved, we initiate the WES evaluation process on your behalf." },
+      { step: 4, title: "Completion", description: "Receive your evaluated credentials ready for university applications." },
+    ],
+    faq: [
+      { question: "How long does WES evaluation take?", answer: "Standard processing takes 7-10 business days after WES receives all documents." },
+      { question: "What documents do I need?", answer: "You'll need official transcripts, degree certificates, and their translations if not in English." },
+    ],
+  },
+  "gre-gmat": {
+    icon: GraduationCap,
+    title: "GRE/GMAT Fee Support",
+    subtitle: "Ace Your Standardized Tests",
+    description: "Standardized tests like the GRE and GMAT are crucial for graduate school admissions. We provide financial support to cover test registration fees, ensuring cost doesn't prevent you from pursuing your academic goals.",
+    heroImage: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "Full test registration fee coverage",
+      "Score sending to universities included",
+      "Access to study resources",
+      "Test prep guidance",
+      "Retake support if needed",
+    ],
+    eligibility: [
+      "Planning to apply for graduate programs",
+      "Financial need demonstrated",
+      "Commitment to test preparation",
+      "First-time or retake applicants",
+    ],
+    process: [
+      { step: 1, title: "Submit Application", description: "Apply with your planned test date and target programs." },
+      { step: 2, title: "Eligibility Review", description: "We assess your application and financial need." },
+      { step: 3, title: "Fee Coverage", description: "Upon approval, we provide a voucher or direct payment for your test." },
+      { step: 4, title: "Test & Report", description: "Take your test and send scores to your target schools." },
+    ],
+    faq: [
+      { question: "Which tests are covered?", answer: "We cover GRE General, GRE Subject Tests, GMAT, and TOEFL/IELTS fees." },
+      { question: "Can I get support for retakes?", answer: "Yes, we consider retake support on a case-by-case basis." },
+    ],
+  },
+  "visa-sevis": {
+    icon: Plane,
+    title: "Visa & SEVIS Support",
+    subtitle: "Navigate Immigration Successfully",
+    description: "The visa process can be daunting and expensive. We help cover SEVIS fees and provide comprehensive guidance through the F-1 student visa application process, ensuring you're prepared for every step.",
+    heroImage: "https://images.pexels.com/photos/3769138/pexels-photo-3769138.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "SEVIS I-901 fee coverage",
+      "DS-160 form assistance",
+      "Visa interview preparation",
+      "Document checklist and review",
+      "Embassy appointment guidance",
+    ],
+    eligibility: [
+      "Accepted to a US institution",
+      "I-20 form received",
+      "Financial need demonstrated",
+      "First-time F-1 visa applicants",
+    ],
+    process: [
+      { step: 1, title: "I-20 Received", description: "After university acceptance, receive your I-20 form." },
+      { step: 2, title: "Apply for Support", description: "Submit your visa support application to us." },
+      { step: 3, title: "SEVIS Payment", description: "We cover your SEVIS fee and provide interview prep." },
+      { step: 4, title: "Visa Interview", description: "Attend your interview confident and prepared." },
+    ],
+    faq: [
+      { question: "What is the SEVIS fee?", answer: "The SEVIS I-901 fee is $350 for F-1 students, which we fully cover." },
+      { question: "Do you help with the visa interview?", answer: "Yes, we provide mock interviews and common question preparation." },
+    ],
+  },
+  "application-fees": {
+    icon: DollarSign,
+    title: "Application Fee Coverage",
+    subtitle: "Apply Without Limits",
+    description: "University application fees add up quickly. We cover application fees at multiple institutions, allowing you to apply broadly and increase your chances of admission to your dream schools.",
+    heroImage: "https://images.pexels.com/photos/4778611/pexels-photo-4778611.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "Coverage for multiple applications",
+      "Partner university fee waivers",
+      "Strategic school list guidance",
+      "Application tracking support",
+      "Deadline management help",
+    ],
+    eligibility: [
+      "Strong academic background",
+      "Clear program interests",
+      "Demonstrated financial need",
+      "Realistic school list prepared",
+    ],
+    process: [
+      { step: 1, title: "School Selection", description: "Work with us to finalize your target schools." },
+      { step: 2, title: "Application Review", description: "We review your applications for quality." },
+      { step: 3, title: "Fee Coverage", description: "We cover application fees or secure waivers." },
+      { step: 4, title: "Submit & Track", description: "Submit applications and track their status." },
+    ],
+    faq: [
+      { question: "How many applications can be covered?", answer: "We typically cover 5-10 applications based on your profile and needs." },
+      { question: "Which universities are partners?", answer: "We have partnerships with 50+ universities offering fee waivers to our students." },
+    ],
+  },
+  "mentorship": {
+    icon: Users,
+    title: "Mentorship Program",
+    subtitle: "Learn from Those Who've Succeeded",
+    description: "Connect with experienced scholars and professionals who understand your journey. Our mentors provide personalized guidance, share their experiences, and help you navigate the complexities of studying abroad.",
+    heroImage: "https://images.pexels.com/photos/3184328/pexels-photo-3184328.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "1-on-1 mentor matching",
+      "Regular check-in sessions",
+      "Essay review and feedback",
+      "Career path guidance",
+      "Networking opportunities",
+    ],
+    eligibility: [
+      "Active applicant to our programs",
+      "Clear educational goals",
+      "Commitment to regular meetings",
+      "Open to feedback and guidance",
+    ],
+    process: [
+      { step: 1, title: "Profile Creation", description: "Tell us about your background and goals." },
+      { step: 2, title: "Mentor Matching", description: "We pair you with a mentor in your field." },
+      { step: 3, title: "Kickoff Session", description: "Meet your mentor and set goals together." },
+      { step: 4, title: "Ongoing Support", description: "Regular sessions throughout your journey." },
+    ],
+    faq: [
+      { question: "How are mentors selected?", answer: "Mentors are successful scholars from similar backgrounds who've navigated the same path." },
+      { question: "How often do we meet?", answer: "Typically bi-weekly, with additional support during critical periods." },
+    ],
+  },
+  "application-guidance": {
+    icon: BookOpen,
+    title: "Application Guidance",
+    subtitle: "Perfect Your Applications",
+    description: "From crafting compelling personal statements to preparing for interviews, we provide comprehensive guidance to help you put your best foot forward in every application.",
+    heroImage: "https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=1600",
+    benefits: [
+      "Personal statement coaching",
+      "Resume and CV building",
+      "Interview preparation",
+      "Recommendation letter guidance",
+      "Application strategy sessions",
+    ],
+    eligibility: [
+      "Planning to apply for programs",
+      "Committed to the process",
+      "Open to iterative feedback",
+      "Meeting application deadlines",
+    ],
+    process: [
+      { step: 1, title: "Initial Assessment", description: "We review your profile and application goals." },
+      { step: 2, title: "Strategy Development", description: "Create a personalized application strategy." },
+      { step: 3, title: "Document Preparation", description: "Work on essays, resumes, and supporting docs." },
+      { step: 4, title: "Final Review", description: "Polish everything before submission." },
+    ],
+    faq: [
+      { question: "How many essay drafts can I submit?", answer: "We typically do 3-4 rounds of review per essay." },
+      { question: "Do you help with all program types?", answer: "Yes, we support applications for Masters, PhD, MBA, and undergraduate programs." },
+    ],
+  },
 }
 
 export async function generateStaticParams() {
-  return Object.keys(serviceDetails).map((slug) => ({ slug }))
+  return Object.keys(servicesData).map((slug) => ({ slug }))
 }
 
-export async function generateMetadata({ params }: ServicePageProps): Promise<Metadata> {
+export default async function ServicePage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params
-  const service = serviceDetails[slug]
-
-  if (!service) {
-    return { title: "Service Not Found | Creative Path Inspired" }
-  }
-
-  return {
-    title: `${service.title} | Creative Path Inspired`,
-    description: service.description,
-  }
-}
-
-export default async function ServiceDetailPage({ params }: ServicePageProps) {
-  const { slug } = await params
-  const service = serviceDetails[slug]
+  const service = servicesData[slug]
 
   if (!service) {
     notFound()
   }
 
-  const iconComponents: Record<string, React.ReactNode> = {
-    dollar: <span className="text-2xl font-bold">$</span>,
-    clock: <Clock className="h-6 w-6" />,
-    users: <Users className="h-6 w-6" />,
-    award: <Award className="h-6 w-6" />,
-  }
+  const Icon = service.icon
 
   return (
     <div className="min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
       <Navbar />
 
-      {/* Hero Banner */}
-      <section className="relative h-[60vh] min-h-[400px] overflow-hidden">
-        <Image
-          src={service.heroImage}
-          alt={service.title}
-          fill
-          className="object-cover"
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
-        <div className="absolute bottom-0 left-0 right-0 p-8 lg:p-16">
-          <div className="mx-auto max-w-7xl">
-            <p className="mb-3 text-sm font-semibold uppercase tracking-widest text-[#F59E0B] animate-in fade-in slide-in-from-left-4 duration-500">
-              Our Services
+      <main>
+        {/* Hero Section */}
+        <section className="relative overflow-hidden py-20 lg:py-28">
+          <div className="absolute inset-0">
+            <Image
+              src={service.heroImage}
+              alt={service.title}
+              fill
+              className="object-cover"
+            />
+            <div className="absolute inset-0 bg-[#0C1220]/80" />
+          </div>
+          <div className="relative mx-auto max-w-4xl px-6 lg:px-8">
+            <Link
+              href="/services"
+              className="mb-8 inline-flex items-center gap-2 text-sm font-medium text-white/70 hover:text-white transition-colors"
+            >
+              <ArrowLeft className="h-4 w-4" />
+              All Services
+            </Link>
+            <div className="flex items-center gap-4 mb-6">
+              <div className="flex h-16 w-16 items-center justify-center rounded-2xl bg-[#F59E0B]">
+                <Icon className="h-8 w-8 text-white" />
+              </div>
+            </div>
+            <p className="text-sm font-semibold uppercase tracking-widest text-[#F59E0B] mb-4">
+              {service.subtitle}
             </p>
-            <h1 className="mb-4 text-4xl font-bold text-white md:text-5xl lg:text-6xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+            <h1 className="mb-6 text-4xl font-bold text-white md:text-5xl lg:text-6xl text-balance">
               {service.title}
             </h1>
-            <p className="max-w-2xl text-lg text-white/80 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
-              {service.tagline}
+            <p className="text-lg text-white/80 max-w-2xl">
+              {service.description}
             </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Description */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <div className="grid gap-12 lg:grid-cols-2">
-            <div>
-              <h2 className="mb-6 text-3xl font-bold text-gray-900 dark:text-white">
-                About This Service
-              </h2>
-              <p className="text-lg text-gray-600 dark:text-gray-400 leading-relaxed">
-                {service.description}
-              </p>
-
-              <div className="mt-8">
-                <Button size="lg" className="rounded-full bg-[#2563EB] px-8 text-white hover:bg-[#1D4ED8]" asChild>
-                  <Link href={`/apply/${service.applySlug}`}>
-                    Apply Now
-                    <ArrowRight className="ml-2 h-4 w-4" />
-                  </Link>
-                </Button>
-              </div>
-            </div>
-
-            <div className="rounded-2xl border border-gray-200 dark:border-white/20 bg-gray-50 dark:bg-[#1D1D1F] p-8">
-              <h3 className="mb-6 text-xl font-bold text-gray-900 dark:text-white">What&apos;s Included</h3>
-              <ul className="space-y-4">
-                {service.features.map((feature, idx) => (
-                  <li key={idx} className="flex items-start gap-3">
-                    <CheckCircle className="h-5 w-5 text-[#22C55E] mt-0.5 shrink-0" />
-                    <span className="text-gray-700 dark:text-gray-300">{feature}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Process */}
-      <section className="py-16 lg:py-24 bg-gray-50 dark:bg-[#1D1D1F]">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white">
-            How It Works
-          </h2>
-          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
-            {service.process.map((item, idx) => (
-              <div key={idx} className="relative">
-                <div className="rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#0C1220] p-6 h-full">
-                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-xl bg-[#2563EB] text-white font-bold">
-                    {item.step}
-                  </div>
-                  <h3 className="mb-2 text-lg font-bold text-gray-900 dark:text-white">{item.title}</h3>
-                  <p className="text-sm text-gray-600 dark:text-gray-400">{item.description}</p>
-                </div>
-                {idx < service.process.length - 1 && (
-                  <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gray-300 dark:bg-gray-700" />
-                )}
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Benefits */}
-      <section className="py-16 lg:py-24">
-        <div className="mx-auto max-w-7xl px-6 lg:px-8">
-          <h2 className="mb-12 text-center text-3xl font-bold text-gray-900 dark:text-white">
-            Why Choose Us
-          </h2>
-          <div className="grid gap-6 md:grid-cols-3">
-            {service.benefits.map((benefit, idx) => (
-              <div key={idx} className="text-center p-8 rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#1D1D1F]">
-                <div className="mb-4 mx-auto flex h-16 w-16 items-center justify-center rounded-2xl bg-[#2563EB] text-white">
-                  {iconComponents[benefit.icon]}
-                </div>
-                <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{benefit.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{benefit.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className="py-16 lg:py-24 bg-[#2563EB]">
-        <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-          <h2 className="mb-6 text-3xl font-bold text-white md:text-4xl">
-            Ready to Get Started?
-          </h2>
-          <p className="mb-8 text-lg text-white/80">
-            Apply now and take the first step toward your dream university.
-          </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Button size="lg" className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12" asChild>
-              <Link href={`/apply/${service.applySlug}`}>
-                Apply Now
-                <ArrowRight className="ml-2 h-4 w-4" />
+            <div className="mt-8">
+              <Link
+                href={`/apply/${slug}`}
+                className="inline-flex items-center gap-2 rounded-full bg-[#F59E0B] px-8 py-4 text-base font-semibold text-white hover:bg-[#E58E00] transition-colors"
+              >
+                Apply for This Service
+                <ArrowRight className="h-5 w-5" />
               </Link>
-            </Button>
-            <Button size="lg" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12" asChild>
-              <Link href="/contact">Contact Us</Link>
-            </Button>
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* Benefits Section */}
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-2 lg:gap-16 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">
+                  What You Get
+                </h2>
+                <ul className="space-y-4">
+                  {service.benefits.map((benefit) => (
+                    <li key={benefit} className="flex items-start gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#1E3A5F]">
+                        <Check className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-lg text-gray-700 dark:text-gray-300">{benefit}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="relative">
+                <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+                  <Image
+                    src={service.heroImage}
+                    alt={`${service.title} benefits`}
+                    fill
+                    className="object-cover"
+                  />
+                </div>
+                <div className="absolute -bottom-6 -left-6 rounded-2xl bg-[#1E3A5F] p-6 text-white shadow-lg">
+                  <p className="text-3xl font-bold">100%</p>
+                  <p className="text-sm text-white/80">Fee Coverage</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Process Section */}
+        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F]">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl mb-4">
+                How It Works
+              </h2>
+              <p className="text-lg text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+                Our streamlined process makes it easy to get the support you need.
+              </p>
+            </div>
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
+              {service.process.map((step) => (
+                <div key={step.step} className="relative">
+                  <div className="mb-4 flex h-12 w-12 items-center justify-center rounded-full bg-[#1E3A5F] text-xl font-bold text-white">
+                    {step.step}
+                  </div>
+                  <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">
+                    {step.title}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {step.description}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* Eligibility Section */}
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-7xl px-6 lg:px-8">
+            <div className="grid gap-12 lg:grid-cols-2 items-center">
+              <div>
+                <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">
+                  Eligibility Requirements
+                </h2>
+                <p className="text-lg text-gray-600 dark:text-gray-400 mb-8">
+                  We welcome applications from students who meet the following criteria:
+                </p>
+                <ul className="space-y-4">
+                  {service.eligibility.map((item) => (
+                    <li key={item} className="flex items-start gap-4">
+                      <div className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-[#F59E0B]">
+                        <Check className="h-4 w-4 text-white" />
+                      </div>
+                      <span className="text-gray-700 dark:text-gray-300">{item}</span>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="rounded-2xl bg-gradient-to-br from-[#1E3A5F] to-[#0C1220] p-8 lg:p-12 text-white">
+                <h3 className="text-2xl font-bold mb-4">Not Sure If You Qualify?</h3>
+                <p className="text-white/80 mb-6">
+                  We review every application holistically. If you're passionate about your education and facing financial barriers, we encourage you to apply.
+                </p>
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center gap-2 rounded-full bg-white text-[#1E3A5F] px-6 py-3 font-semibold hover:bg-gray-100 transition-colors"
+                >
+                  Contact Us
+                  <ArrowRight className="h-4 w-4" />
+                </Link>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* FAQ Section */}
+        <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F]">
+          <div className="mx-auto max-w-3xl px-6 lg:px-8">
+            <div className="text-center mb-12">
+              <h2 className="text-3xl font-bold text-gray-900 dark:text-white md:text-4xl mb-4">
+                Frequently Asked Questions
+              </h2>
+            </div>
+            <div className="space-y-6">
+              {service.faq.map((item) => (
+                <div
+                  key={item.question}
+                  className="rounded-2xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-6"
+                >
+                  <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-2">
+                    {item.question}
+                  </h3>
+                  <p className="text-gray-600 dark:text-gray-400">
+                    {item.answer}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* CTA Section */}
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">
+              Ready to Apply?
+            </h2>
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+              Take the first step toward your educational goals. Our team is ready to support you every step of the way.
+            </p>
+            <Link
+              href={`/apply/${slug}`}
+              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#2D4A6F] transition-colors"
+            >
+              Start Your Application
+              <ArrowRight className="h-5 w-5" />
+            </Link>
+          </div>
+        </section>
+      </main>
 
       <Footer />
     </div>
