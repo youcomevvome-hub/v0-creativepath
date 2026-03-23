@@ -39,8 +39,25 @@ export default async function ApplyPage({ params }: ApplyPageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-[#F7F8FA]">
       <Navbar />
+      {/* Page Hero */}
+      <div className="relative overflow-hidden bg-[#1F2937] py-12">
+        <div
+          className="absolute inset-0 opacity-10"
+          style={{
+            backgroundImage: "radial-gradient(circle, #B7F34B 1px, transparent 1px)",
+            backgroundSize: "28px 28px",
+          }}
+        />
+        <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
+          <p className="mb-2 text-xs font-bold uppercase tracking-widest text-[#B7F34B]">Apply Now</p>
+          <h1 className="text-3xl font-black uppercase text-white md:text-4xl text-balance">
+            {service.title}
+          </h1>
+          <p className="mt-2 text-white/60">{service.description}</p>
+        </div>
+      </div>
       <main className="py-12 lg:py-16">
         <div className="mx-auto max-w-7xl px-4 lg:px-8">
           <EligibilityForm serviceSlug={serviceSlug} serviceTitle={service.title} />

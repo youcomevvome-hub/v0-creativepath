@@ -1,39 +1,57 @@
 "use client"
 
-import { ArrowRight, GraduationCap, Globe, Users } from "lucide-react"
-import { Button } from "@/components/ui/button"
+import Image from "next/image"
 import Link from "next/link"
+import { ArrowRight } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 export function Hero() {
   return (
-    <section className="relative overflow-hidden bg-background py-16 lg:py-24">
-      {/* Background decoration */}
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -right-20 -top-20 h-96 w-96 rounded-full bg-highlight/20 blur-3xl" />
-        <div className="absolute -bottom-20 -left-20 h-96 w-96 rounded-full bg-scholarship/10 blur-3xl" />
-      </div>
+    <section className="relative overflow-hidden bg-[#EDF0F7] min-h-[88vh] flex items-center">
+      {/* Subtle dot grid background */}
+      <div
+        className="absolute inset-0 opacity-30"
+        style={{
+          backgroundImage: "radial-gradient(circle, #1F2937 1px, transparent 1px)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 lg:px-8">
-        <div className="grid items-center gap-12 lg:grid-cols-2">
-          {/* Left Content */}
-          <div className="max-w-xl">
-            <span className="mb-4 inline-block rounded-full bg-highlight/20 px-4 py-2 text-sm font-medium text-primary">
-              UNLOCK YOUR POTENTIAL
-            </span>
-            <h1 className="mb-6 text-4xl font-bold leading-tight tracking-tight text-foreground md:text-5xl lg:text-6xl text-balance">
-              Time To Take Off To Your{" "}
-              <span className="text-scholarship">Dream University</span>
-            </h1>
-            <p className="mb-8 text-lg leading-relaxed text-muted-foreground text-pretty">
-              We provide financial support, mentorship, and application guidance to help scholars 
-              from Africa and around the world study abroad. Covering 100% to 25% of academic 
-              and immigration-related fees.
+      <div className="relative mx-auto w-full max-w-7xl px-4 py-12 lg:px-8">
+        <div className="grid items-end gap-0 lg:grid-cols-2">
+
+          {/* ── Left column ──────────────────────────────── */}
+          <div className="relative z-10 pb-8 lg:pb-16">
+
+            {/* Overline */}
+            <p className="mb-4 text-xs font-bold uppercase tracking-[0.25em] text-[#2563EB]">
+              Creative Path Inspired &nbsp;|&nbsp; Study Abroad Support
             </p>
 
-            <div className="flex flex-wrap gap-4">
+            {/* Main headline — bold editorial like Essence Academy flyer */}
+            <h1 className="mb-6 font-sans text-[3.2rem] font-black uppercase leading-[0.95] tracking-tight text-[#1F2937] md:text-[4.5rem] lg:text-[5.2rem] text-balance">
+              Time To<br />
+              <span className="text-[#2563EB]">Take Off</span><br />
+              To Your<br />
+              Dream<br />
+              <span className="relative inline-block">
+                University
+                {/* Yellow underline accent */}
+                <span className="absolute -bottom-2 left-0 h-3 w-full bg-[#B7F34B] -z-10" />
+              </span>
+            </h1>
+
+            <p className="mb-8 max-w-md text-base leading-relaxed text-gray-600">
+              Financial support, mentorship, and application guidance for scholars
+              from Africa and around the world — covering 100% to 25% of your
+              academic and immigration-related fees.
+            </p>
+
+            {/* CTA row */}
+            <div className="flex flex-wrap gap-3">
               <Button
                 size="lg"
-                className="rounded-full bg-primary px-8 text-primary-foreground shadow-lg transition-all hover:bg-primary/90 hover:shadow-xl"
+                className="rounded-full bg-[#1F2937] px-8 text-white shadow-lg hover:bg-[#1F2937]/90 hover:shadow-xl transition-all"
                 asChild
               >
                 <Link href="#services">
@@ -44,63 +62,103 @@ export function Hero() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full border-2 px-8"
+                className="rounded-full border-2 border-[#1F2937] px-8 text-[#1F2937] hover:bg-[#1F2937] hover:text-white transition-all"
                 asChild
               >
-                <Link href="#services">Explore Services</Link>
+                <Link href="/contact">Contact Us</Link>
               </Button>
             </div>
 
-            {/* Stats */}
-            <div className="mt-12 grid grid-cols-3 gap-4">
-              <div className="text-center">
-                <p className="text-2xl font-bold text-foreground lg:text-3xl">500+</p>
-                <p className="text-sm text-muted-foreground">Students Helped</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-foreground lg:text-3xl">25+</p>
-                <p className="text-sm text-muted-foreground">Countries</p>
-              </div>
-              <div className="text-center">
-                <p className="text-2xl font-bold text-foreground lg:text-3xl">100%</p>
-                <p className="text-sm text-muted-foreground">Dedication</p>
-              </div>
+            {/* Stats bar */}
+            <div className="mt-10 flex gap-8">
+              {[
+                { value: "500+", label: "Students Helped" },
+                { value: "25+",  label: "Countries" },
+                { value: "100%", label: "Dedication" },
+              ].map((stat) => (
+                <div key={stat.label}>
+                  <p className="text-2xl font-black text-[#1F2937]">{stat.value}</p>
+                  <p className="text-xs text-gray-500">{stat.label}</p>
+                </div>
+              ))}
             </div>
           </div>
 
-          {/* Right Content - Bento Grid */}
-          <div className="grid gap-4 lg:grid-cols-2">
-            {/* Large Card */}
-            <div className="group relative overflow-hidden rounded-3xl bg-highlight p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl lg:col-span-2">
-              <div className="flex items-start justify-between">
-                <div>
-                  <span className="mb-2 inline-block rounded-full bg-primary/10 px-3 py-1 text-xs font-medium text-primary">
-                    Featured
-                  </span>
-                  <h3 className="mb-2 text-xl font-bold text-primary">Financial Support</h3>
-                  <p className="text-sm text-primary/80">
-                    Cover 100% to 25% of your academic fees with our scholarship programs.
-                  </p>
-                </div>
-                <GraduationCap className="h-10 w-10 text-primary/60" />
-              </div>
+          {/* ── Right column — photo + floating tiles ──── */}
+          <div className="relative flex justify-center lg:justify-end">
+
+            {/* Student photo — no background, full cutout */}
+            <div className="relative z-10 w-[340px] md:w-[420px] lg:w-[500px]">
+              <Image
+                src="/images/hero-student.png"
+                alt="Student ready to study abroad"
+                width={500}
+                height={600}
+                className="w-full object-contain drop-shadow-2xl"
+                priority
+              />
             </div>
 
-            {/* Medium Card 1 */}
-            <div className="group relative overflow-hidden rounded-3xl bg-scholarship p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl">
-              <Globe className="mb-4 h-8 w-8 text-scholarship-foreground/80" />
-              <h3 className="mb-2 text-lg font-bold text-scholarship-foreground">Global Access</h3>
-              <p className="text-sm text-scholarship-foreground/80">
-                Study anywhere in the world with our support network.
+            {/* Floating tile — top left (blue) */}
+            <div className="absolute left-2 top-8 z-20 w-[170px] rounded-2xl bg-[#2563EB] p-4 shadow-2xl">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-white/70">
+                Financial Aid
+              </p>
+              <p className="text-lg font-black uppercase leading-tight text-white">
+                WES &amp; GRE<br />Fee Support
+              </p>
+              <ul className="mt-2 space-y-1">
+                {["100% fee waiver", "50% partial waiver", "GRE / ETS fees", "Application fees"].map((item) => (
+                  <li key={item} className="flex items-start gap-1 text-[10px] text-white/80">
+                    <span className="mt-0.5 text-[#B7F34B]">•</span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Floating tile — top right (magenta/pink) */}
+            <div className="absolute right-0 top-6 z-20 w-[150px] rounded-2xl bg-[#E8185C] p-4 shadow-2xl">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-white/70">
+                Mentorship
+              </p>
+              <p className="text-lg font-black uppercase leading-tight text-white">
+                Expert<br />Guidance
               </p>
             </div>
 
-            {/* Medium Card 2 */}
-            <div className="group relative overflow-hidden rounded-3xl bg-card p-6 shadow-lg transition-all hover:-translate-y-1 hover:shadow-xl">
-              <Users className="mb-4 h-8 w-8 text-primary/60" />
-              <h3 className="mb-2 text-lg font-bold text-foreground">Expert Mentorship</h3>
-              <p className="text-sm text-muted-foreground">
-                Get guidance from scholars who have walked this path.
+            {/* Floating tile — right middle (yellow) */}
+            <div className="absolute right-0 top-[200px] z-20 w-[150px] rounded-2xl bg-[#B7F34B] p-4 shadow-2xl">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-[#1F2937]/60">
+                Registration
+              </p>
+              <p className="text-base font-black uppercase leading-tight text-[#1F2937]">
+                Applications
+              </p>
+              <p className="mt-1 text-[10px] font-semibold text-[#1F2937]">Still Open</p>
+            </div>
+
+            {/* Floating tile — bottom left (white) */}
+            <div className="absolute bottom-20 left-0 z-20 w-[160px] rounded-2xl bg-white p-4 shadow-2xl">
+              <p className="mb-1 text-[10px] font-bold uppercase tracking-widest text-gray-400">
+                Visa Support
+              </p>
+              <p className="text-base font-black uppercase leading-tight text-[#1F2937]">
+                SEVIS &amp;<br />Visa Fees
+              </p>
+              <ul className="mt-2 space-y-1">
+                {["SEVIS fee coverage", "Visa application aid"].map((item) => (
+                  <li key={item} className="flex items-start gap-1 text-[10px] text-gray-500">
+                    <span className="text-[#2563EB]">•</span> {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            {/* Bottom ticker badge */}
+            <div className="absolute -bottom-4 left-1/2 z-20 -translate-x-1/2 rounded-full bg-[#1F2937] px-6 py-3 shadow-xl">
+              <p className="whitespace-nowrap text-sm font-semibold text-white">
+                Start Before Doubt Returns &nbsp;·&nbsp;
+                <span className="text-[#B7F34B]">Apply Today</span>
               </p>
             </div>
           </div>

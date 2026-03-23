@@ -1,16 +1,20 @@
 import { NextRequest, NextResponse } from "next/server"
 
 // In-memory storage for demo purposes
-// In production, this would be replaced with a proper database
 const applications: Map<string, Application> = new Map()
 
 interface Application {
   id: string
   fullName: string
+  email: string
+  phone: string
+  country: string
   university: string
   course: string
   gpa: string
+  graduationYear: string
   service: string
+  serviceTitle: string
   hasStartedApplication: string
   waiverOptions: string[]
   acceptPartialWaiver: string
@@ -23,67 +27,112 @@ interface Application {
   createdAt: string
 }
 
+async function sendApplicationEmail(app: Application) {
+  const RESEND_API_KEY = process.env.RESEND_API_KEY
+  if (!RESEND_API_KEY) {
+    console.log("[Applications] No RESEND_API_KEY — logging application:", app.eligibilityCode)
+    return
+  }
+
+  await fetch("https://api.resend.com/emails", {
+    method: "POST",
+    headers: {
+      Authorization: `Bearer ${RESEND_API_KEY}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      from: "Creative Path Inspired <onboarding@resend.dev>",
+      to: ["vicecreativepath@gmail.com"],
+      reply_to: app.email || undefined,
+      subject: `[New Application] ${app.serviceTitle} — ${app.fullName} | Code: ${app.eligibilityCode}`,
+      html: `
+        <div style="font-family:sans-serif;max-width:640px;margin:auto;color:#1F2937">
+          <div style="background:#1F2937;padding:24px;border-radius:16px 16px 0 0">
+            <h2 style="color:#B7F34B;margin:0;font-size:22px">New Eligibility Application</h2>
+            <p style="color:#ffffff99;margin:6px 0 0">Creative Path Inspired Support Platform</p>
+          </div>
+          <div style="background:#F7F8FA;padding:24px;border-left:4px solid #B7F34B">
+            <p style="margin:0;font-size:13px;font-weight:bold;color:#6B7280;text-transform:uppercase;letter-spacing:1px">Service</p>
+            <p style="margin:4px 0 0;font-size:18px;font-weight:bold">${app.serviceTitle}</p>
+            <p style="margin:4px 0 0;font-size:14px;color:#6B7280">Code: <strong style="color:#2563EB">${app.eligibilityCode}</strong></p>
+          </div>
+          <div style="background:#fff;padding:24px">
+            <h3 style="color:#1F2937;margin:0 0 16px;font-size:16px;border-bottom:1px solid #E5E7EB;padding-bottom:8px">Applicant Details</h3>
+            <table style="width:100%;border-collapse:collapse;font-size:14px">
+              <tr><td style="padding:6px 0;width:40%;color:#6B7280;font-weight:600">Full Name</td><td>${app.fullName}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Email</td><td><a href="mailto:${app.email}">${app.email || "N/A"}</a></td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Phone</td><td>${app.phone || "N/A"}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Country</td><td>${app.country || "N/A"}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">University</td><td>${app.university}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Course</td><td>${app.course}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">GPA / CWA</td><td>${app.gpa}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Graduation Year</td><td>${app.graduationYear || "N/A"}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Application Started</td><td>${app.hasStartedApplication}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Waivers Requested</td><td>${app.waiverOptions?.join(", ") || "N/A"}</td></tr>
+              <tr><td style="padding:6px 0;color:#6B7280;font-weight:600">Accepts Partial</td><td>${app.acceptPartialWaiver}</td></tr>
+            </table>
+            <h3 style="color:#1F2937;margin:24px 0 8px;font-size:16px">Payment Plan</h3>
+            <p style="color:#4B5563;line-height:1.6;margin:0">${app.paymentPlan}</p>
+            <h3 style="color:#1F2937;margin:24px 0 8px;font-size:16px">Concrete Step Taken</h3>
+            <p style="color:#4B5563;line-height:1.6;margin:0">${app.concreteStep}</p>
+            <h3 style="color:#1F2937;margin:24px 0 8px;font-size:16px">Why Selected Essay</h3>
+            <p style="color:#4B5563;line-height:1.6;margin:0;white-space:pre-wrap">${app.whySelected}</p>
+            <h3 style="color:#1F2937;margin:24px 0 8px;font-size:16px">Target Universities</h3>
+            <p style="color:#4B5563;line-height:1.6;margin:0;white-space:pre-wrap">${app.targetUniversities}</p>
+          </div>
+          <div style="background:#F3F4F6;padding:16px;border-radius:0 0 16px 16px;text-align:center">
+            <p style="color:#9CA3AF;font-size:12px;margin:0">Creative Path Inspired · Application submitted on ${new Date(app.createdAt).toLocaleString()}</p>
+          </div>
+        </div>
+      `,
+    }),
+  }).catch((err) => console.error("[Resend email error]", err))
+}
+
 export async function POST(request: NextRequest) {
   try {
     const body = await request.json()
-
-    // Generate unique ID
     const id = `app-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
 
     const application: Application = {
       id,
-      fullName: body.fullName,
-      university: body.university,
-      course: body.course,
-      gpa: body.gpa,
-      service: body.service,
-      hasStartedApplication: body.hasStartedApplication,
-      waiverOptions: body.waiverOptions,
-      acceptPartialWaiver: body.acceptPartialWaiver,
-      paymentPlan: body.paymentPlan,
-      concreteStep: body.concreteStep,
-      whySelected: body.whySelected,
-      targetUniversities: body.targetUniversities,
-      eligibilityCode: body.eligibilityCode,
-      status: "pending",
-      createdAt: new Date().toISOString(),
+      fullName:              body.fullName        || "",
+      email:                 body.email           || "",
+      phone:                 body.phone           || "",
+      country:               body.country         || "",
+      university:            body.university      || "",
+      course:                body.course          || "",
+      gpa:                   body.gpa             || "",
+      graduationYear:        body.graduationYear  || "",
+      service:               body.service         || "",
+      serviceTitle:          body.serviceTitle    || "",
+      hasStartedApplication: body.hasStartedApplication || "",
+      waiverOptions:         body.waiverOptions   || [],
+      acceptPartialWaiver:   body.acceptPartialWaiver   || "",
+      paymentPlan:           body.paymentPlan     || "",
+      concreteStep:          body.concreteStep    || "",
+      whySelected:           body.whySelected     || "",
+      targetUniversities:    body.targetUniversities    || "",
+      eligibilityCode:       body.eligibilityCode || "",
+      status:                "pending",
+      createdAt:             new Date().toISOString(),
     }
 
-    // Store application
     applications.set(id, application)
 
+    // Fire-and-forget email notification
+    sendApplicationEmail(application)
+
     return NextResponse.json(
-      {
-        success: true,
-        message: "Application submitted successfully",
-        data: {
-          id: application.id,
-          eligibilityCode: application.eligibilityCode,
-        },
-      },
+      { success: true, data: { id, eligibilityCode: application.eligibilityCode } },
       { status: 201 }
     )
   } catch (error) {
     console.error("Error creating application:", error)
-    return NextResponse.json(
-      { success: false, error: "Failed to create application" },
-      { status: 500 }
-    )
+    return NextResponse.json({ success: false, error: "Failed to create application" }, { status: 500 })
   }
 }
 
 export async function GET() {
-  try {
-    const allApplications = Array.from(applications.values())
-    return NextResponse.json({
-      success: true,
-      data: allApplications,
-    })
-  } catch (error) {
-    console.error("Error fetching applications:", error)
-    return NextResponse.json(
-      { success: false, error: "Failed to fetch applications" },
-      { status: 500 }
-    )
-  }
+  return NextResponse.json({ success: true, data: Array.from(applications.values()) })
 }
