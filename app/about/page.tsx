@@ -1,75 +1,75 @@
-'use client'
+"use client"
 
-import { useState } from 'react'
-import { Navbar } from '@/components/Navbar'
-import { Footer } from '@/components/Footer'
-import Image from 'next/image'
-import Link from 'next/link'
-import { ArrowRight, Globe, Heart, Users, ChevronDown } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState } from "react"
+import { Navbar } from "@/components/Navbar"
+import { Footer } from "@/components/Footer"
+import Image from "next/image"
+import Link from "next/link"
+import { ArrowRight, Globe, Heart, Users, ChevronDown, CheckCircle } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 const programs = [
   {
-    title: 'Getting Started',
-    description: 'New to studying abroad? Start here with foundational support.',
-    image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600',
+    title: "Getting Started",
+    description: "New to studying abroad? Start here with foundational support.",
+    image: "https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=600",
     featured: true,
-    link: '/services',
+    link: "/services",
   },
   {
-    title: 'Scholar Squad',
-    description: 'Join ambitious students pursuing dreams together.',
-    image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
-    link: '/programs/scholar-squad',
+    title: "Scholar Squad",
+    description: "Join ambitious students pursuing dreams together.",
+    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
+    link: "/programs/scholar-squad",
   },
   {
-    title: 'MVP Grind',
-    description: 'Intensive support for high-achievers.',
-    image: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400',
-    link: '/programs/mvp-grind',
+    title: "MVP Grind",
+    description: "Intensive support for high-achievers.",
+    image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400",
+    link: "/programs/mvp-grind",
   },
 ]
 
 const initiatives = [
-  {
-    id: 'wes',
-    number: '01',
-    title: 'WES Fee Support',
-    description: 'Full credential evaluation coverage for academic transcripts.',
-    image: 'https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=400',
+  { 
+    id: "wes",
+    number: "01", 
+    title: "WES Fee Support", 
+    description: "Full credential evaluation coverage for academic transcripts. We cover 100% of WES evaluation fees for eligible students.",
+    image: "https://images.pexels.com/photos/4050315/pexels-photo-4050315.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
-  {
-    id: 'gre',
-    number: '02',
-    title: 'GRE/TOEFL Support',
-    description: 'Testing fee assistance for standardized exams required by universities worldwide.',
-    image: 'https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=400',
+  { 
+    id: "gre",
+    number: "02", 
+    title: "GRE/TOEFL Support", 
+    description: "Testing fee assistance for standardized exams required by universities worldwide. Get your exam fees covered.",
+    image: "https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
-  {
-    id: 'visa',
-    number: '03',
-    title: 'Visa Support',
-    description: 'SEVIS and visa application fee assistance.',
-    image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=400',
+  { 
+    id: "visa",
+    number: "03", 
+    title: "Visa Support", 
+    description: "SEVIS and visa application fee assistance to help you secure your student visa without financial burden.",
+    image: "https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
-  {
-    id: 'mentorship',
-    number: '04',
-    title: 'Mentorship Program',
-    description: 'One-on-one guidance from experienced scholars.',
-    image: 'https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400',
+  { 
+    id: "mentorship",
+    number: "04", 
+    title: "Mentorship Program", 
+    description: "One-on-one guidance from experienced scholars who have successfully navigated the study abroad journey.",
+    image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400"
   },
 ]
 
 const stats = [
-  { value: '500+', label: 'Students Supported' },
-  { value: '25+', label: 'Countries Reached' },
-  { value: '$2M+', label: 'Fees Covered' },
-  { value: '98%', label: 'Success Rate' },
+  { value: "500+", label: "Students Supported" },
+  { value: "25+", label: "Countries Reached" },
+  { value: "$2M+", label: "Fees Covered" },
+  { value: "98%", label: "Success Rate" },
 ]
 
 export default function AboutPage() {
-  const [expandedInitiative, setExpandedInitiative] = useState<string | null>('wes')
+  const [expandedInitiative, setExpandedInitiative] = useState<string | null>("wes")
 
   const toggleInitiative = (id: string) => {
     setExpandedInitiative(expandedInitiative === id ? null : id)
@@ -80,7 +80,7 @@ export default function AboutPage() {
       <Navbar />
 
       <main>
-        {/* Hero Section */}
+        {/* Hero Section with Image */}
         <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
@@ -94,48 +94,53 @@ export default function AboutPage() {
           </div>
           <div className="relative py-24 lg:py-40">
             <div className="mx-auto max-w-7xl px-6 lg:px-8">
-              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#F59E0B]">
+              <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-[#F59E0B] animate-in fade-in slide-in-from-left-4 duration-500">
                 About Us
               </p>
-              <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl text-balance">
-                A Global Community Helping Students Reach New Heights
+              <h1 className="mb-6 text-4xl font-bold text-white md:text-6xl lg:text-7xl text-balance animate-in fade-in slide-in-from-left-4 duration-500 delay-100">
+                A Global Community<br />
+                <span className="text-gray-300">Helping Students</span><br />
+                Reach New Heights
               </h1>
-              <p className="max-w-2xl text-lg text-white/80">
-                We are a network of scholars, professionals, and educators united by one mission: making quality education accessible to talented students.
+              <p className="max-w-2xl text-lg text-white/80 animate-in fade-in slide-in-from-left-4 duration-500 delay-200">
+                We are a network of scholars, professionals, and educators from around the world 
+                united by a single mission: making quality education accessible to talented students 
+                from underrepresented regions.
               </p>
             </div>
           </div>
         </section>
 
-        {/* Programs Section */}
+        {/* Programs Section with Images */}
         <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F]">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mb-12 flex items-center gap-4">
               <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
-                Programs
+                02 &nbsp; Programs
               </span>
             </div>
 
             <div className="grid gap-8 lg:grid-cols-2">
               <div>
                 <h2 className="text-4xl font-bold text-gray-900 dark:text-white md:text-5xl">
-                  Programs Designed for All Levels
+                  Programs Designed for<br />All Levels
                 </h2>
                 <p className="mt-4 text-gray-600 dark:text-gray-400 max-w-lg">
-                  Whether you are just starting or ready for advanced support, we have programs tailored to your needs.
+                  Whether you&apos;re just starting your journey or ready for advanced support, 
+                  we have programs tailored to your needs.
                 </p>
               </div>
 
               <div className="grid gap-4 sm:grid-cols-2">
                 {programs.map((program, index) => (
                   <Link
-                    key={`program-${index}`}
+                    key={index}
                     href={program.link}
                     className={`group relative overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5 ${
-                      program.featured ? 'sm:col-span-2' : ''
+                      program.featured ? "sm:col-span-2" : ""
                     }`}
                   >
-                    <div className={`relative ${program.featured ? 'h-[300px]' : 'h-[200px]'}`}>
+                    <div className={`relative ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
                       <Image
                         src={program.image}
                         alt={program.title}
@@ -158,19 +163,19 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Initiatives Section */}
+        {/* Initiatives Section - Accordion */}
         <section className="py-20 lg:py-28 bg-white dark:bg-[#0C1220]">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="mb-12 flex items-center gap-4">
               <span className="inline-block rounded-full border border-gray-300 dark:border-gray-700 px-4 py-1.5 text-xs font-semibold uppercase tracking-widest text-gray-600 dark:text-gray-400">
-                Initiatives
+                03 &nbsp; Initiatives
               </span>
             </div>
 
             <div className="grid gap-12 lg:grid-cols-2">
               <div>
                 <h2 className="mb-4 text-3xl font-bold text-gray-900 dark:text-white md:text-4xl">
-                  Our Key Initiatives & Programs
+                  Our Key<br />Initiatives &<br />Programs
                 </h2>
                 <p className="text-gray-600 dark:text-gray-400 mb-6">
                   We provide comprehensive support across every stage of your study abroad journey.
@@ -195,7 +200,7 @@ export default function AboutPage() {
                   <div
                     key={item.id}
                     className={`rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all ${
-                      expandedInitiative === item.id ? 'bg-gray-50 dark:bg-[#1D1D1F]' : 'bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#1D1D1F]'
+                      expandedInitiative === item.id ? "bg-gray-50 dark:bg-[#1D1D1F]" : "bg-white dark:bg-transparent hover:bg-gray-50 dark:hover:bg-[#1D1D1F]"
                     }`}
                   >
                     <button
@@ -206,11 +211,7 @@ export default function AboutPage() {
                         <span className="text-sm font-medium text-gray-400">{item.number}</span>
                         <h3 className="text-lg font-semibold text-gray-900 dark:text-white">{item.title}</h3>
                       </div>
-                      <ChevronDown
-                        className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${
-                          expandedInitiative === item.id ? 'rotate-180' : ''
-                        }`}
-                      />
+                      <ChevronDown className={`h-5 w-5 text-gray-400 transition-transform duration-300 ${expandedInitiative === item.id ? "rotate-180" : ""}`} />
                     </button>
                     {expandedInitiative === item.id && (
                       <div className="px-5 pb-5 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -220,11 +221,7 @@ export default function AboutPage() {
                           </div>
                           <div>
                             <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">{item.description}</p>
-                            <Button
-                              variant="outline"
-                              className="rounded-full text-sm border-[#1E3A5F] text-[#1E3A5F] dark:border-white dark:text-white"
-                              asChild
-                            >
+                            <Button variant="outline" className="rounded-full text-sm border-[#1E3A5F] text-[#1E3A5F] dark:border-white dark:text-white" asChild>
                               <Link href={`/services/${item.id}-support`}>View Details</Link>
                             </Button>
                           </div>
@@ -249,10 +246,7 @@ export default function AboutPage() {
 
             <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
               {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-3xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-8 text-center transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5"
-                >
+                <div key={stat.label} className="rounded-3xl bg-white dark:bg-[#0C1220] border border-gray-200 dark:border-white/10 p-8 text-center transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5">
                   <p className="text-4xl font-bold text-[#1E3A5F] dark:text-white">{stat.value}</p>
                   <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">{stat.label}</p>
                 </div>
@@ -261,7 +255,7 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* Core Values Section */}
+        {/* Mission Section with Images */}
         <section className="py-20 lg:py-28 bg-white dark:bg-[#0C1220]">
           <div className="mx-auto max-w-7xl px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -274,39 +268,13 @@ export default function AboutPage() {
             </div>
             <div className="grid gap-8 lg:grid-cols-3">
               {[
-                {
-                  icon: Globe,
-                  title: 'Global Reach',
-                  description: 'Supporting students from over 25 countries across Africa and beyond.',
-                  color: 'bg-[#1E3A5F]',
-                  image: 'https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400',
-                },
-                {
-                  icon: Heart,
-                  title: 'Dedicated Support',
-                  description: 'Our volunteers dedicate their time to mentoring and guiding students.',
-                  color: 'bg-[#374151]',
-                  image: 'https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400',
-                },
-                {
-                  icon: Users,
-                  title: 'Community Driven',
-                  description: 'Built by scholars, for scholars. We understand your journey.',
-                  color: 'bg-[#F59E0B]',
-                  image: 'https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400',
-                },
+                { icon: Globe, title: "Global Reach", description: "Supporting students from over 25 countries across Africa and beyond.", color: "bg-[#1E3A5F]", image: "https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Heart, title: "Dedicated Support", description: "Our volunteers dedicate their time to mentoring and guiding students.", color: "bg-[#374151]", image: "https://images.pexels.com/photos/3184296/pexels-photo-3184296.jpeg?auto=compress&cs=tinysrgb&w=400" },
+                { icon: Users, title: "Community Driven", description: "Built by scholars, for scholars. We understand your journey.", color: "bg-[#F59E0B]", image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400" },
               ].map((value) => (
-                <div
-                  key={value.title}
-                  className="group rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5"
-                >
+                <div key={value.title} className="group rounded-2xl border border-gray-200 dark:border-white/10 overflow-hidden transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5">
                   <div className="relative h-48">
-                    <Image
-                      src={value.image}
-                      alt={value.title}
-                      fill
-                      className="object-cover transition-transform duration-500 group-hover:scale-110"
-                    />
+                    <Image src={value.image} alt={value.title} fill className="object-cover transition-transform duration-500 group-hover:scale-110" />
                     <div className="absolute inset-0 bg-black/40" />
                     <div className={`absolute bottom-4 left-4 flex h-12 w-12 items-center justify-center rounded-xl ${value.color}`}>
                       <value.icon className="h-6 w-6 text-white" />
@@ -346,12 +314,7 @@ export default function AboutPage() {
                   Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12"
-                asChild
-              >
+              <Button size="lg" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12" asChild>
                 <Link href="/contact">Become a Mentor</Link>
               </Button>
             </div>

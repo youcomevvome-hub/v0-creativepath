@@ -141,7 +141,7 @@ export function Footer() {
 
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] text-white px-6 py-3 text-sm font-semibold hover:bg-[#152C4A] transition-all hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1D4ED8] transition-all hover:shadow-lg"
             >
               Get Started →
             </Link>
