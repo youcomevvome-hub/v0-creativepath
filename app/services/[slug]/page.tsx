@@ -352,7 +352,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                   ))}
                 </ul>
               </div>
-              <div className="rounded-2xl bg-gradient-to-br from-[#1E3A5F] to-[#0C1220] p-8 lg:p-12 text-white">
+              <div className="rounded-2xl bg-[#1E3A5F] p-8 lg:p-12 text-white">
                 <h3 className="text-2xl font-bold mb-4">Not Sure If You Qualify?</h3>
                 <p className="text-white/80 mb-6">
                   We review every application holistically. If you're passionate about your education and facing financial barriers, we encourage you to apply.
@@ -395,22 +395,40 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
           </div>
         </section>
 
-        {/* CTA Section */}
-        <section className="py-20 lg:py-28">
-          <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">
+        {/* CTA Section with background image */}
+        <section className="relative py-24 overflow-hidden">
+          <div className="absolute inset-0">
+            <Image
+              src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
+              alt="Students ready to start"
+              fill
+              className="object-cover"
+            />
+            {/* Solid dark navy overlay — no gradient */}
+            <div className="absolute inset-0 bg-[#1E3A5F]/92" />
+          </div>
+          <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-white mb-6 md:text-4xl">
               Ready to Apply?
             </h2>
-            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-white/80 mb-10 max-w-2xl mx-auto">
               Take the first step toward your educational goals. Our team is ready to support you every step of the way.
             </p>
-            <Link
-              href={`/apply/${slug}`}
-              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#2D4A6F] transition-colors"
-            >
-              Start Your Application
-              <ArrowRight className="h-5 w-5" />
-            </Link>
+            <div className="flex flex-wrap gap-4 justify-center">
+              <Link
+                href={`/apply/${slug}`}
+                className="inline-flex items-center gap-2 rounded-full bg-white text-[#1E3A5F] px-8 py-4 text-base font-semibold hover:bg-gray-100 transition-colors shadow-lg"
+              >
+                Start Your Application
+                <ArrowRight className="h-5 w-5" />
+              </Link>
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 rounded-full border-2 border-white/40 text-white px-8 py-4 text-base font-semibold hover:bg-white/10 transition-colors"
+              >
+                Contact Us
+              </Link>
+            </div>
           </div>
         </section>
       </main>

@@ -38,7 +38,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#2563EB]">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#1E3A5F] dark:text-[#F59E0B]">
             How It Works
           </p>
           <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white lg:text-5xl text-balance">
@@ -54,7 +54,7 @@ export function HowItWorks() {
           {steps.map((step, idx) => (
             <div
               key={step.number}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] transition-all duration-300 hover:shadow-xl hover:-translate-y-1"
+              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] transition-all duration-300 hover:shadow-xl dark:hover:shadow-white/5 hover:-translate-y-1"
               style={{ animationDelay: `${idx * 100}ms` }}
             >
               {/* Image */}
@@ -65,8 +65,9 @@ export function HowItWorks() {
                   fill
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB] text-white font-bold text-sm">
+                <div className="absolute inset-0 bg-black/50" />
+                {/* Step badge uses logo navy */}
+                <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#1E3A5F] text-white font-bold text-sm">
                   {step.number}
                 </div>
               </div>
@@ -83,13 +84,13 @@ export function HowItWorks() {
 
               {/* Connector line (except last) */}
               {idx < steps.length - 1 && (
-                <div className="hidden lg:block absolute top-1/2 -right-3 w-6 h-0.5 bg-gray-300 dark:bg-gray-700 z-10" />
+                <div className="hidden lg:block absolute top-[80px] -right-3 w-6 h-0.5 bg-gray-300 dark:bg-gray-700 z-10" />
               )}
             </div>
           ))}
         </div>
 
-        {/* CTA Section */}
+        {/* CTA Section — logo navy background with real photo, NO gradient */}
         <div className="mt-16 relative overflow-hidden rounded-3xl">
           <div className="absolute inset-0">
             <Image
@@ -98,7 +99,8 @@ export function HowItWorks() {
               fill
               className="object-cover"
             />
-            <div className="absolute inset-0 bg-[#2563EB]/90" />
+            {/* Solid dark navy overlay — no gradient */}
+            <div className="absolute inset-0 bg-[#1E3A5F]/90" />
           </div>
           <div className="relative p-8 lg:p-12 text-center">
             <h3 className="mb-4 text-2xl lg:text-3xl font-bold text-white">
@@ -110,7 +112,7 @@ export function HowItWorks() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Button
                 size="lg"
-                className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12"
+                className="rounded-full bg-white text-[#1E3A5F] hover:bg-gray-100 px-8 h-12 font-semibold"
                 asChild
               >
                 <Link href="/services">
@@ -121,7 +123,7 @@ export function HowItWorks() {
               <Button
                 size="lg"
                 variant="outline"
-                className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12"
+                className="rounded-full border-white/40 text-white hover:bg-white/10 px-8 h-12"
                 asChild
               >
                 <Link href="/contact">Contact Us</Link>

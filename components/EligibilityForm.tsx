@@ -6,7 +6,7 @@ import {
   ArrowLeft, CheckCircle, ChevronRight, Copy, Check,
   User, School, BookOpen, Star, Send,
   FileCheck, GraduationCap, CreditCard, Languages,
-  Stamp, Plane, DollarSign, FileText, Users, Building, LucideIcon,
+  Stamp, Plane, DollarSign, FileText, Users, Building, type LucideIcon,
 } from "lucide-react"
 import Link from "next/link"
 
@@ -43,7 +43,6 @@ const SECTIONS = [
   { id: "opportunity", label: "Opportunity Essay", iconName: "Star" },
 ]
 
-// Service-specific questions based on the service slug
 const serviceQuestions: Record<string, { label: string; placeholder: string; hint?: string }[]> = {
   "wes-support": [
     { label: "Which country did you complete your education in?", placeholder: "e.g. Nigeria, Ghana, Kenya" },
@@ -98,165 +97,22 @@ const serviceQuestions: Record<string, { label: string; placeholder: string; hin
   "mentorship-program": [
     { label: "What area do you need mentorship in?", placeholder: "Application strategy, essay writing, interview prep, etc." },
     { label: "What is your biggest challenge in the application process?", placeholder: "Describe your main obstacles" },
-    { label: "What are your career goals after completing your degree?", placeholder: "Your long-term aspirations" },
+    { label: "What are your target programs/universities?", placeholder: "List your target graduate programs" },
   ],
   "enrollment-deposit-support": [
-    { label: "Which university requires the enrollment deposit?", placeholder: "University name" },
+    { label: "Which university requires the deposit?", placeholder: "University name and program" },
     { label: "What is the enrollment deposit amount?", placeholder: "e.g. $300 USD" },
     { label: "Have you been officially admitted?", placeholder: "Yes/No and admission details" },
   ],
 }
 
-export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormProps) {
-  const router = useRouter()
-  const [step, setStep] = useState(0)
-  const [isSubmitting, setIsSubmitting] = useState(false)
-  const [isSuccess, setIsSuccess] = useState(false)
-  const [eligibilityCode, setEligibilityCode] = useState("")
-  const [copied, setCopied] = useState(false)
-
-  const [formData, setFormData] = useState({
-    fullName: "",
-    email: "",
-    phone: "",
-    country: "",
-    university: "",
-    course: "",
-    gpa: "",
-    graduationYear: "",
-    hasStartedApplication: "",
-    waiverOptions: [] as string[],
-    acceptPartialWaiver: "",
-    paymentPlan: "",
-    concreteStep: "",
-    whySelected: "",
-    targetUniversities: "",
-    // Service-specific fields
-    serviceQuestion1: "",
-    serviceQuestion2: "",
-    serviceQuestion3: "",
-  })
-
-  const questions = useMemo(() => serviceQuestions[serviceSlug] || [], [serviceSlug])
-
-  const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData((prev) => ({ ...prev, [e.target.name]: e.target.value }))
-  }
-
-  const handleRadio = (name: string, value: string) =>
-    setFormData((prev) => ({ ...prev, [name]: value }))
-
-  const handleCheckbox = (id: string, checked: boolean) =>
-    setFormData((prev) => ({
-      ...prev,
-      waiverOptions: checked
-        ? [...prev.waiverOptions, id]
-        : prev.waiverOptions.filter((x) => x !== id),
-    }))
-
-  const handleCopy = () => {
-    navigator.clipboard.writeText(eligibilityCode)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
-  }
-
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setIsSubmitting(true)
-    try {
-      const code = generateEligibilityCode(serviceSlug)
-
-      await fetch("/api/applications", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          ...formData,
-          service: serviceSlug,
-          serviceTitle,
-          eligibilityCode: code,
-        }),
-      })
-
-      setEligibilityCode(code)
-      setIsSuccess(true)
-    } catch (err) {
-      console.error("Submission error:", err)
-    } finally {
-      setIsSubmitting(false)
-    }
-  }
-
-  /* Success Screen */
-  if (isSuccess) {
-    return (
-      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-        <div className="rounded-3xl bg-white dark:bg-[#1D1D1F] p-8 shadow-2xl md:p-12">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
-              <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-400" />
-            </div>
-            <h2 className="mb-2 text-2xl font-black uppercase text-foreground md:text-3xl">
-              Application Received!
-            </h2>
-            <p className="mb-8 text-muted-foreground">
-              Your eligibility application for{" "}
-              <span className="font-semibold text-scholarship">{serviceTitle}</span>{" "}
-              has been submitted. Our team will review it within 48 hours.
-            </p>
-
-            <div className="mb-6 overflow-hidden rounded-2xl border-2 border-dashed border-highlight bg-highlight/10 p-6">
-              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">
-                Your Eligibility Code
-              </p>
-              <p className="mb-4 font-mono text-2xl font-black tracking-widest text-foreground md:text-3xl">
-                {eligibilityCode}
-              </p>
-              <button
-                onClick={handleCopy}
-                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
-              >
-                {copied ? <Check className="h-4 w-4 text-highlight" /> : <Copy className="h-4 w-4" />}
-                {copied ? "Copied!" : "Copy Code"}
-              </button>
-            </div>
-
-            <div className="mb-8 rounded-2xl bg-muted p-5 text-left">
-              <p className="mb-3 text-sm font-bold text-foreground">Next Steps:</p>
-              <ul className="space-y-2 text-sm text-muted-foreground">
-                {[
-                  "Save your eligibility code — you will need it for payment verification.",
-                  "Check your email for a confirmation from our team.",
-                  "Our team will review your application within 48 hours.",
-                  "Once approved, use your code to redeem your financial support.",
-                ].map((item, i) => (
-                  <li key={i} className="flex items-start gap-2">
-                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-highlight text-xs font-bold text-accent-foreground">
-                      {i + 1}
-                    </span>
-                    {item}
-                  </li>
-                ))}
-              </ul>
-            </div>
-
-            <button
-              onClick={() => router.push("/")}
-              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-semibold text-primary-foreground transition-all hover:opacity-90"
-            >
-              Return to Home
-            </button>
-          </div>
-        </div>
-      </div>
-    )
-  }
-
-  /* Field Component */
-  const Field = ({
-    id, label, required = true, children, hint,
-  }: {
-    id: string; label: string; required?: boolean; children: React.ReactNode; hint?: string
-  }) => (
+// ─── Field component defined OUTSIDE EligibilityForm so it never gets recreated ───
+function Field({
+  id, label, required = true, children, hint,
+}: {
+  id: string; label: string; required?: boolean; children: React.ReactNode; hint?: string
+}) {
+  return (
     <div className="flex flex-col gap-1.5">
       <label htmlFor={id} className="text-sm font-semibold text-foreground">
         {label}{required && <span className="ml-1 text-destructive">*</span>}
@@ -265,67 +121,93 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       {children}
     </div>
   )
+}
 
-  const inputCls =
-    "w-full rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1D1D1F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none ring-0 focus:border-[#2563EB] focus:ring-2 focus:ring-[#2563EB]/20"
+const INPUT_CLS =
+  "w-full rounded-2xl border-2 border-gray-200 dark:border-gray-700 bg-white dark:bg-[#1D1D1F] px-4 py-4 text-sm text-gray-900 dark:text-white placeholder-gray-400 outline-none focus:border-[#1E3A5F] focus:ring-2 focus:ring-[#1E3A5F]/20 transition-colors"
 
-  /* Step Content */
-  const steps = [
-    /* Step 0 — Personal Info */
-    <div key="personal" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
+// ─── Step sub-components defined OUTSIDE EligibilityForm ───────────────────────
+
+function StepPersonal({
+  formData, onChange,
+}: {
+  formData: Record<string, string>
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+}) {
+  return (
+    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <div className="grid gap-5 md:grid-cols-2">
         <Field id="fullName" label="Full Name">
-          <input id="fullName" name="fullName" value={formData.fullName} onChange={handleInput} required placeholder="Your full name" className={inputCls} />
+          <input id="fullName" name="fullName" value={formData.fullName} onChange={onChange} required placeholder="Your full name" className={INPUT_CLS} />
         </Field>
         <Field id="email" label="Email Address">
-          <input id="email" name="email" type="email" value={formData.email} onChange={handleInput} required placeholder="you@example.com" className={inputCls} />
+          <input id="email" name="email" type="email" value={formData.email} onChange={onChange} required placeholder="you@example.com" className={INPUT_CLS} />
         </Field>
       </div>
       <div className="grid gap-5 md:grid-cols-2">
         <Field id="phone" label="Phone Number" required={false}>
-          <input id="phone" name="phone" type="tel" value={formData.phone} onChange={handleInput} placeholder="+234 801 234 5678" className={inputCls} />
+          <input id="phone" name="phone" type="tel" value={formData.phone} onChange={onChange} placeholder="+447404599897" className={INPUT_CLS} />
         </Field>
         <Field id="country" label="Country of Residence">
-          <input id="country" name="country" value={formData.country} onChange={handleInput} required placeholder="e.g. Nigeria" className={inputCls} />
+          <input id="country" name="country" value={formData.country} onChange={onChange} required placeholder="e.g. Nigeria" className={INPUT_CLS} />
         </Field>
       </div>
-    </div>,
+    </div>
+  )
+}
 
-    /* Step 1 — Academic Details */
-    <div key="academic" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
+function StepAcademic({
+  formData, onChange,
+}: {
+  formData: Record<string, string>
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+}) {
+  return (
+    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <Field id="university" label="University Attended">
-        <input id="university" name="university" value={formData.university} onChange={handleInput} required placeholder="Your undergraduate university" className={inputCls} />
+        <input id="university" name="university" value={formData.university} onChange={onChange} required placeholder="Your undergraduate university" className={INPUT_CLS} />
       </Field>
       <div className="grid gap-5 md:grid-cols-2">
         <Field id="course" label="Course Studied">
-          <input id="course" name="course" value={formData.course} onChange={handleInput} required placeholder="e.g. Computer Science" className={inputCls} />
+          <input id="course" name="course" value={formData.course} onChange={onChange} required placeholder="e.g. Computer Science" className={INPUT_CLS} />
         </Field>
         <Field id="graduationYear" label="Year of Graduation">
-          <input id="graduationYear" name="graduationYear" value={formData.graduationYear} onChange={handleInput} required placeholder="e.g. 2023" className={inputCls} />
+          <input id="graduationYear" name="graduationYear" value={formData.graduationYear} onChange={onChange} required placeholder="e.g. 2023" className={INPUT_CLS} />
         </Field>
       </div>
       <Field id="gpa" label="GPA / CWA Obtained">
-        <input id="gpa" name="gpa" value={formData.gpa} onChange={handleInput} required placeholder="e.g. 3.7 / 4.0 or 3.8 CGPA" className={inputCls} />
+        <input id="gpa" name="gpa" value={formData.gpa} onChange={onChange} required placeholder="e.g. 3.7 / 4.0 or 3.8 CGPA" className={INPUT_CLS} />
       </Field>
-    </div>,
+    </div>
+  )
+}
 
-    /* Step 2 — Application Status with Service-Specific Questions */
-    <div key="application" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-6">
-      {/* Service-specific questions */}
+function StepApplication({
+  formData, onChange, onRadio, onCheckbox, questions, serviceTitle,
+}: {
+  formData: Record<string, string> & { waiverOptions: string[] }
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+  onRadio: (name: string, value: string) => void
+  onCheckbox: (id: string, checked: boolean) => void
+  questions: { label: string; placeholder: string; hint?: string }[]
+  serviceTitle: string
+}) {
+  return (
+    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-6">
       {questions.length > 0 && (
         <div className="rounded-2xl border border-scholarship/20 bg-scholarship/5 p-5 space-y-5">
           <p className="text-sm font-bold text-scholarship">Questions specific to {serviceTitle}</p>
           {questions.map((q, idx) => (
-            <Field key={idx} id={`serviceQuestion${idx + 1}`} label={q.label} hint={q.hint}>
+            <Field key={q.label} id={`serviceQuestion${idx + 1}`} label={q.label} hint={q.hint}>
               <textarea
                 id={`serviceQuestion${idx + 1}`}
                 name={`serviceQuestion${idx + 1}`}
-                value={formData[`serviceQuestion${idx + 1}` as keyof typeof formData] as string}
-                onChange={handleInput}
+                value={formData[`serviceQuestion${idx + 1}`] ?? ""}
+                onChange={onChange}
                 rows={2}
                 required
                 placeholder={q.placeholder}
-                className={`${inputCls} resize-none`}
+                className={`${INPUT_CLS} resize-none`}
               />
             </Field>
           ))}
@@ -351,7 +233,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                 name="hasStartedApplication"
                 value={v}
                 checked={formData.hasStartedApplication === v}
-                onChange={() => handleRadio("hasStartedApplication", v)}
+                onChange={() => onRadio("hasStartedApplication", v)}
                 className="sr-only"
               />
               {v === "yes" ? "Yes, I have started" : "Not yet"}
@@ -377,7 +259,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
               <input
                 type="checkbox"
                 checked={formData.waiverOptions.includes(opt.id)}
-                onChange={(e) => handleCheckbox(opt.id, e.target.checked)}
+                onChange={(e) => onCheckbox(opt.id, e.target.checked)}
                 className="h-4 w-4 rounded accent-scholarship"
               />
               <span className="text-sm font-medium text-foreground">{opt.label}</span>
@@ -405,7 +287,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                 name="acceptPartialWaiver"
                 value={v}
                 checked={formData.acceptPartialWaiver === v}
-                onChange={() => handleRadio("acceptPartialWaiver", v)}
+                onChange={() => onRadio("acceptPartialWaiver", v)}
                 className="sr-only"
               />
               {v === "yes" ? "Yes, I accept" : "No, 100% only"}
@@ -415,41 +297,181 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       </div>
 
       <Field id="paymentPlan" label="If YES — how do you plan to pay the remaining half? If NO, type N/A.">
-        <textarea id="paymentPlan" name="paymentPlan" value={formData.paymentPlan} onChange={handleInput} rows={3} required placeholder="Describe your payment plan or type N/A" className={`${inputCls} resize-none`} />
+        <textarea id="paymentPlan" name="paymentPlan" value={formData.paymentPlan} onChange={onChange} rows={3} required placeholder="Describe your payment plan or type N/A" className={`${INPUT_CLS} resize-none`} />
       </Field>
-    </div>,
+    </div>
+  )
+}
 
-    /* Step 3 — Essay */
-    <div key="opportunity" className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
+function StepEssay({
+  formData, onChange,
+}: {
+  formData: Record<string, string>
+  onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
+}) {
+  return (
+    <div className="animate-in fade-in slide-in-from-right-4 duration-300 space-y-5">
       <Field
         id="concreteStep"
         label="Describe one concrete step you have taken toward your graduate application"
         hint="Examples: Preparing for GRE, Writing statement of purpose, Contacting professors"
       >
-        <textarea id="concreteStep" name="concreteStep" value={formData.concreteStep} onChange={handleInput} rows={4} required placeholder="Describe the concrete step you have taken..." className={`${inputCls} resize-none`} />
+        <textarea id="concreteStep" name="concreteStep" value={formData.concreteStep} onChange={onChange} rows={4} required placeholder="Describe the concrete step you have taken..." className={`${INPUT_CLS} resize-none`} />
       </Field>
       <Field
         id="whySelected"
-        label="In 100-150 words, why should you be selected and how will you maximize this opportunity?"
+        label="In 100–150 words, why should you be selected and how will you maximize this opportunity?"
       >
-        <textarea id="whySelected" name="whySelected" value={formData.whySelected} onChange={handleInput} rows={6} required placeholder="Explain why you should be selected..." className={`${inputCls} resize-none`} />
+        <textarea id="whySelected" name="whySelected" value={formData.whySelected} onChange={onChange} rows={6} required placeholder="Explain why you should be selected..." className={`${INPUT_CLS} resize-none`} />
       </Field>
       <Field
         id="targetUniversities"
         label="Which universities do you intend to apply to, and what research have you done about them?"
       >
-        <textarea id="targetUniversities" name="targetUniversities" value={formData.targetUniversities} onChange={handleInput} rows={5} required placeholder="List your target universities and the research you have conducted..." className={`${inputCls} resize-none`} />
+        <textarea id="targetUniversities" name="targetUniversities" value={formData.targetUniversities} onChange={onChange} rows={5} required placeholder="List your target universities and the research you have conducted..." className={`${INPUT_CLS} resize-none`} />
       </Field>
-    </div>,
-  ]
+    </div>
+  )
+}
+
+// ─── Main Form ─────────────────────────────────────────────────────────────────
+
+export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormProps) {
+  const router = useRouter()
+  const [step, setStep] = useState(0)
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [isSuccess, setIsSuccess] = useState(false)
+  const [eligibilityCode, setEligibilityCode] = useState("")
+  const [copied, setCopied] = useState(false)
+
+  const [formData, setFormData] = useState({
+    fullName: "",
+    email: "",
+    phone: "",
+    country: "",
+    university: "",
+    course: "",
+    gpa: "",
+    graduationYear: "",
+    hasStartedApplication: "",
+    waiverOptions: [] as string[],
+    acceptPartialWaiver: "",
+    paymentPlan: "",
+    concreteStep: "",
+    whySelected: "",
+    targetUniversities: "",
+    serviceQuestion1: "",
+    serviceQuestion2: "",
+    serviceQuestion3: "",
+  })
+
+  const questions = useMemo(() => serviceQuestions[serviceSlug] || [], [serviceSlug])
+
+  const handleInput = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target
+    setFormData((prev) => ({ ...prev, [name]: value }))
+  }
+
+  const handleRadio = (name: string, value: string) =>
+    setFormData((prev) => ({ ...prev, [name]: value }))
+
+  const handleCheckbox = (id: string, checked: boolean) =>
+    setFormData((prev) => ({
+      ...prev,
+      waiverOptions: checked
+        ? [...prev.waiverOptions, id]
+        : prev.waiverOptions.filter((x) => x !== id),
+    }))
+
+  const handleCopy = () => {
+    navigator.clipboard.writeText(eligibilityCode)
+    setCopied(true)
+    setTimeout(() => setCopied(false), 2000)
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    try {
+      const code = generateEligibilityCode(serviceSlug)
+      await fetch("/api/applications", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ ...formData, service: serviceSlug, serviceTitle, eligibilityCode: code }),
+      })
+      setEligibilityCode(code)
+      setIsSuccess(true)
+    } catch (err) {
+      console.error("Submission error:", err)
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
+
+  // Flat formData cast for sub-components
+  const flatData = formData as unknown as Record<string, string> & { waiverOptions: string[] }
+
+  /* ── Success Screen ── */
+  if (isSuccess) {
+    return (
+      <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
+        <div className="rounded-3xl bg-white dark:bg-[#1D1D1F] p-8 shadow-2xl md:p-12">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="mx-auto mb-6 flex h-24 w-24 items-center justify-center rounded-full bg-green-100 dark:bg-green-900/30">
+              <CheckCircle className="h-12 w-12 text-green-600 dark:text-green-400" />
+            </div>
+            <h2 className="mb-2 text-2xl font-black uppercase text-foreground md:text-3xl">Application Received!</h2>
+            <p className="mb-8 text-muted-foreground">
+              Your eligibility application for{" "}
+              <span className="font-semibold text-scholarship">{serviceTitle}</span>{" "}
+              has been submitted. Our team will review it within 48 hours.
+            </p>
+            <div className="mb-6 overflow-hidden rounded-2xl border-2 border-dashed border-highlight bg-highlight/10 p-6">
+              <p className="mb-2 text-xs font-bold uppercase tracking-widest text-muted-foreground">Your Eligibility Code</p>
+              <p className="mb-4 font-mono text-2xl font-black tracking-widest text-foreground md:text-3xl">{eligibilityCode}</p>
+              <button
+                onClick={handleCopy}
+                className="inline-flex items-center gap-2 rounded-full bg-primary px-5 py-2 text-sm font-semibold text-primary-foreground transition-all hover:opacity-90"
+              >
+                {copied ? <Check className="h-4 w-4 text-highlight" /> : <Copy className="h-4 w-4" />}
+                {copied ? "Copied!" : "Copy Code"}
+              </button>
+            </div>
+            <div className="mb-8 rounded-2xl bg-muted p-5 text-left">
+              <p className="mb-3 text-sm font-bold text-foreground">Next Steps:</p>
+              <ul className="space-y-2 text-sm text-muted-foreground">
+                {[
+                  "Save your eligibility code — you will need it for payment verification.",
+                  "Check your email for a confirmation from our team.",
+                  "Our team will review your application within 48 hours.",
+                  "Once approved, use your code to redeem your financial support.",
+                ].map((item, i) => (
+                  <li key={i} className="flex items-start gap-2">
+                    <span className="mt-0.5 flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-highlight text-xs font-bold text-accent-foreground">{i + 1}</span>
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <button
+              onClick={() => router.push("/")}
+              className="inline-flex items-center gap-2 rounded-full bg-primary px-8 py-3 font-semibold text-primary-foreground transition-all hover:opacity-90"
+            >
+              Return to Home
+            </button>
+          </div>
+        </div>
+      </div>
+    )
+  }
 
   const isLastStep = step === SECTIONS.length - 1
 
+  /* ── Form ── */
   return (
     <div className="animate-in fade-in slide-in-from-bottom-4 duration-500">
-      {/* Back */}
       <Link
-        href="/#services"
+        href="/services"
         className="mb-6 inline-flex items-center gap-2 text-sm font-medium text-muted-foreground transition-colors hover:text-foreground"
       >
         <ArrowLeft className="h-4 w-4" />
@@ -459,10 +481,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
       <div className="overflow-hidden rounded-3xl bg-white dark:bg-[#1D1D1F] shadow-2xl">
         {/* Progress bar */}
         <div className="h-1.5 bg-muted">
-          <div
-            className="h-full bg-scholarship transition-all duration-500"
-            style={{ width: `${((step + 1) / SECTIONS.length) * 100}%` }}
-          />
+          <div className="h-full bg-scholarship transition-all duration-500" style={{ width: `${((step + 1) / SECTIONS.length) * 100}%` }} />
         </div>
 
         {/* Step tabs */}
@@ -482,11 +501,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                     : "cursor-default text-muted-foreground/50"
                 }`}
               >
-                {i < step ? (
-                  <CheckCircle className="h-5 w-5" />
-                ) : (
-                  <Icon className="h-5 w-5" />
-                )}
+                {i < step ? <CheckCircle className="h-5 w-5" /> : <Icon className="h-5 w-5" />}
                 <span className="hidden text-xs font-semibold sm:block">{s.label}</span>
                 <span className="text-xs font-semibold sm:hidden">{i + 1}</span>
               </button>
@@ -504,7 +519,20 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
               <h2 className="mt-1 text-xl font-bold text-foreground">{SECTIONS[step].label}</h2>
             </div>
 
-            {steps[step]}
+            {/* Render the correct step — no JSX array, no remounting */}
+            {step === 0 && <StepPersonal formData={flatData} onChange={handleInput} />}
+            {step === 1 && <StepAcademic formData={flatData} onChange={handleInput} />}
+            {step === 2 && (
+              <StepApplication
+                formData={formData}
+                onChange={handleInput}
+                onRadio={handleRadio}
+                onCheckbox={handleCheckbox}
+                questions={questions}
+                serviceTitle={serviceTitle}
+              />
+            )}
+            {step === 3 && <StepEssay formData={flatData} onChange={handleInput} />}
 
             {/* Navigation */}
             <div className="mt-8 flex items-center justify-between">
@@ -517,9 +545,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                   <ArrowLeft className="h-4 w-4" />
                   Previous
                 </button>
-              ) : (
-                <div />
-              )}
+              ) : <div />}
 
               <button
                 type="submit"
@@ -535,15 +561,9 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
                     Submitting...
                   </>
                 ) : isLastStep ? (
-                  <>
-                    <Send className="h-4 w-4" />
-                    Submit Application
-                  </>
+                  <><Send className="h-4 w-4" /> Submit Application</>
                 ) : (
-                  <>
-                    Next Step
-                    <ChevronRight className="h-4 w-4" />
-                  </>
+                  <>Next Step <ChevronRight className="h-4 w-4" /></>
                 )}
               </button>
             </div>
