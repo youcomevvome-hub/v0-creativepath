@@ -132,36 +132,51 @@ export default function AboutPage() {
               <div className="grid gap-4 sm:grid-cols-2">
                 {programs.map((program, index) => {
                   const isExternal = "external" in program && program.external
-                  const Tag = isExternal ? "a" : Link
-                  const extraProps = isExternal
-                    ? { href: program.link, target: "_blank", rel: "noopener noreferrer" }
-                    : { href: program.link }
+                  const cardContent = (
+                    <div className={`relative ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
+                      <Image
+                        src={program.image}
+                        alt={program.title}
+                        fill
+                        className="object-cover transition-transform duration-500 group-hover:scale-110"
+                      />
+                      <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6">
+                        <h3 className="text-xl font-bold text-white mb-1">{program.title}</h3>
+                        <p className="text-sm text-white/80">{program.description}</p>
+                      </div>
+                      <div className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
+                        <ArrowRight className="h-4 w-4 text-white" />
+                      </div>
+                    </div>
+                  )
+
+                  if (isExternal) {
+                    return (
+                      <a
+                        key={index}
+                        href={program.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className={`group relative overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5 ${
+                          program.featured ? "sm:col-span-2" : ""
+                        }`}
+                      >
+                        {cardContent}
+                      </a>
+                    )
+                  }
+
                   return (
-                    // @ts-expect-error dynamic tag
-                    <Tag
+                    <Link
                       key={index}
-                      {...extraProps}
+                      href={program.link}
                       className={`group relative overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5 ${
                         program.featured ? "sm:col-span-2" : ""
                       }`}
                     >
-                      <div className={`relative ${program.featured ? "h-[300px]" : "h-[200px]"}`}>
-                        <Image
-                          src={program.image}
-                          alt={program.title}
-                          fill
-                          className="object-cover transition-transform duration-500 group-hover:scale-110"
-                        />
-                        <div className="absolute inset-0 bg-black/50 group-hover:bg-black/40 transition-colors" />
-                        <div className="absolute bottom-0 left-0 right-0 p-6">
-                          <h3 className="text-xl font-bold text-white mb-1">{program.title}</h3>
-                          <p className="text-sm text-white/80">{program.description}</p>
-                        </div>
-                        <div className="absolute top-4 right-4 flex h-10 w-10 items-center justify-center rounded-full bg-white/20 backdrop-blur-sm">
-                          <ArrowRight className="h-4 w-4 text-white" />
-                        </div>
-                      </div>
-                    </Tag>
+                      {cardContent}
+                    </Link>
                   )
                 })}
               </div>

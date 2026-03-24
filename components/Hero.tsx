@@ -88,7 +88,8 @@ export function Hero() {
                 alt="Student ready to study abroad"
                 width={460}
                 height={560}
-                className="w-full h-auto object-contain"
+                style={{ width: "100%", height: "auto" }}
+                className="object-contain"
                 priority
               />
 
