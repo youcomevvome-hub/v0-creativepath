@@ -396,26 +396,17 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
         </section>
 
         {/* CTA Section */}
-        <section className="relative py-20 lg:py-28 overflow-hidden">
-          <div className="absolute inset-0">
-            <Image
-              src="https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1600"
-              alt="Success"
-              fill
-              className="object-cover"
-            />
-            <div className="absolute inset-0 bg-[#1E3A5F]/90" />
-          </div>
-          <div className="relative mx-auto max-w-4xl px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-white mb-6 md:text-4xl">
+        <section className="py-20 lg:py-28">
+          <div className="mx-auto max-w-4xl px-6 lg:px-8 text-center">
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-white mb-6 md:text-4xl">
               Ready to Apply?
             </h2>
-            <p className="text-lg text-white/80 mb-8 max-w-2xl mx-auto">
+            <p className="text-lg text-gray-600 dark:text-gray-400 mb-8 max-w-2xl mx-auto">
               Take the first step toward your educational goals. Our team is ready to support you every step of the way.
             </p>
             <Link
               href={`/apply/${slug}`}
-              className="inline-flex items-center gap-2 rounded-full bg-white text-[#1E3A5F] px-8 py-4 text-base font-semibold hover:bg-gray-100 transition-colors hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#2D4A6F] transition-colors"
             >
               Start Your Application
               <ArrowRight className="h-5 w-5" />

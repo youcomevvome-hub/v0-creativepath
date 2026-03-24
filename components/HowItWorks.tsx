@@ -38,7 +38,7 @@ export function HowItWorks() {
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
         <div className="mb-16 text-center">
-          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#1E3A5F]">
+          <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#2563EB]">
             How It Works
           </p>
           <h2 className="mb-6 text-4xl font-bold text-gray-900 dark:text-white lg:text-5xl text-balance">
@@ -66,7 +66,7 @@ export function HowItWorks() {
                   className="object-cover transition-transform duration-500 group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#1E3A5F] text-white font-bold text-sm">
+                <div className="absolute bottom-3 left-3 flex h-10 w-10 items-center justify-center rounded-xl bg-[#2563EB] text-white font-bold text-sm">
                   {step.number}
                 </div>
               </div>
@@ -110,7 +110,7 @@ export function HowItWorks() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Button
                 size="lg"
-                className="rounded-full bg-white text-[#1E3A5F] hover:bg-gray-100 px-8 h-12"
+                className="rounded-full bg-white text-[#2563EB] hover:bg-gray-100 px-8 h-12"
                 asChild
               >
                 <Link href="/services">

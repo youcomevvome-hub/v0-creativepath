@@ -20,14 +20,13 @@ const programs = [
     title: "Scholar Squad",
     description: "Join ambitious students pursuing dreams together.",
     image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
-    link: "https://whatsapp.com/channel/0029Vb7zSwH6LwHqQBzAxM0A",
-    external: true,
+    link: "/programs/scholar-squad",
   },
   {
     title: "MVP Grind",
     description: "Intensive support for high-achievers.",
     image: "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=400",
-    link: "/achievers",
+    link: "/programs/mvp-grind",
   },
 ]
 
@@ -134,11 +133,9 @@ export default function AboutPage() {
 
               <div className="grid gap-4 sm:grid-cols-2">
                 {programs.map((program, index) => (
-                  <a
+                  <Link
                     key={index}
                     href={program.link}
-                    target={program.external ? "_blank" : undefined}
-                    rel={program.external ? "noopener noreferrer" : undefined}
                     className={`group relative overflow-hidden rounded-3xl transition-all hover:-translate-y-1 hover:shadow-xl dark:hover:shadow-white/5 ${
                       program.featured ? "sm:col-span-2" : ""
                     }`}
@@ -286,10 +283,9 @@ export default function AboutPage() {
                   <div className="p-6 bg-white dark:bg-[#1D1D1F]">
                     <h3 className="mb-2 text-xl font-bold text-gray-900 dark:text-white">{value.title}</h3>
                     <p className="text-gray-600 dark:text-gray-400">{value.description}</p>
-                      </div>
-                    </div>
-                  </a>
-                ))}
+                  </div>
+                </div>
+              ))}
             </div>
           </div>
         </section>
@@ -313,13 +309,13 @@ export default function AboutPage() {
               Join hundreds of scholars who have achieved their dreams with our support.
             </p>
             <div className="flex flex-wrap justify-center gap-4">
-              <Button size="lg" className="rounded-full bg-[#1E3A5F] text-white hover:bg-[#152C4A] px-8 h-12" asChild>
-                <Link href="/services">
-                  Explore Services <ArrowRight className="ml-2 h-4 w-4" />
+              <Button size="lg" className="rounded-full bg-white text-[#1E3A5F] hover:bg-gray-100 px-8 h-12" asChild>
+                <Link href="/apply/wes-support">
+                  Apply Now <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button size="lg" variant="outline" className="rounded-full border-2 border-[#1E3A5F] text-[#1E3A5F] dark:border-white dark:text-white hover:bg-[#1E3A5F] hover:text-white dark:hover:bg-white dark:hover:text-black px-8 h-12" asChild>
-                <Link href="/contact?tab=mentor">Become a Mentor</Link>
+              <Button size="lg" variant="outline" className="rounded-full border-white/30 text-white hover:bg-white/10 px-8 h-12" asChild>
+                <Link href="/contact">Become a Mentor</Link>
               </Button>
             </div>
           </div>

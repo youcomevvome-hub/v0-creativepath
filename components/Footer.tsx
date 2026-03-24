@@ -56,11 +56,11 @@ export function Footer() {
                 vicecreativepath@gmail.com
               </a>
               <a
-                href="tel:+447404599897"
+                href="tel:+1234567890"
                 className="flex items-center gap-3 text-white/70 hover:text-white transition-colors"
               >
                 <Phone className="h-5 w-5 shrink-0" />
-                +44 7404 599897
+                +1 (234) 567-890
               </a>
               <span className="flex items-center gap-3 text-white/70">
                 <MapPin className="h-5 w-5 shrink-0" />
@@ -141,7 +141,7 @@ export function Footer() {
 
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] text-white px-6 py-3 text-sm font-semibold hover:bg-[#152C4A] transition-all hover:shadow-lg"
+              className="inline-flex items-center gap-2 rounded-full bg-[#2563EB] text-white px-6 py-3 text-sm font-semibold hover:bg-[#1D4ED8] transition-all hover:shadow-lg"
             >
               Get Started →
             </Link>

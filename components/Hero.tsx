@@ -14,7 +14,6 @@ const floatingCards = [
     position: "top-left",
     color: "bg-[#1E3A5F]",
     textColor: "text-white",
-    href: "/services/financial-aid",
   },
   {
     id: 2,
@@ -23,7 +22,6 @@ const floatingCards = [
     position: "top-right",
     color: "bg-[#374151]",
     textColor: "text-white",
-    href: "/services/mentorship",
   },
   {
     id: 3,
@@ -32,7 +30,6 @@ const floatingCards = [
     position: "middle-right",
     color: "bg-[#F59E0B]",
     textColor: "text-white",
-    href: "/services/registration-support",
   },
   {
     id: 4,
@@ -41,7 +38,6 @@ const floatingCards = [
     position: "bottom-left",
     color: "bg-white dark:bg-[#1D1D1F]",
     textColor: "text-gray-900 dark:text-white",
-    href: "/services/visa-support",
     border: true,
   },
 ]
@@ -74,7 +70,7 @@ export function Hero() {
           <div className="relative flex justify-center order-2 lg:order-1">
             <div className="relative w-full max-w-[480px] animate-in fade-in slide-in-from-left-8 duration-700">
               {/* Main Hero Image - Student Photo */}
-              <div className="relative w-full">
+              <div className="relative">
                 <Image
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
                   alt="Student ready to study abroad"
@@ -95,9 +91,8 @@ export function Hero() {
                 }[card.position]
 
                 return (
-                  <Link
+                  <div
                     key={card.id}
-                    href={card.href || "#"}
                     onMouseEnter={() => setHoveredCard(card.id)}
                     onMouseLeave={() => setHoveredCard(null)}
                     className={`absolute z-20 ${positionClasses} w-[140px] lg:w-[160px] rounded-2xl ${card.color} p-4 shadow-xl cursor-pointer transition-all duration-300 animate-in fade-in duration-500 ${
@@ -117,7 +112,7 @@ export function Hero() {
                         <ArrowRight className={`h-3 w-3 ${card.textColor}`} />
                       </div>
                     )}
-                  </Link>
+                  </div>
                 )
               })}
             </div>
