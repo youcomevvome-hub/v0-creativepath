@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from 'next'
 import { Inter } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/ThemeProvider'
+import { WhatsAppButton } from '@/components/WhatsAppButton'
 import './globals.css'
 
 const inter = Inter({ 
@@ -54,6 +55,7 @@ export default function RootLayout({
           disableTransitionOnChange
         >
           {children}
+          <WhatsAppButton />
         </ThemeProvider>
         <Analytics />
       </body>
