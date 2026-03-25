@@ -137,4 +137,36 @@
   body {
     @apply bg-background text-foreground;
   }
+  
+  /* Hide scrollbar but keep functionality */
+  html {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+  }
+  html::-webkit-scrollbar {
+    display: none; /* Chrome, Safari, Opera */
+  }
+}
+
+/* Subtle background patterns */
+.bg-pattern-dots {
+  background-image: radial-gradient(circle, #94A3B8 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.bg-pattern-grid {
+  background-image: 
+    linear-gradient(to right, #E5E7EB 1px, transparent 1px),
+    linear-gradient(to bottom, #E5E7EB 1px, transparent 1px);
+  background-size: 40px 40px;
+}
+
+.dark .bg-pattern-dots {
+  background-image: radial-gradient(circle, #374151 1px, transparent 1px);
+}
+
+.dark .bg-pattern-grid {
+  background-image: 
+    linear-gradient(to right, #1F2937 1px, transparent 1px),
+    linear-gradient(to bottom, #1F2937 1px, transparent 1px);
 }

@@ -18,7 +18,7 @@ interface ServiceData {
 }
 
 const servicesData: Record<string, ServiceData> = {
-  "wes-evaluation": {
+  "wes-support": {
     icon: FileCheck,
     title: "WES Evaluation Support",
     subtitle: "Get Your Credentials Recognized",
@@ -48,7 +48,7 @@ const servicesData: Record<string, ServiceData> = {
       { question: "What documents do I need?", answer: "You'll need official transcripts, degree certificates, and their translations if not in English." },
     ],
   },
-  "gre-gmat": {
+  "gre-support": {
     icon: GraduationCap,
     title: "GRE/GMAT Fee Support",
     subtitle: "Ace Your Standardized Tests",
@@ -78,7 +78,7 @@ const servicesData: Record<string, ServiceData> = {
       { question: "Can I get support for retakes?", answer: "Yes, we consider retake support on a case-by-case basis." },
     ],
   },
-  "visa-sevis": {
+  "visa-fee-support": {
     icon: Plane,
     title: "Visa & SEVIS Support",
     subtitle: "Navigate Immigration Successfully",
@@ -108,7 +108,7 @@ const servicesData: Record<string, ServiceData> = {
       { question: "Do you help with the visa interview?", answer: "Yes, we provide mock interviews and common question preparation." },
     ],
   },
-  "application-fees": {
+  "application-fee-support": {
     icon: DollarSign,
     title: "Application Fee Coverage",
     subtitle: "Apply Without Limits",
@@ -138,7 +138,7 @@ const servicesData: Record<string, ServiceData> = {
       { question: "Which universities are partners?", answer: "We have partnerships with 50+ universities offering fee waivers to our students." },
     ],
   },
-  "mentorship": {
+  "mentorship-program": {
     icon: Users,
     title: "Mentorship Program",
     subtitle: "Learn from Those Who've Succeeded",
@@ -168,7 +168,7 @@ const servicesData: Record<string, ServiceData> = {
       { question: "How often do we meet?", answer: "Typically bi-weekly, with additional support during critical periods." },
     ],
   },
-  "application-guidance": {
+  "transcript-support": {
     icon: BookOpen,
     title: "Application Guidance",
     subtitle: "Perfect Your Applications",

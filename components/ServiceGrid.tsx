@@ -19,8 +19,8 @@ const featuredServices = [
     image: 'https://images.pexels.com/photos/4145153/pexels-photo-4145153.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   { 
-    title: 'Application Coaching', 
-    desc: 'Personalized guidance',
+    title: 'Application Fee Support', 
+    desc: 'University applications',
     slug: 'application-fee-support',
     image: 'https://images.pexels.com/photos/3184465/pexels-photo-3184465.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
@@ -31,8 +31,8 @@ const featuredServices = [
     image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
   { 
-    title: 'Essay Review', 
-    desc: 'Writing excellence',
+    title: 'Transcript Evaluation', 
+    desc: 'Document verification',
     slug: 'transcript-support',
     image: 'https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=400',
   },
@@ -79,8 +79,8 @@ export function ServiceGrid() {
                 />
                 <div className="absolute inset-0 bg-black/40 group-hover:bg-black/30 transition-colors" />
                 <div className="absolute bottom-4 left-4 right-4">
-                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-black dark:bg-white backdrop-blur-sm mb-2">
-                    <span className="text-sm font-bold text-white dark:text-black">{String(idx + 1).padStart(2, '0')}</span>
+                  <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-[#1E3A5F] backdrop-blur-sm mb-2">
+                    <span className="text-sm font-bold text-white">{String(idx + 1).padStart(2, '0')}</span>
                   </div>
                 </div>
               </div>
@@ -104,7 +104,7 @@ export function ServiceGrid() {
         </div>
 
         {/* View All Button */}
-        <div className="mt-12 flex justify-center">
+        <div className="mt-12 flex justify-center gap-4">
           <Button 
             size="lg" 
             className="rounded-full bg-[#1E3A5F] px-8 text-white hover:bg-[#152C4A] transition-opacity" 
@@ -113,6 +113,16 @@ export function ServiceGrid() {
             <Link href="/services">
               View All Services
               <ArrowRight className="ml-2 h-4 w-4" />
+            </Link>
+          </Button>
+          <Button 
+            size="lg" 
+            variant="outline"
+            className="rounded-full border-2 border-gray-300 dark:border-gray-600 px-8 text-[#1E3A5F] dark:text-white hover:bg-gray-100 dark:hover:bg-gray-800 transition-opacity" 
+            asChild
+          >
+            <Link href="/apply/wes-support">
+              Apply Now
             </Link>
           </Button>
         </div>

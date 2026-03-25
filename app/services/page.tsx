@@ -6,7 +6,7 @@ import { ArrowRight, FileCheck, GraduationCap, Plane, DollarSign, Users, BookOpe
 
 const services = [
   {
-    slug: "wes-evaluation",
+    slug: "wes-support",
     icon: FileCheck,
     title: "WES Evaluation Support",
     description: "We cover the cost of credential evaluation through World Education Services, helping you get your international credentials recognized.",
@@ -15,7 +15,7 @@ const services = [
     color: "bg-[#1E3A5F]",
   },
   {
-    slug: "gre-gmat",
+    slug: "gre-support",
     icon: GraduationCap,
     title: "GRE/GMAT Fee Support",
     description: "Standardized test fees shouldn't be a barrier. We provide financial support for GRE and GMAT registration costs.",
@@ -24,7 +24,7 @@ const services = [
     color: "bg-[#F59E0B]",
   },
   {
-    slug: "visa-sevis",
+    slug: "visa-fee-support",
     icon: Plane,
     title: "Visa & SEVIS Support",
     description: "Navigate the visa process with confidence. We help cover SEVIS fees and provide guidance through the visa application.",
@@ -33,7 +33,7 @@ const services = [
     color: "bg-[#1E3A5F]",
   },
   {
-    slug: "application-fees",
+    slug: "application-fee-support",
     icon: DollarSign,
     title: "Application Fee Coverage",
     description: "Apply to more schools without financial worry. We cover application fees for qualified students at partner universities.",
@@ -42,7 +42,7 @@ const services = [
     color: "bg-[#F59E0B]",
   },
   {
-    slug: "mentorship",
+    slug: "mentorship-program",
     icon: Users,
     title: "Mentorship Program",
     description: "Connect with experienced scholars who've walked your path. Get personalized guidance throughout your journey.",
@@ -51,19 +51,21 @@ const services = [
     color: "bg-[#1E3A5F]",
   },
   {
-    slug: "application-guidance",
+    slug: "transcript-support",
     icon: BookOpen,
-    title: "Application Guidance",
+    title: "Transcript Evaluation",
     description: "From personal statements to interview prep, we provide comprehensive support to strengthen your applications.",
     image: "https://images.pexels.com/photos/4144923/pexels-photo-4144923.jpeg?auto=compress&cs=tinysrgb&w=800",
-    benefits: ["Essay coaching", "Resume building", "Interview practice"],
+    benefits: ["Document verification", "Academic records", "Translation help"],
     color: "bg-[#F59E0B]",
   },
 ]
 
 export default function ServicesPage() {
   return (
-    <div className="min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
+    <div className="relative min-h-screen bg-white dark:bg-[#0C1220] transition-colors">
+      {/* Subtle background pattern */}
+      <div className="fixed inset-0 bg-pattern-dots opacity-[0.03] dark:opacity-[0.02] pointer-events-none" />
       <Navbar />
       
       <main>
@@ -151,8 +153,8 @@ export default function ServicesPage() {
               Apply today and let us help remove the financial barriers standing between you and your dreams.
             </p>
             <Link
-              href="/apply/general"
-              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#2D4A6F] transition-colors"
+              href="/apply/wes-support"
+              className="inline-flex items-center gap-2 rounded-full bg-[#1E3A5F] px-8 py-4 text-base font-semibold text-white hover:bg-[#152C4A] transition-colors"
             >
               Apply Now
               <ArrowRight className="h-5 w-5" />
