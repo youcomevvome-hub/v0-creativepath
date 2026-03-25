@@ -284,7 +284,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
                 </ul>
               </div>
               <div className="relative">
-                <div className="aspect-[4/3] overflow-hidden rounded-2xl">
+                <div className="relative aspect-[4/3] overflow-hidden rounded-2xl">
                   <Image
                     src={service.heroImage}
                     alt={`${service.title} benefits`}
