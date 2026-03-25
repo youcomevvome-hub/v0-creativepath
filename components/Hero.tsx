@@ -42,7 +42,7 @@ const floatingCards = [
     color: "bg-white dark:bg-[#1D2A3A]",
     textColor: "text-gray-900 dark:text-white",
     border: true,
-    href: "/services/visa-sevis",
+    href: "/services/visa-fee-support",
   },
 ]
 
@@ -73,13 +73,13 @@ export function Hero() {
           {/* Left column - Image with Interactive Cards */}
           <div className="relative flex justify-center order-2 lg:order-1">
             <div className="relative w-full max-w-[460px] animate-in fade-in slide-in-from-left-8 duration-700">
-              {/* aspect-ratio box: 460/560 ≈ 82.14% */}
+              {/* aspect-ratio box: 560/460 = 1.2174 */}
               <div className="relative w-full" style={{ paddingBottom: "121.74%" }}>
                 <Image
                   src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
                   alt="Student ready to study abroad"
                   fill
-                  style={{ objectFit: "contain" }}
+                  className="object-contain"
                   priority
                 />
               </div>
