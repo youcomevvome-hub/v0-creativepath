@@ -16,21 +16,8 @@ export const metadata: Metadata = {
   description: 'Financial support, mentorship, and application guidance for students and scholars from Africa and around the world who want to study abroad.',
   generator: 'v0.app',
   icons: {
-    icon: [
-      {
-        url: '/icon-light-32x32.png',
-        media: '(prefers-color-scheme: light)',
-      },
-      {
-        url: '/icon-dark-32x32.png',
-        media: '(prefers-color-scheme: dark)',
-      },
-      {
-        url: '/icon.svg',
-        type: 'image/svg+xml',
-      },
-    ],
-    apple: '/apple-icon.png',
+    icon: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logoSmall-OGw96c80VqzXkuTp3kh5wnBm8fNGQH.png',
+    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-ZrSoXGLHvP1JQSgxJYzQHY42R3H1V6.png',
   },
 }
 
