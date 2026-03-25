@@ -397,7 +397,7 @@ export default async function ServicePage({ params }: { params: Promise<{ slug: 
 
         {/* CTA Section with background image */}
         <section className="relative py-24 overflow-hidden">
-          <div className="absolute inset-0 overflow-hidden">
+          <div className="absolute inset-0 overflow-hidden relative">
             <Image
               src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
               alt="Students ready to start"
