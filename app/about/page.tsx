@@ -84,7 +84,7 @@ export default function AboutPage() {
 
       <main>
         {/* Hero Banner */}
-        <section className="relative overflow-hidden py-0" style={{ position: "relative" }}>
+        <section className="relative overflow-hidden">
           <div className="absolute inset-0">
             <Image
               src="https://images.pexels.com/photos/3184418/pexels-photo-3184418.jpeg?auto=compress&cs=tinysrgb&w=1600"
