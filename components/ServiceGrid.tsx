@@ -48,7 +48,7 @@ export function ServiceGrid() {
   return (
     <section className="py-20 lg:py-28 bg-white dark:bg-[#0C1220] border-t border-gray-200 dark:border-gray-800">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="mb-16">
+        <div className="mb-16 reveal">
           <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#1E3A5F] dark:text-gray-400">
             Featured Services
           </p>
@@ -66,8 +66,7 @@ export function ServiceGrid() {
             <Link
               key={service.title}
               href={`/services/${service.slug}`}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#1D1D1F] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-white/10"
-              style={{ animationDelay: `${idx * 100}ms` }}
+              className={`reveal reveal-delay-${(idx % 4) + 1} group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/20 bg-white dark:bg-[#1D1D1F] shadow-sm transition-all duration-300 hover:shadow-xl hover:-translate-y-1 dark:hover:shadow-white/10`}
             >
               {/* Card Image */}
               <div className="relative h-48 overflow-hidden">

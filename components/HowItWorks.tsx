@@ -37,7 +37,7 @@ export function HowItWorks() {
     <section className="py-20 lg:py-28 bg-gray-50 dark:bg-[#1D1D1F] transition-colors">
       <div className="mx-auto max-w-7xl px-6 lg:px-8">
         {/* Header */}
-        <div className="mb-16 text-center">
+        <div className="mb-16 text-center reveal">
           <p className="mb-4 text-sm font-semibold uppercase tracking-widest text-[#1E3A5F] dark:text-[#F59E0B]">
             How It Works
           </p>
@@ -54,8 +54,7 @@ export function HowItWorks() {
           {steps.map((step, idx) => (
             <div
               key={step.number}
-              className="group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] transition-all duration-300 hover:shadow-xl dark:hover:shadow-white/5 hover:-translate-y-1"
-              style={{ animationDelay: `${idx * 100}ms` }}
+              className={`reveal reveal-delay-${idx + 1} group relative overflow-hidden rounded-2xl border border-gray-200 dark:border-white/10 bg-white dark:bg-[#0C1220] transition-all duration-300 hover:shadow-xl dark:hover:shadow-white/5 hover:-translate-y-1`}
             >
               {/* Image */}
               <div className="relative h-40 overflow-hidden">
@@ -120,14 +119,12 @@ export function HowItWorks() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/40 text-white hover:bg-white/10 px-8 h-12"
-                asChild
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white px-8 h-12 text-sm font-semibold text-white hover:bg-white hover:text-[#1E3A5F] transition-colors"
               >
-                <Link href="/contact">Contact Us</Link>
-              </Button>
+                Contact Us
+              </Link>
             </div>
           </div>
         </div>

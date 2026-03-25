@@ -47,14 +47,14 @@ async function sendApplicationEmail(app: Application) {
       subject: `[New Application] ${app.serviceTitle} — ${app.fullName} | Code: ${app.eligibilityCode}`,
       html: `
         <div style="font-family:sans-serif;max-width:640px;margin:auto;color:#1F2937">
-          <div style="background:#1F2937;padding:24px;border-radius:16px 16px 0 0">
-            <h2 style="color:#B7F34B;margin:0;font-size:22px">New Eligibility Application</h2>
+          <div style="background:#1E3A5F;padding:24px;border-radius:16px 16px 0 0">
+            <h2 style="color:#ffffff;margin:0;font-size:22px">New Eligibility Application</h2>
             <p style="color:#ffffff99;margin:6px 0 0">Creative Path Inspired Support Platform</p>
           </div>
-          <div style="background:#F7F8FA;padding:24px;border-left:4px solid #B7F34B">
+          <div style="background:#F7F8FA;padding:24px;border-left:4px solid #1E3A5F">
             <p style="margin:0;font-size:13px;font-weight:bold;color:#6B7280;text-transform:uppercase;letter-spacing:1px">Service</p>
             <p style="margin:4px 0 0;font-size:18px;font-weight:bold">${app.serviceTitle}</p>
-            <p style="margin:4px 0 0;font-size:14px;color:#6B7280">Code: <strong style="color:#2563EB">${app.eligibilityCode}</strong></p>
+            <p style="margin:4px 0 0;font-size:14px;color:#6B7280">Code: <strong style="color:#1E3A5F">${app.eligibilityCode}</strong></p>
           </div>
           <div style="background:#fff;padding:24px">
             <h3 style="color:#1F2937;margin:0 0 16px;font-size:16px;border-bottom:1px solid #E5E7EB;padding-bottom:8px">Applicant Details</h3>

@@ -42,7 +42,7 @@ const floatingCards = [
     color: "bg-white dark:bg-[#1D2A3A]",
     textColor: "text-gray-900 dark:text-white",
     border: true,
-    href: "/services/visa-sevis",
+    href: "/services/visa-fee-support",
   },
 ]
 
@@ -78,7 +78,7 @@ export function Hero() {
                 alt="Student ready to study abroad"
                 width={460}
                 height={560}
-                style={{ width: "100%", height: "auto", objectFit: "contain" }}
+                className="w-full h-auto"
                 priority
               />
 
