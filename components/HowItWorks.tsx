@@ -120,14 +120,12 @@ export function HowItWorks() {
                   <ArrowRight className="ml-2 h-4 w-4" />
                 </Link>
               </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="rounded-full border-white/40 text-white hover:bg-white/10 px-8 h-12"
-                asChild
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center rounded-full border-2 border-white px-8 h-12 text-sm font-semibold text-white hover:bg-white hover:text-[#1E3A5F] transition-colors"
               >
-                <Link href="/contact">Contact Us</Link>
-              </Button>
+                Contact Us
+              </Link>
             </div>
           </div>
         </div>
