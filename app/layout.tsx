@@ -16,8 +16,8 @@ export const metadata: Metadata = {
   description: 'Financial support, mentorship, and application guidance for students and scholars from Africa and around the world who want to study abroad.',
   generator: 'creativepath ',
   icons: {
-    icon: '/images/logo.png',
-    apple: '/images/logo.png',
+    icon: './images/public/logo.png',
+    apple: '/images/public/logo.png',
   },
 }
 

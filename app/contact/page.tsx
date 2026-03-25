@@ -87,45 +87,25 @@ export default function ContactPage() {
                 </div>
               </div>
 
-              {/* Dynamic Banner Image based on active section */}
+              {/* Team Image */}
               <div className="relative h-[300px] lg:h-[400px]">
                 <Image
-                  src={
-                    activeSection === "contact" 
-                      ? "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                      : activeSection === "mentor"
-                      ? "https://images.pexels.com/photos/3184360/pexels-photo-3184360.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                      : "https://images.pexels.com/photos/6646918/pexels-photo-6646918.jpeg?auto=compress&cs=tinysrgb&w=1200"
-                  }
-                  alt={
-                    activeSection === "contact" 
-                      ? "Our Global Team" 
-                      : activeSection === "mentor" 
-                      ? "Mentorship Program" 
-                      : "Support Our Mission"
-                  }
+                  src="https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=1200"
+                  alt="Our Global Team"
                   fill
-                  className="object-cover transition-opacity duration-300"
+                  className="object-cover"
                   priority
                 />
                 <div className="absolute inset-0 bg-black/30" />
               </div>
 
-              {/* Dynamic Headline based on active section */}
+              {/* Headline */}
               <div className="p-8 lg:p-12 text-center">
                 <h1 className="text-3xl lg:text-4xl font-bold text-gray-900 dark:text-white mb-4">
-                  {activeSection === "contact" 
-                    ? "Connect with Our Team" 
-                    : activeSection === "mentor" 
-                    ? "Become a Mentor" 
-                    : "Support Our Mission"}
+                  Connect with Our Team
                 </h1>
                 <p className="text-gray-600 dark:text-gray-400 max-w-xl mx-auto">
-                  {activeSection === "contact" 
-                    ? "Whether you need support, want to mentor, or contribute to our mission — we're here to help."
-                    : activeSection === "mentor"
-                    ? "Share your expertise and guide students from Africa and around the world on their journey to success."
-                    : "Your contribution directly helps students cover application fees, testing costs, and visa expenses."}
+                  Whether you need support, want to mentor, or contribute to our mission — we&apos;re here to help.
                 </p>
               </div>
             </div>
