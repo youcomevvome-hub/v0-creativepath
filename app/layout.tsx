@@ -5,7 +5,7 @@ import { ThemeProvider } from '@/components/ThemeProvider'
 import { FloatingWhatsApp } from '@/components/FloatingWhatsApp'
 import './globals.css'
 
-const inter = Inter({ 
+const inter = Inter({
   subsets: ["latin"],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-inter',
@@ -14,10 +14,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: 'Creative Path Inspired | Study Abroad Support Platform',
   description: 'Financial support, mentorship, and application guidance for students and scholars from Africa and around the world who want to study abroad.',
-  generator: 'v0.app',
+  generator: 'creativepath ',
   icons: {
-    icon: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logoSmall-OGw96c80VqzXkuTp3kh5wnBm8fNGQH.png',
-    apple: 'https://hebbkx1anhila5yf.public.blob.vercel-storage.com/logo-ZrSoXGLHvP1JQSgxJYzQHY42R3H1V6.png',
+    icon: './images/public/logo.png',
+    apple: '/images/public/logo.png',
   },
 }
 
