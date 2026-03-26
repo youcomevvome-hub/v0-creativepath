@@ -72,14 +72,16 @@ export function Hero() {
 
           {/* Left column - Image with Interactive Cards */}
           <div className="relative flex justify-center order-2 lg:order-1">
-            <div className="relative animate-in fade-in slide-in-from-left-8 duration-700">
+            {/* aspect-[460/560] container — fill image has no intrinsic size, so no warning */}
+            <div
+              className="relative animate-in fade-in slide-in-from-left-8 duration-700"
+              style={{ width: "460px", maxWidth: "100%", aspectRatio: "460 / 560" }}
+            >
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
                 alt="Student ready to study abroad"
-                width={460}
-                height={560}
-                sizes="(max-width: 768px) 100vw, 460px"
-                style={{ width: "100%", height: "auto" }}
+                fill
+                className="object-contain"
                 priority
               />
 

@@ -16,11 +16,12 @@ interface EligibilityFormProps {
 }
 
 const waiverOptions = [
-  { id: "100-app", label: "100% Application fee waiver" },
-  { id: "50-app", label: "50% Application fee waiver" },
-  { id: "100-wes", label: "100% WES fee waiver" },
-  { id: "50-wes", label: "50% WES fee waiver" },
-  { id: "mentorship", label: "Mentorship" },
+  { id: "100-support", label: "100% — Full fee support" },
+  { id: "75-support",  label: "75% — Three-quarter fee support" },
+  { id: "50-support",  label: "50% — Half fee support" },
+  { id: "25-support",  label: "25% — Quarter fee support" },
+  { id: "mentorship",  label: "Mentorship only (no fee waiver)" },
+  { id: "custom",      label: "Custom — I want to specify my own percentage" },
 ]
 
 function generateEligibilityCode(serviceSlug: string): string {
@@ -45,64 +46,222 @@ const SECTIONS = [
 
 const serviceQuestions: Record<string, { label: string; placeholder: string; hint?: string }[]> = {
   "wes-support": [
-    { label: "Which country did you complete your education in?", placeholder: "e.g. Nigeria, Ghana, Kenya" },
-    { label: "Have you started the WES application process?", placeholder: "Describe your current status" },
-    { label: "What degree are you seeking evaluation for?", placeholder: "e.g. Bachelor's in Computer Science" },
+    {
+      label: "Which country did you complete your highest level of education in?",
+      placeholder: "e.g. Nigeria, Ghana, Kenya, Cameroon",
+      hint: "WES evaluates credentials from most countries worldwide.",
+    },
+    {
+      label: "What degree are you seeking WES evaluation for?",
+      placeholder: "e.g. Bachelor's in Computer Science from University of Lagos",
+    },
+    {
+      label: "Have you already started the WES application? If yes, what is your current progress?",
+      placeholder: "e.g. Created account, uploaded documents, waiting for results, not started yet",
+    },
+    {
+      label: "Which universities or employers require this WES evaluation?",
+      placeholder: "List the institutions or programs that requested it",
+    },
   ],
   "gre-support": [
-    { label: "Have you registered for the GRE?", placeholder: "Yes/No and registration details" },
-    { label: "What is your target GRE score?", placeholder: "e.g. 320+ (Verbal: 155, Quant: 165)" },
-    { label: "How are you preparing for the GRE?", placeholder: "Describe your study plan and resources" },
+    {
+      label: "Have you registered for the GRE? If yes, what is your test date?",
+      placeholder: "e.g. Yes, scheduled for March 15 2026 / Not yet registered",
+    },
+    {
+      label: "What is your target GRE score, and what is your goal program?",
+      placeholder: "e.g. 320+ for PhD in Computer Science at MIT",
+    },
+    {
+      label: "What study resources are you currently using to prepare?",
+      placeholder: "e.g. Magoosh, Manhattan Prep, ETS Official Guide, private tutor",
+    },
+    {
+      label: "Have you taken the GRE before? If yes, what was your score?",
+      placeholder: "e.g. First attempt: 305. Looking to improve to 318+",
+    },
   ],
   "application-fee-support": [
-    { label: "How many universities are you applying to?", placeholder: "e.g. 5-10 universities" },
-    { label: "List the universities you plan to apply to", placeholder: "University names and programs" },
-    { label: "What is the total application fee amount needed?", placeholder: "e.g. $500 for 5 applications" },
+    {
+      label: "How many universities are you applying to, and what is the approximate total application fee?",
+      placeholder: "e.g. 8 universities, ~$600 total ($50–$100 per application)",
+    },
+    {
+      label: "List the universities and programs you are applying to",
+      placeholder: "e.g. MIT – Computer Science, Stanford – Electrical Engineering, UT Austin – MBA",
+    },
+    {
+      label: "What is your intended start term (semester and year)?",
+      placeholder: "e.g. Fall 2026, Spring 2027",
+    },
+    {
+      label: "Have any of these universities already offered you a fee waiver?",
+      placeholder: "Yes/No — and if yes, which ones and why were you denied/approved?",
+    },
   ],
   "initial-deposit-support": [
-    { label: "Which university requires the deposit?", placeholder: "University name and program" },
-    { label: "What is the deposit amount required?", placeholder: "e.g. $500 USD" },
-    { label: "What is the deadline for the deposit?", placeholder: "e.g. May 1, 2026" },
+    {
+      label: "Which university and program requires the enrollment deposit?",
+      placeholder: "e.g. University of Toronto – MSc Data Science",
+    },
+    {
+      label: "What is the exact deposit amount and deadline?",
+      placeholder: "e.g. $500 USD, due by April 30 2026",
+    },
+    {
+      label: "Have you received your official admission letter?",
+      placeholder: "Yes/No — and attach or describe any offer details",
+    },
+    {
+      label: "Do you have any other offer letters? Are you deciding between schools?",
+      placeholder: "e.g. Also admitted to Georgia Tech but prefer Toronto",
+    },
   ],
   "english-test-support": [
-    { label: "Which English test are you taking?", placeholder: "IELTS, TOEFL, or Duolingo" },
-    { label: "Have you registered for the test?", placeholder: "Registration status and test date" },
-    { label: "What is your target score?", placeholder: "e.g. IELTS 7.0 or TOEFL 100" },
+    {
+      label: "Which English proficiency test are you planning to take?",
+      placeholder: "IELTS Academic, TOEFL iBT, Duolingo English Test, PTE Academic",
+    },
+    {
+      label: "What is your target score, and which programs require it?",
+      placeholder: "e.g. IELTS 7.0 overall for University of Edinburgh MSc programs",
+    },
+    {
+      label: "Have you taken this test before? If yes, what was your score?",
+      placeholder: "e.g. First attempt IELTS: 6.5 — need to improve Listening and Writing",
+    },
+    {
+      label: "What is your planned test date?",
+      placeholder: "e.g. February 20 2026 or not yet scheduled",
+    },
   ],
   "sevis-fee-support": [
-    { label: "Have you received your I-20 form?", placeholder: "Yes/No and details" },
-    { label: "What is your SEVIS ID number?", placeholder: "Your SEVIS ID (if available)" },
-    { label: "When is your visa interview scheduled?", placeholder: "Date of interview or expected date" },
+    {
+      label: "Have you received your I-20 / DS-2019 form from your university?",
+      placeholder: "Yes — provide SEVIS ID if available / No — expected date",
+    },
+    {
+      label: "What is your SEVIS ID number (if you have it)?",
+      placeholder: "Starts with N — e.g. N0012345678",
+    },
+    {
+      label: "When is your US visa interview scheduled or expected?",
+      placeholder: "e.g. March 10 2026 at US Embassy Lagos",
+    },
+    {
+      label: "Have you paid the MRV (visa application) fee already?",
+      placeholder: "Yes/No — and current status of your DS-160 application",
+    },
   ],
   "visa-fee-support": [
-    { label: "Which country's visa are you applying for?", placeholder: "e.g. United States, United Kingdom, Canada" },
-    { label: "What type of visa are you applying for?", placeholder: "e.g. F-1 Student Visa" },
-    { label: "Have you received your admission letter?", placeholder: "Yes/No and university details" },
+    {
+      label: "Which country's student visa are you applying for?",
+      placeholder: "e.g. United States (F-1), United Kingdom (Tier 4), Canada (Study Permit)",
+    },
+    {
+      label: "Have you received your official admission letter from the university?",
+      placeholder: "Yes/No — university name and program",
+    },
+    {
+      label: "Have you started the visa application process (e.g. DS-160, UK Visa Application)?",
+      placeholder: "Describe your current progress",
+    },
+    {
+      label: "What is your intended travel / program start date?",
+      placeholder: "e.g. August 2026 for Fall semester",
+    },
   ],
   "tuition-fee-support": [
-    { label: "What is the total tuition amount per year?", placeholder: "e.g. $35,000 USD" },
-    { label: "Do you have other funding sources?", placeholder: "Scholarships, loans, family support, etc." },
-    { label: "How much tuition support do you need?", placeholder: "Specific amount or percentage" },
+    {
+      label: "What is the total annual tuition fee for your program?",
+      placeholder: "e.g. $32,000 USD per year at Boston University",
+    },
+    {
+      label: "Do you have any existing funding (scholarships, loans, sponsorships)?",
+      placeholder: "e.g. 50% departmental scholarship, family support of $5,000",
+    },
+    {
+      label: "How much of the tuition gap are you seeking support for?",
+      placeholder: "e.g. Need $15,000 to cover the remaining balance",
+    },
+    {
+      label: "Have you applied for external scholarships? If yes, which ones?",
+      placeholder: "e.g. Applied to Mastercard Foundation, Chevening, AAUW",
+    },
   ],
   "transcript-support": [
-    { label: "Which institution issued your transcript?", placeholder: "University or college name" },
-    { label: "What type of transcript evaluation do you need?", placeholder: "e.g. Course-by-course, document-by-document" },
-    { label: "How many copies do you need evaluated?", placeholder: "Number of transcripts" },
+    {
+      label: "Which institution(s) issued your transcripts?",
+      placeholder: "e.g. Kwame Nkrumah University of Science and Technology",
+    },
+    {
+      label: "What type of transcript evaluation do you need?",
+      placeholder: "e.g. Course-by-course (for admissions), Document-by-document (for employment)",
+      hint: "Course-by-course gives the most detailed report and is typically required for graduate admissions.",
+    },
+    {
+      label: "How many official transcript copies do you need evaluated?",
+      placeholder: "e.g. 3 copies for 3 separate university applications",
+    },
+    {
+      label: "Do you have a transcript verification letter from your institution?",
+      placeholder: "Yes/No — some evaluation agencies require this alongside official transcripts",
+    },
   ],
   "college-board-support": [
-    { label: "Which College Board services do you need?", placeholder: "SAT, AP, CSS Profile, etc." },
-    { label: "Have you registered for the SAT?", placeholder: "Registration status and test date" },
-    { label: "What is your target SAT score?", placeholder: "e.g. 1400+" },
+    {
+      label: "Which College Board service(s) do you need support with?",
+      placeholder: "SAT exam, AP exam registration, CSS Financial Aid Profile, Score sending",
+    },
+    {
+      label: "Have you registered for the SAT or AP exams? What is your test date?",
+      placeholder: "e.g. SAT registered for May 3 2026 / Not yet registered",
+    },
+    {
+      label: "What is your target SAT / AP score, and which programs need it?",
+      placeholder: "e.g. SAT 1450+ for admission to University of Michigan",
+    },
+    {
+      label: "How many schools do you need to send scores to?",
+      placeholder: "e.g. 6 schools — first 4 are free, need support for additional 2",
+    },
   ],
   "mentorship-program": [
-    { label: "What area do you need mentorship in?", placeholder: "Application strategy, essay writing, interview prep, etc." },
-    { label: "What is your biggest challenge in the application process?", placeholder: "Describe your main obstacles" },
-    { label: "What are your target programs/universities?", placeholder: "List your target graduate programs" },
+    {
+      label: "What specific area(s) do you need mentorship in?",
+      placeholder: "e.g. Statement of purpose writing, selecting programs, interview preparation, networking with professors",
+    },
+    {
+      label: "What is your biggest challenge or fear in the graduate application process?",
+      placeholder: "Be honest — e.g. Low GPA, no research experience, limited funds, weak recommendation letters",
+    },
+    {
+      label: "What are your 3 top target graduate programs and universities?",
+      placeholder: "e.g. 1. MIT – EECS PhD  2. CMU – MSML  3. Stanford – MS Statistics",
+    },
+    {
+      label: "How much time per week can you commit to mentorship sessions and self-study?",
+      placeholder: "e.g. 5 hours/week — 2 for sessions, 3 for independent tasks",
+    },
   ],
   "enrollment-deposit-support": [
-    { label: "Which university requires the deposit?", placeholder: "University name and program" },
-    { label: "What is the enrollment deposit amount?", placeholder: "e.g. $300 USD" },
-    { label: "Have you been officially admitted?", placeholder: "Yes/No and admission details" },
+    {
+      label: "Which university and program requires the enrollment deposit?",
+      placeholder: "e.g. University of Edinburgh – MSc Artificial Intelligence",
+    },
+    {
+      label: "What is the exact deposit amount and submission deadline?",
+      placeholder: "e.g. £500 GBP, deadline June 1 2026",
+    },
+    {
+      label: "Have you been officially admitted? Do you have a conditional or unconditional offer?",
+      placeholder: "e.g. Unconditional offer received on Feb 14 2026",
+    },
+    {
+      label: "What happens if you miss the deposit deadline?",
+      placeholder: "e.g. Offer will be withdrawn / placed on waitlist — describe urgency",
+    },
   ],
 }
 
@@ -185,7 +344,7 @@ function StepAcademic({
 function StepApplication({
   formData, onChange, onRadio, onCheckbox, questions, serviceTitle,
 }: {
-  formData: Record<string, string> & { waiverOptions: string[] }
+  formData: Record<string, string> & { waiverOptions: string[]; customPercentage?: string }
   onChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void
   onRadio: (name: string, value: string) => void
   onCheckbox: (id: string, checked: boolean) => void
@@ -266,6 +425,22 @@ function StepApplication({
             </label>
           ))}
         </div>
+        {/* Custom percentage input — only shown when "custom" is selected */}
+        {formData.waiverOptions.includes("custom") && (
+          <div className="mt-3">
+            <Field id="customPercentage" label="Specify your desired support percentage">
+              <input
+                id="customPercentage"
+                name="customPercentage"
+                type="text"
+                value={formData.customPercentage ?? ""}
+                onChange={onChange}
+                placeholder="e.g. 60% or 80%"
+                className={INPUT_CLS}
+              />
+            </Field>
+          </div>
+        )}
       </div>
 
       <div>
@@ -379,6 +554,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
     serviceQuestion1: "",
     serviceQuestion2: "",
     serviceQuestion3: "",
+    customPercentage: "",
   })
 
   const questions = useMemo(() => serviceQuestions[serviceSlug] || [], [serviceSlug])
