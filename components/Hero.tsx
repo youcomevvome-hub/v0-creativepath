@@ -1,6 +1,5 @@
 "use client"
 
-import Image from "next/image"
 import Link from "next/link"
 import { ArrowRight } from "lucide-react"
 import { Button } from "@/components/ui/button"
@@ -72,17 +71,16 @@ export function Hero() {
 
           {/* Left column - Image with Interactive Cards */}
           <div className="relative flex justify-center order-2 lg:order-1">
-            {/* aspect-[460/560] container — fill image has no intrinsic size, so no warning */}
-            <div
-              className="relative animate-in fade-in slide-in-from-left-8 duration-700"
-              style={{ width: "460px", maxWidth: "100%", aspectRatio: "460 / 560" }}
-            >
-              <Image
+            <div className="animate-in fade-in slide-in-from-left-8 duration-700 w-full max-w-[460px]">
+              {/* Using img tag to avoid Next.js Image aspect ratio warnings */}
+              <img
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
                 alt="Student ready to study abroad"
-                fill
-                className="object-contain"
-                priority
+                width={460}
+                height={560}
+                className="w-full h-auto"
+                loading="eager"
+                fetchPriority="high"
               />
 
               {/* Interactive Floating Cards */}
