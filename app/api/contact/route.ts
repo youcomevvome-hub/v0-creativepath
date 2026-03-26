@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server"
+import { sendEmail } from "@/lib/emailService"
 
 const TO_EMAIL = "vicecreativepath@gmail.com"
 
@@ -107,32 +108,17 @@ export async function POST(request: Request) {
     const emailSubject = subjects[type] ?? subjects.contact
     const emailHtml    = (htmlBuilders[type] ?? buildContactHtml)(data as Record<string, string>)
 
-    const RESEND_API_KEY = process.env.RESEND_API_KEY
+    // Send via Nodemailer + Gmail
+    const result = await sendEmail({
+      to: TO_EMAIL,
+      subject: emailSubject,
+      html: emailHtml,
+      replyTo: data.email,
+    })
 
-    if (RESEND_API_KEY) {
-      const res = await fetch("https://api.resend.com/emails", {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${RESEND_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          from: "Creative Path Inspired <onboarding@resend.dev>",
-          to: [TO_EMAIL],
-          reply_to: data.email,
-          subject: emailSubject,
-          html: emailHtml,
-        }),
-      })
-
-      if (!res.ok) {
-        const err = await res.json()
-        console.error("[Resend error]", err)
-        // Still return success — form data was received, email failed silently
-      }
-    } else {
-      // No API key — log the submission
-      console.log(`[Form Submission — ${type}]`, data)
+    if (!result.success) {
+      console.warn("[Contact API] Email send failed, but form was received:", result.error)
+      // Still return success — form data was received
     }
 
     return NextResponse.json({ success: true })
