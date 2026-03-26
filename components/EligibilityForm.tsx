@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useMemo } from "react"
+import { useState, useMemo, useEffect, useRef } from "react"
 import { useRouter } from "next/navigation"
 import {
   ArrowLeft, CheckCircle, ChevronRight, Copy, Check,
@@ -343,6 +343,22 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
   const [isSuccess, setIsSuccess] = useState(false)
   const [eligibilityCode, setEligibilityCode] = useState("")
   const [copied, setCopied] = useState(false)
+  const formTopRef = useRef<HTMLDivElement>(null)
+
+  // Scroll to form top and focus first input whenever step changes
+  useEffect(() => {
+    if (formTopRef.current) {
+      formTopRef.current.scrollIntoView({ behavior: "smooth", block: "start" })
+    }
+    // Focus the first focusable input/textarea/select inside the form body
+    const timer = setTimeout(() => {
+      const firstField = formTopRef.current?.querySelector<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>(
+        "input:not([type=hidden]):not([type=checkbox]):not([type=radio]), textarea, select"
+      )
+      firstField?.focus()
+    }, 150)
+    return () => clearTimeout(timer)
+  }, [step])
 
   const [formData, setFormData] = useState({
     fullName: "",
@@ -478,7 +494,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
         Back to Services
       </Link>
 
-      <div className="overflow-hidden rounded-3xl bg-white dark:bg-[#1D1D1F] shadow-2xl">
+      <div ref={formTopRef} className="overflow-hidden rounded-3xl bg-white dark:bg-[#1D1D1F] shadow-2xl">
         {/* Progress bar */}
         <div className="h-1.5 bg-muted">
           <div className="h-full bg-scholarship transition-all duration-500" style={{ width: `${((step + 1) / SECTIONS.length) * 100}%` }} />

@@ -72,12 +72,13 @@ export function Hero() {
 
           {/* Left column - Image with Interactive Cards */}
           <div className="relative flex justify-center order-2 lg:order-1">
-            <div className="relative w-full max-w-[460px] aspect-[460/560] animate-in fade-in slide-in-from-left-8 duration-700">
+            <div className="relative animate-in fade-in slide-in-from-left-8 duration-700">
               <Image
                 src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/herosCPI-YUyb2u3mu01qcmSX0I59C0dmt5zXOr.png"
                 alt="Student ready to study abroad"
-                fill
-                className="object-contain"
+                width={460}
+                height={560}
+                sizes="(max-width: 768px) 100vw, 460px"
                 priority
               />
 
