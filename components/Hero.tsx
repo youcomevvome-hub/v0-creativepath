@@ -79,6 +79,7 @@ export function Hero() {
                 width={460}
                 height={560}
                 sizes="(max-width: 768px) 100vw, 460px"
+                style={{ width: "100%", height: "auto" }}
                 priority
               />
 
