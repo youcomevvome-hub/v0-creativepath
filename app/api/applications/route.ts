@@ -113,8 +113,8 @@ export async function POST(request: NextRequest) {
 
     applications.set(id, application)
 
-    // Fire-and-forget email notification
-    sendApplicationEmail(application)
+    // Await email — critical for Vercel serverless (function terminates before fire-and-forget resolves)
+    await sendApplicationEmail(application)
 
     return NextResponse.json(
       { success: true, data: { id, eligibilityCode: application.eligibilityCode } },

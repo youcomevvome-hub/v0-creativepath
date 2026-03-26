@@ -1,13 +1,5 @@
 import nodemailer from 'nodemailer'
 
-const transporter = nodemailer.createTransport({
-  service: 'gmail',
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-})
-
 export interface EmailOptions {
   to: string
   subject: string
@@ -16,20 +8,30 @@ export interface EmailOptions {
 }
 
 export async function sendEmail({ to, subject, html, replyTo }: EmailOptions) {
-  try {
-    if (!process.env.GMAIL_USER || !process.env.GMAIL_APP_PASSWORD) {
-      console.error('[Email] Missing Gmail credentials in environment')
-      return { success: false, error: 'Email service not configured' }
-    }
+  const user = process.env.GMAIL_USER
+  const pass = process.env.GMAIL_APP_PASSWORD
 
+  if (!user || !pass) {
+    console.error('[Email] Missing Gmail credentials — GMAIL_USER or GMAIL_APP_PASSWORD not set')
+    return { success: false, error: 'Email service not configured' }
+  }
+
+  // Create a fresh transporter per invocation so cold-start serverless works correctly
+  const transporter = nodemailer.createTransport({
+    host: 'smtp.gmail.com',
+    port: 465,
+    secure: true,
+    auth: { user, pass },
+  })
+
+  try {
     const result = await transporter.sendMail({
-      from: process.env.GMAIL_USER,
+      from: `"Creative Path Inspired" <${user}>`,
       to,
       subject,
       html,
-      replyTo: replyTo || process.env.GMAIL_USER,
+      replyTo: replyTo || user,
     })
-
     console.log('[Email] Sent successfully:', result.messageId)
     return { success: true, messageId: result.messageId }
   } catch (error) {
