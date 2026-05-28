@@ -12,7 +12,7 @@ const testimonials = [
     university: 'Stanford University',
     program: 'Computer Science PhD',
     quote: 'CPI covered my WES evaluation and application fees. Without their support I would not have been able to apply to my dream schools.',
-    image: 'https://images.pexels.com/photos/3769021/pexels-photo-3769021.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const testimonials = [
     university: 'MIT',
     program: 'Electrical Engineering MS',
     quote: 'My mentor helped me craft a compelling statement of purpose and navigate the full application process. I received full funding at MIT!',
-    image: 'https://images.pexels.com/photos/2379004/pexels-photo-2379004.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const testimonials = [
     university: 'Harvard University',
     program: 'Public Health MPH',
     quote: 'They supported me with SEVIS fees and visa costs. The team genuinely cared about my success. Forever grateful for this opportunity.',
-    image: 'https://images.pexels.com/photos/3756679/pexels-photo-3756679.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '',
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const testimonials = [
     university: 'Yale University',
     program: 'Economics MA',
     quote: 'From GRE support to visa guidance, Creative Path Inspired was with me every step of the way. Their dedication is truly remarkable.',
-    image: 'https://images.pexels.com/photos/1222271/pexels-photo-1222271.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '',
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const testimonials = [
     university: 'Columbia University',
     program: 'International Affairs MIA',
     quote: 'The application fee support allowed me to apply to multiple top universities. I received offers from 5 schools and chose Columbia!',
-    image: 'https://images.pexels.com/photos/3765114/pexels-photo-3765114.jpeg?auto=compress&cs=tinysrgb&w=200',
+    image: '',
   },
 ]
 
