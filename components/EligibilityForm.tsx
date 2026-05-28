@@ -716,7 +716,7 @@ export function EligibilityForm({ serviceSlug, serviceTitle }: EligibilityFormPr
             {step === 1 && <StepAcademic formData={flatData} onChange={handleInput} />}
             {step === 2 && (
               <StepApplication
-                formData={formData}
+                formData={formData as unknown as Record<string, string> & { waiverOptions: string[]; customPercentage?: string }}
                 onChange={handleInput}
                 onRadio={handleRadio}
                 onCheckbox={handleCheckbox}
