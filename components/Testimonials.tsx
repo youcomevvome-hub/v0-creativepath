@@ -1,7 +1,6 @@
 'use client'
 
 import { useEffect, useState, useCallback } from 'react'
-import Image from 'next/image'
 import { ChevronLeft, ChevronRight, Star } from 'lucide-react'
 
 const testimonials = [
@@ -12,7 +11,7 @@ const testimonials = [
     university: 'Stanford University',
     program: 'Computer Science PhD',
     quote: 'CPI covered my WES evaluation and application fees. Without their support I would not have been able to apply to my dream schools.',
-    image: 'https://i.pinimg.com/1200x/1f/c9/6e/1fc96e1619b913eade6eb6533f72cf83.jpg',
+    // image removed
   },
   {
     id: 2,
@@ -21,7 +20,7 @@ const testimonials = [
     university: 'MIT',
     program: 'Electrical Engineering MS',
     quote: 'My mentor helped me craft a compelling statement of purpose and navigate the full application process. I received full funding at MIT!',
-    image: 'https://i.pinimg.com/1200x/d9/d4/1f/d9d41f6b647531ad35b7af392cf1b939.jpg',
+    // image removed
   },
   {
     id: 3,
@@ -30,7 +29,7 @@ const testimonials = [
     university: 'Harvard University',
     program: 'Public Health MPH',
     quote: 'They supported me with SEVIS fees and visa costs. The team genuinely cared about my success. Forever grateful for this opportunity.',
-    image: 'https://i.pinimg.com/736x/08/06/df/0806dfe00e99e58f482759ad2e91a3c6.jpg',
+    // image removed
   },
   {
     id: 4,
@@ -39,7 +38,7 @@ const testimonials = [
     university: 'Yale University',
     program: 'Economics MA',
     quote: 'From GRE support to visa guidance, Creative Path Inspired was with me every step of the way. Their dedication is truly remarkable.',
-    image: 'https://i.pinimg.com/736x/d5/ba/54/d5ba54723c280d0c23ea6d361cb348af.jpg',
+    // image removed
   },
   {
     id: 5,
@@ -48,7 +47,7 @@ const testimonials = [
     university: 'Columbia University',
     program: 'International Affairs MIA',
     quote: 'The application fee support allowed me to apply to multiple top universities. I received offers from 5 schools and chose Columbia!',
-    image: 'https://i.pinimg.com/736x/00/f0/aa/00f0aa44ac079332cda0e57fc44fd241.jpg',
+    // image removed
   },
 ]
 
@@ -154,8 +153,8 @@ export function Testimonials() {
 
                   {/* Author */}
                   <div className="flex items-center gap-3 border-t border-gray-100 dark:border-white/10 pt-4">
-                    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-[#1E3A5F]/20">
-                      <Image src={t.image} alt={t.name} fill className="object-cover" />
+                    <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full ring-2 ring-[#1E3A5F]/20 bg-gray-200 dark:bg-gray-700 flex items-center justify-center">
+                      <span className="text-xs font-bold text-gray-500 dark:text-gray-300">{t.name[0]}</span>
                     </div>
                     <div className="min-w-0">
                       <p className="truncate text-sm font-semibold text-gray-900 dark:text-white">{t.name}</p>
