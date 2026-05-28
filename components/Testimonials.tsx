@@ -12,7 +12,7 @@ const testimonials = [
     university: 'Stanford University',
     program: 'Computer Science PhD',
     quote: 'CPI covered my WES evaluation and application fees. Without their support I would not have been able to apply to my dream schools.',
-    image: '',
+    image: 'https://i.pinimg.com/1200x/1f/c9/6e/1fc96e1619b913eade6eb6533f72cf83.jpg',
   },
   {
     id: 2,
@@ -21,7 +21,7 @@ const testimonials = [
     university: 'MIT',
     program: 'Electrical Engineering MS',
     quote: 'My mentor helped me craft a compelling statement of purpose and navigate the full application process. I received full funding at MIT!',
-    image: '',
+    image: 'https://i.pinimg.com/1200x/d9/d4/1f/d9d41f6b647531ad35b7af392cf1b939.jpg',
   },
   {
     id: 3,
@@ -30,7 +30,7 @@ const testimonials = [
     university: 'Harvard University',
     program: 'Public Health MPH',
     quote: 'They supported me with SEVIS fees and visa costs. The team genuinely cared about my success. Forever grateful for this opportunity.',
-    image: '',
+    image: 'https://i.pinimg.com/736x/08/06/df/0806dfe00e99e58f482759ad2e91a3c6.jpg',
   },
   {
     id: 4,
@@ -39,7 +39,7 @@ const testimonials = [
     university: 'Yale University',
     program: 'Economics MA',
     quote: 'From GRE support to visa guidance, Creative Path Inspired was with me every step of the way. Their dedication is truly remarkable.',
-    image: '',
+    image: 'https://i.pinimg.com/736x/d5/ba/54/d5ba54723c280d0c23ea6d361cb348af.jpg',
   },
   {
     id: 5,
@@ -48,7 +48,7 @@ const testimonials = [
     university: 'Columbia University',
     program: 'International Affairs MIA',
     quote: 'The application fee support allowed me to apply to multiple top universities. I received offers from 5 schools and chose Columbia!',
-    image: '',
+    image: 'https://i.pinimg.com/736x/00/f0/aa/00f0aa44ac079332cda0e57fc44fd241.jpg',
   },
 ]
 
