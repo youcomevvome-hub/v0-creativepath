@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react"
 
-const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb7zSwH6LwHqQBzAxM0A"
+
 
 export function FloatingWhatsApp() {
   const [isVisible, setIsVisible] = useState(false)
@@ -32,17 +32,20 @@ export function FloatingWhatsApp() {
         `}
       >
         <span className="text-xs font-medium text-gray-800 dark:text-white whitespace-nowrap">
-          Join our WhatsApp channel
+          Join us
         </span>
         <span className="absolute -bottom-1.5 right-7 h-3 w-3 rotate-45 bg-white/90 dark:bg-[#1E3A5F]/90 border-r border-b border-gray-200/50 dark:border-white/10" />
       </div>
 
-      {/* Button */}
-      <div
-        aria-label="Join our WhatsApp channel"
+      {/* WhatsApp Button */}
+      <a
+        href="https://wa.me/447404599897"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Chat with us on WhatsApp"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        className="relative flex h-16 w-16 items-center justify-center group cursor-default"
+        className="relative flex h-16 w-16 items-center justify-center group cursor-pointer"
         tabIndex={0}
         role="button"
       >
@@ -99,7 +102,7 @@ export function FloatingWhatsApp() {
             <span className="relative h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E]" />
           </span>
         </span>
-      </div>
+      </a>
     </div>
   )
 }

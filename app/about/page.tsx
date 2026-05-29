@@ -8,7 +8,7 @@ import Link from "next/link"
 import { ArrowRight, Globe, Heart, Users, ChevronDown } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
-const WHATSAPP_CHANNEL = "https://whatsapp.com/channel/0029Vb7zSwH6LwHqQBzAxM0A"
+
 
 const programs = [
   {
@@ -18,13 +18,7 @@ const programs = [
     featured: true,
     link: "/services",
   },
-  {
-    title: "Scholar Squad",
-    description: "Join ambitious students pursuing dreams together.",
-    image: "https://images.pexels.com/photos/3184291/pexels-photo-3184291.jpeg?auto=compress&cs=tinysrgb&w=400",
-    link: WHATSAPP_CHANNEL,
-    external: true,
-  },
+  // Removed WhatsApp channel program link
   {
     title: "MVP Grind",
     description: "Intensive support for high-achievers.",
