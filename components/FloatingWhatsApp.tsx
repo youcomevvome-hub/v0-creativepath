@@ -38,14 +38,13 @@ export function FloatingWhatsApp() {
       </div>
 
       {/* Button */}
-      <a
-        href={WHATSAPP_CHANNEL}
-        target="_blank"
-        rel="noopener noreferrer"
+      <div
         aria-label="Join our WhatsApp channel"
         onMouseEnter={() => setShowTooltip(true)}
         onMouseLeave={() => setShowTooltip(false)}
-        className="relative flex h-16 w-16 items-center justify-center group"
+        className="relative flex h-16 w-16 items-center justify-center group cursor-default"
+        tabIndex={0}
+        role="button"
       >
         {/* Outer expanding rings */}
         <span
@@ -100,7 +99,7 @@ export function FloatingWhatsApp() {
             <span className="relative h-2.5 w-2.5 rounded-full bg-gradient-to-br from-[#25D366] to-[#128C7E]" />
           </span>
         </span>
-      </a>
+      </div>
     </div>
   )
 }
